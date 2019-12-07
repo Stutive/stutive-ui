@@ -5,14 +5,14 @@ import {
   Switch
 } from "react-router-dom";
 
-import CourseExplorer from './containers/CourseExplorer'
+import CourseExplorerView from './containers/CourseExplorerView'
 
 const Routes = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <CourseExplorer />
+          <CourseExplorerView />
         </Route>
         <Route path='*'>
           <h1>404</h1>
