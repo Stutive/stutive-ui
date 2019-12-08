@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
 import UIContainer from '../UIComponents/containers/UIContainer';
+
+import { fetch } from '../actions/Courses';
 
 import NavigationBar from './NavigationBar';
 
-const CourseExplorer = () => {
+const CourseExplorer = ({ fetch }) => {
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+
   return (
     <>
       <NavigationBar />
@@ -25,4 +31,8 @@ const CourseExplorer = () => {
   );
 };
 
-export default CourseExplorer;
+const mapDispatchToProps = {
+  fetch
+};
+
+export default connect(null, mapDispatchToProps)(CourseExplorer);
