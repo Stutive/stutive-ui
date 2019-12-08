@@ -2,6 +2,10 @@ import React from 'react'
 
 import Container from 'react-bootstrap/Container'
 
-const UIContainer = (props) => <Container {...props}/>
+const UIContainer = ({children, ...props}) => (
+  <Container {...props}>
+    {children}
+  </Container>
+)
 
 export default UIContainer
