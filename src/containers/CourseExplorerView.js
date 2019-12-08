@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
-import UIContainer from '../UIComponents/containers/UIContainer'
+import UIContainer from '../UIComponents/containers/UIContainer';
 
-import NavigationBar from './NavigationBar'
+import NavigationBar from './NavigationBar';
 
 const CourseExplorer = () => {
   return (
     <>
-      <NavigationBar/>
+      <NavigationBar />
       <UIContainer>
         <Row>
           <Col lg={4}>
@@ -22,7 +22,7 @@ const CourseExplorer = () => {
         </Row>
       </UIContainer>
     </>
-  )
-}
+  );
+};
 
-export default CourseExplorer
+export default CourseExplorer;
