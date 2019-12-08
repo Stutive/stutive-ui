@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 import { Map } from 'immutable';
+import { mapValues } from 'lodash';
+
+import { getObjectByIdFromObjectArray } from '../lib/normalization/utils';
 
 import Course from '../models/Course';
+
 import { COURSE_FETCH } from '../actions/ActionTypes';
 
 function byId(state = new Map(), action) {
@@ -9,14 +13,13 @@ function byId(state = new Map(), action) {
     case COURSE_FETCH.RECEIVE: {
       const { courses } = action;
 
-      const coursesById = courses.reduce((byId, course) => {
-        return {
-          ...byId,
-          [course.id]: new Course(course)
-        };
-      }, {});
+      const coursesById = getObjectByIdFromObjectArray(courses);
 
-      return state.merge(Map(coursesById));
+      const coursesByIdImmutable = Map(
+        mapValues(coursesById, course => new Course(course))
+      );
+
+      return state.merge(coursesByIdImmutable);
     }
     default: {
       return state;
