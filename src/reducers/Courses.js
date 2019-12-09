@@ -10,7 +10,6 @@ function allIds(state = List([]), action) {
   switch (action.type) {
     case COURSE_FETCH.RECEIVE: {
       const { allIds } = action;
-      console.log(allIds);
       const allIdsImmutable = List(allIds);
 
       return state.merge(allIdsImmutable);

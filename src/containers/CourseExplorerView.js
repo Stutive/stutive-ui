@@ -7,10 +7,11 @@ import UIContainer from '../UIComponents/containers/UIContainer';
 import CoursePreviewCard from '../components/CoursePreviewCard';
 
 import { fetch } from '../actions/Courses';
+import { getAllCourses } from '../selectors/courses';
 
 import NavigationBar from './NavigationBar';
 
-const CourseExplorer = ({ fetch }) => {
+const CourseExplorer = ({ courses, fetch }) => {
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -18,13 +19,29 @@ const CourseExplorer = ({ fetch }) => {
   return (
     <>
       <NavigationBar />
-      <UIContainer>
+      <UIContainer className="mt-3">
         <Row>
           <Col lg={4}>
             <p>Filters</p>
           </Col>
-          <Col lg={4}>
-            <p> Main Shit</p>
+          <Col lg={8}>
+            {courses.map(course => {
+              const key = `${course.get('subject')} ${course.get('number')}`;
+
+              const title = `${course.get('subject')} ${course.get(
+                'number'
+              )} ${course.get('name')}`;
+              return (
+                <CoursePreviewCard
+                  key={key}
+                  creditHours={course.get('creditHours')}
+                  className="mb-2"
+                  description={course.get('description')}
+                  generalEducationRequirements={course.get('generalEducation')}
+                  title={title}
+                />
+              );
+            })}
           </Col>
         </Row>
       </UIContainer>
@@ -32,8 +49,13 @@ const CourseExplorer = ({ fetch }) => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    courses: getAllCourses(state)
+  };
+};
 const mapDispatchToProps = {
   fetch
 };
 
-export default connect(null, mapDispatchToProps)(CourseExplorer);
+export default connect(mapStateToProps, mapDispatchToProps)(CourseExplorer);

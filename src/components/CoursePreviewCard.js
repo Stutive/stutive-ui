@@ -31,7 +31,8 @@ const CoursePreviewCard = ({
   title,
   creditHours,
   description,
-  generalEducationRequirements
+  generalEducationRequirements,
+  ...props
 }) => {
   const renderSatisfiedGeneralEducationCriteria = () => {
     if (
@@ -54,7 +55,7 @@ const CoursePreviewCard = ({
     );
   };
   return (
-    <UICard>
+    <UICard {...props}>
       <UIFlex align="center" wrap="wrap">
         <Title>{title}</Title>
         <CreditHours>{creditHours}</CreditHours>
