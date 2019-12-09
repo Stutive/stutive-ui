@@ -1,12 +1,21 @@
-export function getObjectByIdFromObjectArray(objectArray) {
+export function normalizeObjectArrayById(objectArray) {
   if (!objectArray) {
-    return {};
+    return {
+      allIds: [],
+      objectsById: {}
+    };
   }
 
-  return objectArray.reduce((byId, obj) => {
+  const allIds = [];
+  const objectsById = objectArray.reduce((byId, obj) => {
+    allIds.push(obj.id);
     return {
       ...byId,
       [obj.id]: obj
     };
   }, {});
+  return {
+    allIds,
+    objectsById
+  };
 }

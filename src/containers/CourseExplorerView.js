@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import UIContainer from '../UIComponents/containers/UIContainer';
+import CoursePreviewCard from '../components/CoursePreviewCard';
 
 import { fetch } from '../actions/Courses';
 
