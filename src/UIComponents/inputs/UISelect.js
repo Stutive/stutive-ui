@@ -14,8 +14,10 @@ const StyledDiv = styled.div`
 `;
 
 const StyledCard = styled(Card)`
+  position: absolute;
+  top: 3em;
+  left: 0;
   width: 100%;
-  margin-top: 1em;
   padding: 0;
 `;
 
