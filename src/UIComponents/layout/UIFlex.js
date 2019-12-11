@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const UIFlex = ({ align, children, direction, justify, wrap }) => {
+const UIFlex = ({ align, children, className, direction, justify, wrap }) => {
   return (
     <div
+      className="mb-3"
       style={{
         display: 'flex',
         alignItems: align,
