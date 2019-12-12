@@ -60,7 +60,7 @@ const UISelectOptions = ({
     }
 
     //  TODO(Alpri): Throttle search input
-    const searchOption = anchorType !== 'input' && (
+    const searchOption = searchable && anchorType !== 'input' && (
       <SearchOption key="search-option">
         <SearchInput onChange={handleSearchChange} value={searchQuery} />
       </SearchOption>
