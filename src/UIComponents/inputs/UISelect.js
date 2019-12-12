@@ -45,14 +45,39 @@ const Option = styled.div`
   padding: 0.6em 1.5em;
 `;
 
+const SearchOption = styled.div`
+  background-color: ${Tokens.KOALA};
+  padding: 0.5rem;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  border-radius: 0.3rem;
+  border: 2px solid ${Tokens.BATTLESHIP};
+  padding: 0.2rem 0.4rem;
+  &:focus {
+    border: 2px solid ${Tokens.CALYPSO_MEDIUM};
+    outline: none !important;
+  }
+`;
+
 const selectedStyling = {
   backgroundColor: Tokens.CALYPSO_LIGHT
 };
 
-const UISearchInput = ({ onChange, options, placeholder, ...props }) => {
+const UISearchInput = ({
+  onChange,
+  options,
+  placeholder,
+  searchable,
+  ...props
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const handleSearchChange = e => setSearchQuery(e.target.value);
+
   const [value, setValue] = useState(null);
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(true);
   const handleShowOptions = () => {
     setShowOptions(true);
   };
@@ -67,7 +92,7 @@ const UISearchInput = ({ onChange, options, placeholder, ...props }) => {
     }
   };
 
-  const [selectedValue, setSelectedValue] = useState({
+  const [highlightedValue, setHighlightedValue] = useState({
     value: null,
     index: null
   });
@@ -79,7 +104,7 @@ const UISearchInput = ({ onChange, options, placeholder, ...props }) => {
   };
 
   const makeHandleOptionHighlight = (value, index) => () => {
-    setSelectedValue({
+    setHighlightedValue({
       value,
       index
     });
@@ -110,19 +135,37 @@ const UISearchInput = ({ onChange, options, placeholder, ...props }) => {
       return <Option>No options.</Option>;
     }
 
-    return options.map((option, i) => {
-      const isSelectedOption = selectedValue.value === option.value;
-      return (
-        <Option
-          key={option.value}
-          onClick={makeHandleOptionSelect(option.value)}
-          onMouseEnter={makeHandleOptionHighlight(option.value, i)}
-          style={isSelectedOption ? selectedStyling : {}}
-        >
-          {option.text}
-        </Option>
-      );
-    });
+    //  TODO(Alpri): Throttle search input
+    const searchOption = (
+      <SearchOption>
+        <SearchInput onChange={handleSearchChange} value={searchQuery} />
+      </SearchOption>
+    );
+    const loweredSearchQuery = searchQuery.toLowerCase();
+    const userOptions = options
+      .filter(option => {
+        if (!searchable) return true;
+
+        const { value, text } = option;
+        return (
+          value.toLowerCase().includes(loweredSearchQuery) ||
+          text.toLowerCase().includes(loweredSearchQuery)
+        );
+      })
+      .map((option, i) => {
+        const isSelectedOption = highlightedValue.value === option.value;
+        return (
+          <Option
+            key={option.value}
+            onClick={makeHandleOptionSelect(option.value)}
+            onMouseEnter={makeHandleOptionHighlight(option.value, i)}
+            style={isSelectedOption ? selectedStyling : {}}
+          >
+            {option.text}
+          </Option>
+        );
+      });
+    return [searchable && searchOption, ...userOptions];
   };
 
   const wrapperRef = useRef(null);
@@ -138,11 +181,13 @@ const UISearchInput = ({ onChange, options, placeholder, ...props }) => {
 UISearchInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  searchable: PropTypes.bool
 };
 
 UISearchInput.defaultProps = {
-  placeholder: null
+  placeholder: null,
+  searchable: false
 };
 
 export default UISearchInput;
