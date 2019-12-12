@@ -52,26 +52,24 @@ export const searchableUsage = () => {
   );
 };
 
-export const withOptions = () => {
+export const withInputAnchorType = () => {
   return (
     <UIContainer style={{ paddingTop: '2em' }}>
       <UISelect
-        onSelectedOptionChange={action('onSelectedOptionChange')}
+        anchorType={'input'}
+        onChange={action('onChange')}
         options={[
-          {
-            text: 'Suggestion 1',
-            value: 'suggestion-1'
-          },
-          {
-            text: 'Suggestion 2',
-            value: 'suggestion-2'
-          },
-          {
-            text: 'Suggestion 3',
-            value: 'suggestion-3'
-          }
+          { text: 'One', value: '1' },
+          { text: 'Two', value: '2' },
+          { text: 'Three', value: '3' },
+          { text: 'Four', value: '4' },
+          { text: 'Five', value: '5' },
+          { text: 'Six', value: '6' },
+          { text: 'Seven', value: '7' },
+          { text: 'Eight', value: '8' }
         ]}
-        value={'123'}
+        searchable={true}
+        placeholder="Select a number"
       />
     </UIContainer>
   );

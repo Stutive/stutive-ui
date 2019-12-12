@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 import * as Tokens from '../../constants/tokens';
+import UISelectOptions from './UISelectOptions';
 
 const ButtonAnchor = styled(Button)`
   width: 100%;
@@ -32,25 +32,7 @@ const ButtonAnchor = styled(Button)`
   }
 `;
 
-const OptionsCard = styled(Card)`
-  position: absolute;
-  top: 3em;
-  left: 0;
-  width: 100%;
-  padding: 0;
-`;
-
-const Option = styled.div`
-  border-bottom: 1px solid #cccccc;
-  padding: 0.6em 1.5em;
-`;
-
-const SearchOption = styled.div`
-  background-color: ${Tokens.KOALA};
-  padding: 0.5rem;
-`;
-
-const SearchInput = styled.input`
+const InputAnchor = styled.input`
   width: 100%;
   border-radius: 0.3rem;
   border: 2px solid ${Tokens.BATTLESHIP};
@@ -61,11 +43,19 @@ const SearchInput = styled.input`
   }
 `;
 
-const selectedStyling = {
-  backgroundColor: Tokens.CALYPSO_LIGHT
+const getTextFromValue = (options, value) => {
+  let text = null;
+  (options || []).forEach(option => {
+    if (option.value === value) {
+      text = option.text;
+      return;
+    }
+  });
+  return text;
 };
 
 const UISearchInput = ({
+  anchorType,
   onChange,
   options,
   placeholder,
@@ -76,8 +66,14 @@ const UISearchInput = ({
   const handleSearchChange = e => setSearchQuery(e.target.value);
 
   const [value, setValue] = useState(null);
+  const makeHandleOptionSelect = value => () => {
+    onChange(value);
+    setValue(value);
+    setSearchQuery(getTextFromValue(options, value));
+    handleHideOptions();
+  };
 
-  const [showOptions, setShowOptions] = useState(true);
+  const [showOptions, setShowOptions] = useState(false);
   const handleShowOptions = () => {
     setShowOptions(true);
   };
@@ -96,13 +92,6 @@ const UISearchInput = ({
     value: null,
     index: null
   });
-
-  const makeHandleOptionSelect = value => () => {
-    onChange(value);
-    setValue(value);
-    handleHideOptions();
-  };
-
   const makeHandleOptionHighlight = (value, index) => () => {
     setHighlightedValue({
       value,
@@ -110,75 +99,44 @@ const UISearchInput = ({
     });
   };
 
-  const getTextFromValue = (options, value) => {
-    let text = null;
-    (options || []).forEach(option => {
-      if (option.value === value) {
-        text = option.text;
-        return;
-      }
-    });
-    return text;
-  };
-
-  const renderAnchor = () => {
-    const selectedOptionText = getTextFromValue(options, value);
-    return (
-      <ButtonAnchor onClick={handleToggleOptions}>
-        {selectedOptionText || placeholder}
-      </ButtonAnchor>
-    );
-  };
-
-  const renderOptions = () => {
-    if (!options || options.length === 0) {
-      return <Option>No options.</Option>;
-    }
-
-    //  TODO(Alpri): Throttle search input
-    const searchOption = (
-      <SearchOption>
-        <SearchInput onChange={handleSearchChange} value={searchQuery} />
-      </SearchOption>
-    );
-    const loweredSearchQuery = searchQuery.toLowerCase();
-    const userOptions = options
-      .filter(option => {
-        if (!searchable) return true;
-
-        const { value, text } = option;
-        return (
-          value.toLowerCase().includes(loweredSearchQuery) ||
-          text.toLowerCase().includes(loweredSearchQuery)
-        );
-      })
-      .map((option, i) => {
-        const isSelectedOption = highlightedValue.value === option.value;
-        return (
-          <Option
-            key={option.value}
-            onClick={makeHandleOptionSelect(option.value)}
-            onMouseEnter={makeHandleOptionHighlight(option.value, i)}
-            style={isSelectedOption ? selectedStyling : {}}
-          >
-            {option.text}
-          </Option>
-        );
-      });
-    return [searchable && searchOption, ...userOptions];
-  };
+  const renderOptions = () => (
+    <UISelectOptions
+      anchorType={anchorType}
+      options={options}
+      handleSearchChange={handleSearchChange}
+      highlightedValue={highlightedValue}
+      makeHandleOptionHighlight={makeHandleOptionHighlight}
+      makeHandleOptionSelect={makeHandleOptionSelect}
+      searchable={searchable}
+      searchQuery={searchQuery}
+      showOptions={showOptions}
+    />
+  );
 
   const wrapperRef = useRef(null);
   useHandleClickOutside(wrapperRef, handleHideOptions);
+  const selectedOptionText = getTextFromValue(options, value);
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }} {...props}>
-      {renderAnchor()}
-      {showOptions && <OptionsCard>{renderOptions()}</OptionsCard>}
+      {anchorType === 'input' && (
+        <InputAnchor
+          onChange={handleSearchChange}
+          onFocus={handleShowOptions}
+          value={searchQuery}
+        />
+      )}
+      {anchorType === 'button' && (
+        <ButtonAnchor onClick={handleToggleOptions}>
+          {selectedOptionText || placeholder}
+        </ButtonAnchor>
+      )}
+      {renderOptions()}
     </div>
   );
 };
 
 UISearchInput.propTypes = {
+  anchorType: PropTypes.oneOf(['input', 'button']),
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
@@ -186,6 +144,7 @@ UISearchInput.propTypes = {
 };
 
 UISearchInput.defaultProps = {
+  anchorType: 'button',
   placeholder: null,
   searchable: false
 };
