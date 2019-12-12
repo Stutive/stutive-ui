@@ -24,9 +24,13 @@ const UIButton = ({ active, children, use, hovered, onClick }) => {
       background-color: ${colors.background.idle};
       border: ${colors.border ? `1px solid ${colors.border}` : 'none'};
       color: ${colors.text};
+      outline: none !important;
+      box-shadow: none;
     }
     &:active {
-      background-color: ${colors.active} !important;
+      background-color: ${colors.background.active} !important;
+      outline: none !important;
+      box-shadow: none;
     }
   `;
 
