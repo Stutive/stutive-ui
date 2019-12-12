@@ -11,6 +11,7 @@ import { getAllCourses } from '../selectors/courses';
 import { IKE_LAYER, QUAD_LAYER, GRAINGER_LAYER } from '../constants/tokens';
 
 import CoursePreviewCard from '../components/CoursePreviewCard';
+import FilterSidebar from '../components/FilterSidebar';
 import NavigationBar from './NavigationBar';
 
 const CourseExplorer = ({ courses, fetch }) => {
@@ -24,10 +25,14 @@ const CourseExplorer = ({ courses, fetch }) => {
       <UIContainer className="mt-3">
         <Row>
           <Col lg={4}>
-            <p>Filters</p>
+            <FilterSidebar />
           </Col>
           <Col lg={8} style={{ position: 'relative', zIndex: QUAD_LAYER }}>
-            <UISelect className="mb-3" style={{ zIndex: GRAINGER_LAYER }} />
+            <UISelect
+              anchorType="input"
+              className="mb-3"
+              style={{ zIndex: GRAINGER_LAYER }}
+            />
             <div style={{ zIndex: IKE_LAYER }}>
               {courses.map(course => {
                 const key = `${course.get('subject')} ${course.get('number')}`;
