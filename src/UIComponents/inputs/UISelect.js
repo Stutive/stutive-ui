@@ -7,9 +7,11 @@ import Button from 'react-bootstrap/Button';
 import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 import * as Tokens from '../../constants/tokens';
+
 import UISelectOptions from './UISelectOptions';
 
 const ButtonAnchor = styled(Button)`
+  z-index: ${Tokens.QUAD_LAYER};
   width: 100%;
   height: 2.3rem;
   color: ${Tokens.OBSIDIAN};
@@ -33,6 +35,7 @@ const ButtonAnchor = styled(Button)`
 `;
 
 const InputAnchor = styled.input`
+  z-index: ${Tokens.QUAD_LAYER};
   width: 100%;
   border-radius: 0.3rem;
   border: 2px solid ${Tokens.BATTLESHIP};
@@ -137,7 +140,7 @@ const UISearchInput = ({
 
 UISearchInput.propTypes = {
   anchorType: PropTypes.oneOf(['input', 'button']),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
   searchable: PropTypes.bool
@@ -145,6 +148,7 @@ UISearchInput.propTypes = {
 
 UISearchInput.defaultProps = {
   anchorType: 'button',
+  onChange: () => {},
   placeholder: null,
   searchable: false
 };

@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import * as Tokens from '../../constants/tokens';
 
 const OptionsCard = styled(Card)`
+  z-index: ${Tokens.SIEBEL_LAYER};
   position: absolute;
   top: 3em;
   left: 0;
