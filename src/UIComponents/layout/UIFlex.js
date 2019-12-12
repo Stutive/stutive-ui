@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const UIFlex = ({ align, children, className, direction, justify, wrap }) => {
   return (
     <div
-      className="mb-3"
+      className={className}
       style={{
         display: 'flex',
         alignItems: align,
