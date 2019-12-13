@@ -9,6 +9,7 @@ import useHandleClickOutside from '../lib/useHandleClickOutside';
 import * as Tokens from '../../constants/tokens';
 
 import UISelectOptions from './UISelectOptions';
+import UIIcon from '../icon/UIIcon';
 
 const ButtonAnchor = styled(Button)`
   z-index: ${Tokens.QUAD_LAYER};
@@ -44,6 +45,13 @@ const InputAnchor = styled.input`
     border: 2px solid ${Tokens.CALYPSO_MEDIUM};
     outline: none !important;
   }
+`;
+
+const AnchorIconRight = styled(UIIcon)`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const getTextFromValue = (options, value) => {
@@ -116,12 +124,25 @@ const UISearchInput = ({
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }} {...props}>
       {anchorType === 'input' && (
-        <InputAnchor
-          onChange={handleSearchChange}
-          onFocus={handleShowOptions}
-          value={searchQuery}
-          placeholder={placeholder}
-        />
+        <div style={{ position: 'relative' }}>
+          <InputAnchor
+            onChange={handleSearchChange}
+            onFocus={handleShowOptions}
+            value={searchQuery}
+            placeholder={placeholder}
+            style={{
+              paddingRight: '2em'
+            }}
+          />
+          <AnchorIconRight
+            onClick={
+              searchQuery === '' ? handleShowOptions : () => setSearchQuery('')
+            }
+            color={searchQuery === '' ? Tokens.CALYPSO : Tokens.EERIE}
+            name={searchQuery === '' ? 'fas fa-search' : 'fas fa-times'}
+            size="small"
+          />
+        </div>
       )}
       {anchorType === 'button' && (
         <ButtonAnchor onClick={handleToggleOptions}>
