@@ -29,7 +29,7 @@ UIFlex.propTypes = {
 UIFlex.defaultProps = {
   align: 'start',
   direction: 'row',
-  justify: 'staart',
+  justify: 'start',
   wrap: 'nowrap'
 };
 
