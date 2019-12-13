@@ -91,15 +91,9 @@ const UISearchInput = ({
     }
   };
 
-  const [highlightedValue, setHighlightedValue] = useState({
-    value: null,
-    index: null
-  });
+  const [highlightedValue, setHighlightedValue] = useState(null);
   const makeHandleOptionHighlight = (value, index) => () => {
-    setHighlightedValue({
-      value,
-      index
-    });
+    setHighlightedValue(value);
   };
 
   const renderOptions = () => (
@@ -126,6 +120,7 @@ const UISearchInput = ({
           onChange={handleSearchChange}
           onFocus={handleShowOptions}
           value={searchQuery}
+          placeholder={placeholder}
         />
       )}
       {anchorType === 'button' && (

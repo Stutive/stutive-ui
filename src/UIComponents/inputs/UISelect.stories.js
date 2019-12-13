@@ -78,11 +78,7 @@ export const withInputAnchorType = () => {
 export const withoutOptions = () => {
   return (
     <UIContainer style={{ paddingTop: '2em' }}>
-      <UISelect
-        onSelectedOptionChange={action('onSelectedOptionChange')}
-        options={[]}
-        value={'123'}
-      />
+      <UISelect options={[]} value={'123'} />
     </UIContainer>
   );
 };

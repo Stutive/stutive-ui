@@ -63,7 +63,11 @@ const UISelectOptions = ({
     //  TODO(Alpri): Throttle search input
     const searchOption = searchable && anchorType !== 'input' && (
       <SearchOption key="search-option">
-        <SearchInput onChange={handleSearchChange} value={searchQuery} />
+        <SearchInput
+          autoFocus={true}
+          onChange={handleSearchChange}
+          value={searchQuery}
+        />
       </SearchOption>
     );
     const loweredSearchQuery = searchQuery.toLowerCase();
@@ -77,13 +81,13 @@ const UISelectOptions = ({
           text.toLowerCase().includes(loweredSearchQuery)
         );
       })
-      .map((option, i) => {
-        const isSelectedOption = highlightedValue.value === option.value;
+      .map(option => {
+        const isSelectedOption = highlightedValue === option.value;
         return (
           <Option
             key={option.value}
             onClick={makeHandleOptionSelect(option.value)}
-            onMouseEnter={makeHandleOptionHighlight(option.value, i)}
+            onMouseEnter={makeHandleOptionHighlight(option.value)}
             style={isSelectedOption ? selectedStyling : {}}
           >
             {option.text}
