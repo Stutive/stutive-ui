@@ -13,7 +13,7 @@ const InputBorder = styled.div`
   border-radius: 0.3rem;
   border: 1px solid ${Tokens.BATTLESHIP};
   padding: 0.2rem 0.4rem;
-  &:focus {
+  &:focus-within {
     border: 1px solid ${Tokens.CALYPSO_MEDIUM};
   }
 `;
