@@ -20,6 +20,7 @@ const UIIcon = ({
   color = OBSIDIAN,
   name = 'fas fa-angry',
   size = 'medium',
+  style,
   ...props
 }) => {
   const dynamicStyles = {
@@ -29,7 +30,10 @@ const UIIcon = ({
   return (
     <StyledIcon
       className={classNames(className, name)}
-      style={dynamicStyles}
+      style={{
+        ...style,
+        ...dynamicStyles
+      }}
       {...props}
     ></StyledIcon>
   );

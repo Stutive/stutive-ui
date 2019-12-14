@@ -8,7 +8,7 @@ import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 import * as Tokens from '../../constants/tokens';
 
-import UISelectOptions from './UISelectOptions';
+import UISelectOptions from './UISelectDropdown';
 import UIIcon from '../icon/UIIcon';
 
 const ButtonAnchor = styled(Button)`

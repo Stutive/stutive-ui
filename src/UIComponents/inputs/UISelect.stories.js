@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import UIContainer from '../containers/UIContainer';
 import UISelect from './UISelect';
+import UISelectDropdown from './UISelectDropdown';
 
 export default {
   component: UISelect,
@@ -82,3 +83,36 @@ export const withoutOptions = () => {
     </UIContainer>
   );
 };
+
+export const isolatedDropdown = () => (
+  <UIContainer style={{ paddingTop: '2em' }}>
+    <div style={{ position: 'relative' }}>
+      <UISelectDropdown
+        options={[
+          { text: 'One', value: '1' },
+          { text: 'Two', value: '2', focused: true },
+          { text: 'Three', value: '3' }
+        ]}
+      />
+    </div>
+    <div style={{ position: 'relative', marginTop: '150px' }}>
+      <UISelectDropdown
+        dropdownHeaderTitle="Select a number"
+        options={[{ text: 'One', value: '1' }]}
+      />
+    </div>
+    <div style={{ position: 'relative', marginTop: '250px' }}>
+      <UISelectDropdown
+        dropdownHeaderTitle="Select a number"
+        options={[{ text: 'One', value: '1' }]}
+        searchable={true}
+      />
+    </div>
+    <div style={{ position: 'relative', marginTop: '400px' }}>
+      <UISelectDropdown
+        options={[{ text: 'One', value: '1' }]}
+        searchable={true}
+      />
+    </div>
+  </UIContainer>
+);
