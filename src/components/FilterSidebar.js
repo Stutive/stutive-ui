@@ -13,13 +13,13 @@ const FilterSidebar = () => {
     <UICard>
       <h4>Search Filters</h4>
       <UIFormControl label="Term">
-        <UISelect options={TERMS} placeholder="Fall 2019" />
+        <UISelect options={TERMS} placeholder="Choose a term" />
       </UIFormControl>
       <UIFormControl label="Subject">
-        <UISelect placeholder="Computer Science" />
+        <UISelect placeholder="Choose a subject" />
       </UIFormControl>
       <UIFormControl label="Credit Hours">
-        <UISelect options={CREDIT_HOURS} placeholder="3 Credit Hours" />
+        <UISelect options={CREDIT_HOURS} placeholder="Choose credit hours" />
       </UIFormControl>
       <UIButton use="primary">Search</UIButton>
     </UICard>
