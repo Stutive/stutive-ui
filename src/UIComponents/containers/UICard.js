@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Card from 'react-bootstrap/Card';
 
+import { OLAF, BATTLESHIP } from '../../constants/tokens';
+
+const StyledCard = styled(Card)`
+  background-color: ${OLAF};
+  border: 1px solid ${BATTLESHIP};
+`;
+
 const UICard = ({ title, children, ...props }) => {
   return (
-    <Card {...props}>
+    <StyledCard {...props}>
       <Card.Body>
         {title && <Card.Title>{title}</Card.Title>}
         {children}
       </Card.Body>
-    </Card>
+    </StyledCard>
   );
 };
 

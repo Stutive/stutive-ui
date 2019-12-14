@@ -8,7 +8,7 @@ import UISelect from '../UIComponents/inputs/UISelect';
 
 import { fetch } from '../actions/Courses';
 import { getAllCourses } from '../selectors/courses';
-import { IKE_LAYER, QUAD_LAYER, GRAINGER_LAYER } from '../constants/tokens';
+import * as Tokens from '../constants/tokens';
 
 import CoursePreviewCard from '../components/CoursePreviewCard';
 import FilterSidebar from '../components/FilterSidebar';
@@ -20,20 +20,16 @@ const CourseExplorer = ({ courses, fetch }) => {
   }, [fetch]);
 
   return (
-    <>
+    <div style={{ backgroundColor: Tokens.KOALA }}>
       <NavigationBar />
       <UIContainer className="mt-3">
         <Row>
           <Col lg={4}>
             <FilterSidebar />
           </Col>
-          <Col lg={8} style={{ position: 'relative', zIndex: QUAD_LAYER }}>
-            <UISelect
-              anchorType="input"
-              className="mb-3"
-              style={{ zIndex: GRAINGER_LAYER }}
-            />
-            <div style={{ zIndex: IKE_LAYER }}>
+          <Col lg={8}>
+            <UISelect anchorType="input" className="mb-3" />
+            <div>
               {courses.map(course => {
                 const key = `${course.get('subject')} ${course.get('number')}`;
 
@@ -57,7 +53,7 @@ const CourseExplorer = ({ courses, fetch }) => {
           </Col>
         </Row>
       </UIContainer>
-    </>
+    </div>
   );
 };
 
