@@ -25,7 +25,8 @@ const UIIcon = ({
 }) => {
   const dynamicStyles = {
     color,
-    fontSize: SIZE_MAP[size]
+    fontSize: SIZE_MAP[size],
+    width: SIZE_MAP[size]
   };
   return (
     <StyledIcon

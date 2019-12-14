@@ -3,7 +3,9 @@ import { action } from '@storybook/addon-actions';
 
 import UIContainer from '../containers/UIContainer';
 import UISelect from './UISelect';
+import UISelectButtonAnchor from './UISelectButtonAnchor';
 import UISelectDropdown from './UISelectDropdown';
+import UIIcon from '../icon/UIIcon';
 
 export default {
   component: UISelect,
@@ -76,13 +78,22 @@ export const withInputAnchorType = () => {
   );
 };
 
-export const withoutOptions = () => {
-  return (
-    <UIContainer style={{ paddingTop: '2em' }}>
-      <UISelect options={[]} value={'123'} />
-    </UIContainer>
-  );
-};
+export const isolatedAnchor = () => (
+  <UIContainer style={{ paddingTop: '2em' }}>
+    <UISelectButtonAnchor placeholder="Placeholder" />
+    <UISelectButtonAnchor placeholder="Placeholder" value="Selected Value" />
+    <UISelectButtonAnchor
+      placeholder="Placeholder"
+      value="Selected Value"
+      iconRight="fas fa-search"
+    />
+    <UISelectButtonAnchor
+      placeholder="Placeholder"
+      value="Selected Value"
+      iconRight={<UIIcon name="fas fa-times" size="small" />}
+    />
+  </UIContainer>
+);
 
 export const isolatedDropdown = () => (
   <UIContainer style={{ paddingTop: '2em' }}>
