@@ -71,7 +71,6 @@ export const withInputAnchorType = () => {
           { text: 'Seven', value: '7' },
           { text: 'Eight', value: '8' }
         ]}
-        searchable={true}
         placeholder="Select a number"
       />
     </UIContainer>

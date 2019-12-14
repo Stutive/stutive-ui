@@ -8,61 +8,22 @@ import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 import * as Tokens from '../../constants/tokens';
 
-import UISelectOptions from './UISelectDropdown';
+import UISelectDropdown from './UISelectDropdown';
 import UIIcon from '../icon/UIIcon';
+import UISelectButtonAnchor from './UISelectButtonAnchor';
+import { UIUnwrappedTextInput } from './UITextInput';
 
-const ButtonAnchor = styled(Button)`
-  z-index: ${Tokens.QUAD_LAYER};
-  width: 100%;
-  height: 2.3rem;
-  color: ${Tokens.OBSIDIAN};
-  text-align: left;
-  background-color: ${Tokens.GYPSUM};
-  border: 1px solid ${Tokens.BATTLESHIP};
-  &:hover {
-    background-color: ${Tokens.GYPSUM};
-    border: 2px solid ${Tokens.BATTLESHIP};
-    color: ${Tokens.OBSIDIAN};
-  }
-  &:active {
-    background-color: ${Tokens.GYPSUM} !important;
-    border: 2px solid ${Tokens.CALYPSO} !important;
-    color: ${Tokens.OBSIDIAN} !important;
-  }
-  &:focus {
-    background-color: ${Tokens.GYPSUM} !important;
-    color: ${Tokens.OBSIDIAN};
-  }
-`;
+const EMPTY_FUNCTION = () => {};
 
-const InputAnchor = styled.input`
-  z-index: ${Tokens.QUAD_LAYER};
-  width: 100%;
-  border-radius: 0.3rem;
-  border: 2px solid ${Tokens.BATTLESHIP};
-  padding: 0.2rem 0.4rem;
-  &:focus {
-    border: 2px solid ${Tokens.CALYPSO_MEDIUM};
-    outline: none !important;
-  }
-`;
-
-const AnchorIconRight = styled(UIIcon)`
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
-const getTextFromValue = (options, value) => {
-  let text = null;
-  (options || []).forEach(option => {
-    if (option.value === value) {
-      text = option.text;
-      return;
+const getOptionFromValue = (options, value) => {
+  let option = null;
+  options.forEach(_option => {
+    if (_option.value === value) {
+      option = _option;
     }
+    return;
   });
-  return text;
+  return option;
 };
 
 const UISearchInput = ({
@@ -73,83 +34,102 @@ const UISearchInput = ({
   searchable,
   ...props
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const handleSearchChange = e => setSearchQuery(e.target.value);
-
-  const [value, setValue] = useState(null);
-  const makeHandleOptionSelect = value => () => {
-    onChange(value);
-    setValue(value);
-    setSearchQuery(getTextFromValue(options, value));
-    handleHideOptions();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const handleShowDropdown = () => {
+    setShowDropdown(true);
   };
-
-  const [showOptions, setShowOptions] = useState(false);
-  const handleShowOptions = () => {
-    setShowOptions(true);
+  const handleHideDropdown = () => {
+    setShowDropdown(false);
   };
-  const handleHideOptions = () => {
-    setShowOptions(false);
-  };
-  const handleToggleOptions = () => {
-    if (showOptions) {
-      handleHideOptions();
+  const handleToggleShowDropdown = () => {
+    if (showDropdown) {
+      handleHideDropdown();
     } else {
-      handleShowOptions();
+      handleShowDropdown();
     }
   };
 
-  const [highlightedValue, setHighlightedValue] = useState(null);
-  const makeHandleOptionHighlight = (value, index) => () => {
-    setHighlightedValue(value);
+  const [query, setQuery] = useState(null);
+  const handleChange = e => {
+    const newQuery = e.target.value;
+    if (query === '' && newQuery !== '') {
+      handleShowDropdown();
+    } else if (query !== '' && newQuery === '') {
+      handleHideDropdown();
+    }
+    setQuery(newQuery);
+  };
+  const handleClear = () => setQuery('');
+
+  const [selectedText, setSelectedText] = useState('');
+  const handleSelect = value => {
+    const option = getOptionFromValue(options, value);
+    setSelectedText(option.text);
+    onChange(value);
+    handleHideDropdown();
+    if (anchorType === 'input') {
+      setQuery(option.text);
+    }
+  };
+  const handleDeselect = () => {
+    onChange(null);
+    setSelectedText('');
   };
 
-  const renderOptions = () => (
-    <UISelectOptions
-      anchorType={anchorType}
-      options={options}
-      handleSearchChange={handleSearchChange}
-      highlightedValue={highlightedValue}
-      makeHandleOptionHighlight={makeHandleOptionHighlight}
-      makeHandleOptionSelect={makeHandleOptionSelect}
-      searchable={searchable}
-      searchQuery={searchQuery}
-      showOptions={showOptions}
-    />
-  );
+  const getIconRight = () => {
+    let iconProps = {
+      color: Tokens.CALYPSO,
+      size: 'small'
+    };
+
+    if (selectedText !== '') {
+      return (
+        <UIIcon {...iconProps} name="fas fa-times" onClick={handleDeselect} />
+      );
+    }
+
+    if (anchorType === 'input') {
+      const name = query ? 'fas fa-times' : 'fas fa-search';
+      const handleClick = query ? handleClear : EMPTY_FUNCTION;
+      return <UIIcon {...iconProps} name={name} onClick={handleClick} />;
+    }
+
+    let name = showDropdown ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+    return (
+      <UIIcon {...iconProps} name={name} onClick={handleToggleShowDropdown} />
+    );
+  };
+
+  const renderedAnchor =
+    anchorType === 'input' ? (
+      <UIUnwrappedTextInput
+        autocomplete={'off'}
+        placeholder={placeholder}
+        value={query}
+        onChange={handleChange}
+        iconRight={getIconRight(anchorType, showDropdown)}
+      />
+    ) : (
+      <UISelectButtonAnchor
+        placeholder={placeholder}
+        value={selectedText}
+        onClick={handleToggleShowDropdown}
+        iconRight={getIconRight(anchorType, showDropdown)}
+      />
+    );
 
   const wrapperRef = useRef(null);
-  useHandleClickOutside(wrapperRef, handleHideOptions);
-  const selectedOptionText = getTextFromValue(options, value);
+  useHandleClickOutside(wrapperRef, handleHideDropdown);
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }} {...props}>
-      {anchorType === 'input' && (
-        <div style={{ position: 'relative' }}>
-          <InputAnchor
-            onChange={handleSearchChange}
-            onFocus={handleShowOptions}
-            value={searchQuery}
-            placeholder={placeholder}
-            style={{
-              paddingRight: '2em'
-            }}
-          />
-          <AnchorIconRight
-            onClick={
-              searchQuery === '' ? handleShowOptions : () => setSearchQuery('')
-            }
-            color={searchQuery === '' ? Tokens.CALYPSO : Tokens.EERIE}
-            name={searchQuery === '' ? 'fas fa-search' : 'fas fa-times'}
-            size="small"
-          />
-        </div>
-      )}
-      {anchorType === 'button' && (
-        <ButtonAnchor onClick={handleToggleOptions}>
-          {selectedOptionText || placeholder}
-        </ButtonAnchor>
-      )}
-      {renderOptions()}
+      {renderedAnchor}
+      <UISelectDropdown
+        options={options}
+        onSelect={handleSelect}
+        searchable={searchable && anchorType !== 'input'}
+        show={showDropdown}
+        withQuery={query}
+      />
     </div>
   );
 };

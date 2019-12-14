@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import UIIcon from '../icon/UIIcon';
@@ -40,9 +40,15 @@ export const UIUnwrappedTextInput = ({
     renderedIconRight = iconRight;
   }
   return (
-    <InputBorder {...props}>
+    <InputBorder>
       <UIFlex align="center">
-        <Input type="text" name="hi" ref={textInputRef} />
+        <Input
+          autoComplete="off"
+          type="text"
+          name="hi"
+          ref={textInputRef}
+          {...props}
+        />
         {renderedIconRight}
       </UIFlex>
     </InputBorder>

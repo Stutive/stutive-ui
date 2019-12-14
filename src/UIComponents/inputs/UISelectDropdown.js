@@ -39,7 +39,9 @@ const UISelectDropdown = ({
   dropdownHeaderTitle = null,
   options = [],
   searchable = false,
-  onSelect = EMPTY_FUNCTION
+  onSelect = EMPTY_FUNCTION,
+  withQuery = null,
+  show
 }) => {
   const makeHandleSelect = value => () => onSelect(value);
 
@@ -48,49 +50,84 @@ const UISelectDropdown = ({
     setFocusedOption(value);
   };
 
+  const [query, setQuery] = useState('');
+  const handleChange = e => setQuery(e.target.value);
+  const handleClear = () => {
+    setQuery('');
+  };
+
   const renderedHeader = dropdownHeaderTitle && (
     <HeaderTitleWrapper>{dropdownHeaderTitle}</HeaderTitleWrapper>
   );
+
+  const getSearchInputRightIcon = () => {
+    return query ? (
+      <UIIcon
+        color={Tokens.CALYPSO}
+        name="fas fa-times"
+        size="small"
+        onClick={handleClear}
+      />
+    ) : (
+      <UIIcon color={Tokens.CALYPSO} name="fas fa-search" size="small" />
+    );
+  };
   const renderedSearchInput = searchable && (
     <SearchInputWrapper>
       <UIUnwrappedTextInput
-        iconRight={props => (
-          <UIIcon name="fas fa-search" size="small" {...props} />
-        )}
+        onChange={handleChange}
+        value={query}
+        iconRight={getSearchInputRightIcon()}
       />
     </SearchInputWrapper>
   );
 
-  const renderedOptions = options.map(option => {
-    const { value } = option;
+  const renderOptions = () => {
+    const loweredQuery =
+      (withQuery && withQuery.toLowerCase()) || query.toLowerCase();
+    let renderedOptions = options
+      .filter(option => {
+        if (!loweredQuery || loweredQuery.length === 0) {
+          return true;
+        }
 
-    const handleFocus = makeHandleFocus(value);
-    const handleSelect = makeHandleSelect(value);
-    const handleClick = () => {
-      handleFocus();
-      handleSelect();
-    };
-    const isFocused = value === focusedOption;
+        return (
+          (option.text || '').toLowerCase().includes(loweredQuery) ||
+          (option.value || '').toLowerCase().includes(loweredQuery)
+        );
+      })
+      .map(option => {
+        const { value } = option;
 
-    return (
-      <UISelectOption
-        key={value}
-        onClick={handleClick}
-        onMouseEnter={handleFocus}
-        focused={isFocused}
-        {...option}
-      />
-    );
-  });
+        const handleFocus = makeHandleFocus(value);
+        const handleSelect = makeHandleSelect(value);
+        const handleClick = () => {
+          handleFocus();
+          handleSelect();
+        };
+        const isFocused = value === focusedOption;
 
-  if (options.length === 0 && !renderedHeader && !renderedSearchInput) {
-    //  TODO: render something when there are no available options
-    return null;
-  }
+        return (
+          <UISelectOption
+            key={value}
+            onClick={handleClick}
+            onMouseEnter={handleFocus}
+            focused={isFocused}
+            {...option}
+          />
+        );
+      });
+    if (renderedOptions.length === 0) {
+      renderedOptions = <UISelectOption key="no-options" text="No results" />;
+    }
+    return renderedOptions;
+  };
+
+  if (!show) return null;
 
   return (
     <DropdownCard>
-      {[renderedHeader, renderedSearchInput, renderedOptions]}
+      {[renderedHeader, renderedSearchInput, renderOptions()]}
     </DropdownCard>
   );
 };

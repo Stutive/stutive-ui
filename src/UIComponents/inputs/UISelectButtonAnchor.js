@@ -13,7 +13,7 @@ const EMPTY_FUNCTION = () => {};
 
 const ButtonAnchor = styled(Button)`
   z-index: ${Tokens.QUAD_LAYER};
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.6rem;
   width: 100%;
   height: 2.3rem;
   color: ${Tokens.OBSIDIAN};
@@ -68,17 +68,15 @@ const UISelectButtonAnchor = ({
   }
 
   const renderedText = value ? (
-    <ValueText>{value}</ValueText>
+    <ValueText onClick={onClick}>{value}</ValueText>
   ) : (
-    <PlaceholderText>{placeholder}</PlaceholderText>
+    <PlaceholderText onClick={onClick}>{placeholder}</PlaceholderText>
   );
 
   return (
-    <div className="p-2">
-      <ButtonAnchor>
-        <UIFlex align="center">{[renderedText, renderedIconRight]}</UIFlex>
-      </ButtonAnchor>
-    </div>
+    <ButtonAnchor>
+      <UIFlex align="center">{[renderedText, renderedIconRight]}</UIFlex>
+    </ButtonAnchor>
   );
 };
 
