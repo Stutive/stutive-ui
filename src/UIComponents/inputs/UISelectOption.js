@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import * as Tokens from '../../constants/tokens';
+
+const EMPTY_FUNCTION = () => {};
 
 /**
  *  Option Wrappers
@@ -20,13 +23,25 @@ const FocusedOptionWrapper = styled(DefaultOptionWrapper)`
  */
 const DefaultOption = styled.span``;
 
-const UISelectOption = ({ focused = false, text, value, use }) => {
+const UISelectOption = ({
+  focused = false,
+  text,
+  onClick = EMPTY_FUNCTION,
+  onMouseEnter = EMPTY_FUNCTION
+}) => {
   const Wrapper = focused ? FocusedOptionWrapper : DefaultOptionWrapper;
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick} onMouseEnter={onMouseEnter}>
       <DefaultOption>{text}</DefaultOption>
     </Wrapper>
   );
+};
+
+UISelectOption.propTypes = {
+  focused: PropTypes.bool,
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  onMouseEnter: PropTypes.func
 };
 
 export default UISelectOption;

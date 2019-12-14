@@ -90,7 +90,7 @@ export const isolatedDropdown = () => (
       <UISelectDropdown
         options={[
           { text: 'One', value: '1' },
-          { text: 'Two', value: '2', focused: true },
+          { text: 'Two', value: '2' },
           { text: 'Three', value: '3' }
         ]}
       />

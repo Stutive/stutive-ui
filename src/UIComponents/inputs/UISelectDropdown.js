@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -9,6 +9,8 @@ import { UIUnwrappedTextInput } from './UITextInput';
 import UIIcon from '../icon/UIIcon';
 
 import * as Tokens from '../../constants/tokens';
+
+const EMPTY_FUNCTION = () => {};
 
 const DropdownCard = styled(Card)`
   z-index: ${Tokens.SIEBEL_LAYER};
@@ -36,8 +38,16 @@ const SearchInputWrapper = styled(HeaderWrapper)`
 const UISelectDropdown = ({
   dropdownHeaderTitle = null,
   options = [],
-  searchable = false
+  searchable = false,
+  onSelect = EMPTY_FUNCTION
 }) => {
+  const makeHandleSelect = value => () => onSelect(value);
+
+  const [focusedOption, setFocusedOption] = useState(null);
+  const makeHandleFocus = value => () => {
+    setFocusedOption(value);
+  };
+
   const renderedHeader = dropdownHeaderTitle && (
     <HeaderTitleWrapper>{dropdownHeaderTitle}</HeaderTitleWrapper>
   );
@@ -51,11 +61,30 @@ const UISelectDropdown = ({
     </SearchInputWrapper>
   );
 
-  const renderedOptions = options.map(option => (
-    <UISelectOption key={option.value} {...option} />
-  ));
+  const renderedOptions = options.map(option => {
+    const { value } = option;
+
+    const handleFocus = makeHandleFocus(value);
+    const handleSelect = makeHandleSelect(value);
+    const handleClick = () => {
+      handleFocus();
+      handleSelect();
+    };
+    const isFocused = value === focusedOption;
+
+    return (
+      <UISelectOption
+        key={value}
+        onClick={handleClick}
+        onMouseEnter={handleFocus}
+        focused={isFocused}
+        {...option}
+      />
+    );
+  });
 
   if (options.length === 0 && !renderedHeader && !renderedSearchInput) {
+    //  TODO: render something when there are no available options
     return null;
   }
 
@@ -68,8 +97,14 @@ const UISelectDropdown = ({
 
 UISelectDropdown.propTypes = {
   dropdownHeaderTitle: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object),
-  searchable: PropTypes.bool
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.any,
+      text: PropTypes.string
+    })
+  ),
+  searchable: PropTypes.bool,
+  onSelect: PropTypes.func
 };
 
 export default UISelectDropdown;
