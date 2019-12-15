@@ -1,7 +1,10 @@
 import * as FilterOptionsClient from '../api/FilterOptions';
 
-import { FILTER_OPTIONS_FETCH } from './ActionTypes';
+import { FILTER_OPTIONS_FETCH, FILTER_UPDATE } from './ActionTypes';
 
+/**
+ *  @async fetchFilterOptions()
+ */
 export const requestFetch = () => ({
   type: FILTER_OPTIONS_FETCH.REQUEST
 });
@@ -30,3 +33,9 @@ export const fetchFilterOptions = () => dispatch => {
     }
   );
 };
+
+export const updateFilter = (filter, value) => ({
+  type: FILTER_UPDATE,
+  filter,
+  value
+});

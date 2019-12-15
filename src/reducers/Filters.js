@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import { List } from 'immutable';
+import { Map, List } from 'immutable';
 
-import { FILTER_OPTIONS_FETCH } from '../actions/ActionTypes';
+import { FILTER_OPTIONS_FETCH, FILTER_UPDATE } from '../actions/ActionTypes';
 
 function allFields(state = List(), action) {
   switch (action.type) {
@@ -18,6 +18,22 @@ function allFields(state = List(), action) {
   }
 }
 
+function filter(state = Map(), action) {
+  switch (action.type) {
+    case FILTER_UPDATE: {
+      const { filter, value } = action;
+      if (!value) {
+        return state.delete(filter);
+      }
+      return state.set(filter, value);
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 export default combineReducers({
-  allFields
+  allFields,
+  filter
 });

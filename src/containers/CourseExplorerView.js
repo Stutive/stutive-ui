@@ -7,7 +7,7 @@ import UIContainer from '../UIComponents/containers/UIContainer';
 import UISelect from '../UIComponents/inputs/UISelect';
 
 import { fetchCourses } from '../actions/Courses';
-import { fetchFilterOptions } from '../actions/FilterOptions';
+import { fetchFilterOptions } from '../actions/Filters';
 import { getAllCourses } from '../selectors/courses';
 import * as Tokens from '../constants/tokens';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import UIButton from '../UIComponents/buttons/UIButton';
@@ -7,22 +8,31 @@ import UIFormControl from '../UIComponents/form/UIFormControl';
 import UISelect from '../UIComponents/inputs/UISelect';
 
 import { getFilterFields } from '../selectors/filters';
+import { updateFilter } from '../actions/Filters';
 
-const FilterField = ({ label, options, placeholder }) => {
+const FilterField = ({ label, onChange, options, placeholder }) => {
   return (
     <UIFormControl label={label}>
-      <UISelect options={options} placeholder={placeholder} />
+      <UISelect
+        onChange={onChange}
+        options={options}
+        placeholder={placeholder}
+      />
     </UIFormControl>
   );
 };
 
-const FilterSidebar = ({ filterFields }) => {
-  const renderFilterfields = filterFields.map(field => {
+const FilterSidebar = ({ filterFields, updateFilter }) => {
+  const makeOnChange = field => value => {
+    updateFilter(field, value);
+  };
+  const renderFilterfields = filterFields.map(filterField => {
     return (
       <FilterField
-        label={field.text}
-        options={field.options}
-        placeholder={field.placeholder}
+        label={filterField.text}
+        onChange={makeOnChange(filterField.field)}
+        options={filterField.options}
+        placeholder={filterField.placeholder}
       />
     );
   });
@@ -35,8 +45,17 @@ const FilterSidebar = ({ filterFields }) => {
   );
 };
 
+FilterSidebar.propTypes = {
+  filterFields: PropTypes.array,
+  updateFilter: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
   filterFields: getFilterFields(state)
 });
 
-export default connect(mapStateToProps, null)(FilterSidebar);
+const mapDispatchToProps = {
+  updateFilter
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterSidebar);
