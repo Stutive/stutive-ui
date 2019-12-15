@@ -12,7 +12,7 @@ import { getAllCourses } from '../selectors/courses';
 import * as Tokens from '../constants/tokens';
 
 import CoursePreviewCard from '../components/CoursePreviewCard';
-import FilterSidebar from '../components/FilterSidebar';
+import FilterSidebar from './FilterSidebar';
 import NavigationBar from './NavigationBar';
 
 const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {

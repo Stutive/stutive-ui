@@ -3,6 +3,7 @@ export const FILTER_OPTIONS_RESPONSE = {
     {
       field: 'generalEducation',
       text: 'General Education Requirements',
+      placeholder: 'Select a Gen Ed Requirement',
       options: [
         {
           value: 'ACP',
@@ -33,6 +34,7 @@ export const FILTER_OPTIONS_RESPONSE = {
     {
       field: 'creditHours',
       text: 'Credit Hours',
+      placeholder: 'Select a Credit Hour',
       options: [
         {
           value: 1,
@@ -59,6 +61,7 @@ export const FILTER_OPTIONS_RESPONSE = {
     {
       field: 'term',
       text: 'Term',
+      placeholder: 'Select a Term',
       options: [
         {
           value: '2019-FALL',
