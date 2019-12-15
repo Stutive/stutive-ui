@@ -6,7 +6,7 @@ import UICard from '../UIComponents/containers/UICard';
 import UIFlex from '../UIComponents/layout/UIFlex';
 import UIList from '../UIComponents/list/UIList';
 
-import GeneralEducationMap from '../constants/GeneralEducation';
+import GeneralEducationMap from '../constants/GeneralEducationMap';
 
 const Title = styled.p`
   flex: 1;

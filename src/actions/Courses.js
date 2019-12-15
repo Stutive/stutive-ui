@@ -23,7 +23,7 @@ export const errorFetch = error => ({
   error
 });
 
-export const fetch = () => dispatch => {
+export const fetchCourses = () => dispatch => {
   dispatch(requestFetch());
 
   CoursesClient.fetch().then(

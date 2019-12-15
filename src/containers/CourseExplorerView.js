@@ -6,7 +6,8 @@ import Row from 'react-bootstrap/Row';
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UISelect from '../UIComponents/inputs/UISelect';
 
-import { fetch } from '../actions/Courses';
+import { fetchCourses } from '../actions/Courses';
+import { fetchFilterOptions } from '../actions/FilterOptions';
 import { getAllCourses } from '../selectors/courses';
 import * as Tokens from '../constants/tokens';
 
@@ -14,10 +15,11 @@ import CoursePreviewCard from '../components/CoursePreviewCard';
 import FilterSidebar from '../components/FilterSidebar';
 import NavigationBar from './NavigationBar';
 
-const CourseExplorer = ({ courses, fetch }) => {
+const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    fetchCourses();
+    fetchFilterOptions();
+  }, [fetchCourses, fetchFilterOptions]);
 
   return (
     <div style={{ backgroundColor: Tokens.KOALA }}>
@@ -63,7 +65,8 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = {
-  fetch
+  fetchCourses,
+  fetchFilterOptions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseExplorer);
