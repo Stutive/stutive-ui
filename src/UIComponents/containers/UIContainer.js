@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
 
-const UIContainer = ({children, ...props}) => (
-  <Container {...props}>
-    {children}
-  </Container>
-)
+const UIContainer = ({ children, ...props }) => (
+  <Container {...props}>{children}</Container>
+);
 
-export default UIContainer
+export default UIContainer;

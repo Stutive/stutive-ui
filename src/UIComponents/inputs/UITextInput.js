@@ -9,7 +9,7 @@ import * as Tokens from '../../constants/tokens';
 const InputBorder = styled.div`
   position: relative;
   width: 100%;
-  background-color: ${Tokens.OLAF}
+  background-color: ${Tokens.OLAF};
   border-radius: 0.3rem;
   border: 1px solid ${Tokens.BATTLESHIP};
   padding: 0.2rem 0.4rem;

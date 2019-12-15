@@ -28,7 +28,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint --ignore-path .gitignore . --fix --max-warnings=0",
+    "prettier:write": "pretty-quick --staged",
+    "pretest": "yarn prettier:write && yarn lint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,7 +62,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "yarn pretest"
     }
   }
 }

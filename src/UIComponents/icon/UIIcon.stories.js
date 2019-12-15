@@ -1,5 +1,4 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import UIContainer from '../containers/UIContainer';
 import UIIcon from './UIIcon';
