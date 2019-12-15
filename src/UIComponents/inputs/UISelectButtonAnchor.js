@@ -75,7 +75,10 @@ const UISelectButtonAnchor = ({
 
   return (
     <ButtonAnchor>
-      <UIFlex align="center">{[renderedText, renderedIconRight]}</UIFlex>
+      <UIFlex align="center">
+        {renderedText}
+        {renderedIconRight}
+      </UIFlex>
     </ButtonAnchor>
   );
 };
@@ -83,7 +86,7 @@ const UISelectButtonAnchor = ({
 UISelectButtonAnchor.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  iconRight: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
+  iconRight: PropTypes.any,
   onClick: PropTypes.func
 };
 

@@ -1,8 +1,5 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import Button from 'react-bootstrap/Button';
 
 import useHandleClickOutside from '../lib/useHandleClickOutside';
 
@@ -137,7 +134,7 @@ const UISearchInput = ({
 UISearchInput.propTypes = {
   anchorType: PropTypes.oneOf(['input', 'button']),
   onChange: PropTypes.func,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.array,
   placeholder: PropTypes.string,
   searchable: PropTypes.bool
 };
@@ -145,6 +142,7 @@ UISearchInput.propTypes = {
 UISearchInput.defaultProps = {
   anchorType: 'button',
   onChange: () => {},
+  options: [],
   placeholder: null,
   searchable: false
 };

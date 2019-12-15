@@ -29,6 +29,7 @@ const FilterSidebar = ({ filterFields, updateFilter }) => {
   const renderFilterfields = filterFields.map(filterField => {
     return (
       <FilterField
+        key={filterField.field}
         label={filterField.text}
         onChange={makeOnChange(filterField.field)}
         options={filterField.options}
@@ -46,7 +47,7 @@ const FilterSidebar = ({ filterFields, updateFilter }) => {
 };
 
 FilterSidebar.propTypes = {
-  filterFields: PropTypes.array,
+  filterFields: PropTypes.any, //  Figure this shit out
   updateFilter: PropTypes.func.isRequired
 };
 

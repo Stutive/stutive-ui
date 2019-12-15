@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 
 const UIList = ({ children, childClassName, ordered, styled, ...props }) => {
   const renderChildren = () => {
-    return children.map(child => <li className={childClassName}>{child}</li>);
+    return children.map((child, i) => {
+      const key = child.key ? child.key : i;
+      return (
+        <li className={childClassName} key={key}>
+          {child}
+        </li>
+      );
+    });
   };
 
   if (ordered) {

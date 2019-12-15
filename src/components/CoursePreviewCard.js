@@ -48,7 +48,7 @@ const CoursePreviewCard = ({
         </GenEdLabel>
         <UIList childClassName="mb-2">
           {generalEducationRequirements.map(requirement => (
-            <span>{GeneralEducationMap[requirement]}</span>
+            <span key={requirement}>{GeneralEducationMap[requirement]}</span>
           ))}
         </UIList>
       </>
@@ -70,7 +70,7 @@ CoursePreviewCard.propTypes = {
   title: PropTypes.string,
   creditHours: PropTypes.string,
   description: PropTypes.string,
-  generalEducationRequirements: PropTypes.arrayOf(PropTypes.string)
+  generalEducationRequirements: PropTypes.any //  TODO: Figure this shit out
 };
 
 export default CoursePreviewCard;
