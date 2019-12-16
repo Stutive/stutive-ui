@@ -31,6 +31,20 @@ export const listStyles = () => {
           Danger
         </UITag>
       </UIContainer>
+      <UIContainer style={{ paddingTop: '2em' }}>
+        <UITag closeable={true} use="default">
+          Default
+        </UITag>
+        <UITag closeable={false} use="success">
+          Success
+        </UITag>
+        <UITag closeable={true} use="warning">
+          Warning
+        </UITag>
+        <UITag closeable={false} use="danger">
+          Danger
+        </UITag>
+      </UIContainer>
     </>
   );
 };

@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 
 import UIFlex from '../layout/UIFlex';
+import UIIcon from '../icon/UIIcon';
 
 import * as Tokens from '../../constants/tokens';
 
 const Tag = styled.div`
+  color: ${Tokens.OBSIDIAN};
   display: inline-block;
-  padding: 0.2em 0.7em;
   font-size: 0.75em;
   border-width: 1px;
   border-style: solid;
@@ -45,22 +46,40 @@ const getColors = type => {
   }
 };
 
-const UITag = ({ children, closeable, use, ...props }) => {
+const UITag = ({ children, closeable, onCloseClick, use, ...props }) => {
   const colors = getColors(use);
   const dynamicStyles = {
     backgroundColor: colors.background,
     borderColor: colors.border
   };
   return (
-    <Tag className="ml-1 mr-1" style={dynamicStyles} {...props}>
+    <Tag className="m-1" style={dynamicStyles} {...props}>
       <UIFlex align="center">
         <div
-          className={classNames({
-            'mr-1': closeable
-          })}
+          className={classNames(
+            'pl-2 pt-1 pb-1',
+            {
+              'mr-1': closeable
+            },
+            {
+              'pr-2': !closeable
+            },
+            {
+              'pr-1': closeable
+            }
+          )}
         >
           {children}
         </div>
+        {closeable && (
+          <UIIcon
+            className="mr-2"
+            color={Tokens.SLINKY}
+            name="fas fa-times"
+            onClick={onCloseClick}
+            size="small"
+          />
+        )}
       </UIFlex>
     </Tag>
   );
