@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const UIFlex = ({ align, children, className, direction, justify, wrap }) => {
-  return (
-    <div
-      className={className}
-      style={{
-        display: 'flex',
-        alignItems: align,
-        flexDirection: direction,
-        justifyContent: justify,
-        flexWrap: wrap
-      }}
-    >
-      {children}
-    </div>
-  );
+const FlexWrapper = styled.div`
+  display: flex;
+  align-items: ${props => props.align};
+  flex-direction: ${props => props.direction};
+  justify-content: ${props => props.justify};
+  flex-wrap: ${props => props.wrap};
+  & > * {
+    min-width: 0;
+  }
+`;
+
+const UIFlex = ({ children, ...props }) => {
+  return <FlexWrapper {...props}>{children}</FlexWrapper>;
 };
 
 UIFlex.propTypes = {

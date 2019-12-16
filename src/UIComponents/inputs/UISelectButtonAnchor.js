@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import UIFlex from '../layout/UIFlex';
 import UIIcon from '../icon/UIIcon';
+import UITruncateString from '../text/UITruncateString';
 
 import * as Tokens from '../../constants/tokens';
 
@@ -43,6 +44,7 @@ const ButtonAnchor = styled(Button)`
 
 const AnchorText = styled.span`
   flex: 1;
+  padding-right: 10px;
 `;
 
 const PlaceholderText = styled(AnchorText)`
@@ -68,9 +70,13 @@ const UISelectButtonAnchor = ({
   }
 
   const renderedText = value ? (
-    <ValueText onClick={onClick}>{value}</ValueText>
+    <ValueText onClick={onClick}>
+      <UITruncateString>{value}</UITruncateString>
+    </ValueText>
   ) : (
-    <PlaceholderText onClick={onClick}>{placeholder}</PlaceholderText>
+    <PlaceholderText onClick={onClick}>
+      <UITruncateString>{placeholder}</UITruncateString>
+    </PlaceholderText>
   );
 
   return (

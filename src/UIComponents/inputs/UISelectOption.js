@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import UITruncateString from '../text/UITruncateString';
+
 import * as Tokens from '../../constants/tokens';
 
 const EMPTY_FUNCTION = () => {};
@@ -32,7 +34,9 @@ const UISelectOption = ({
   const Wrapper = focused ? FocusedOptionWrapper : DefaultOptionWrapper;
   return (
     <Wrapper onClick={onClick} onMouseEnter={onMouseEnter}>
-      <DefaultOption>{text}</DefaultOption>
+      <DefaultOption>
+        <UITruncateString>{text}</UITruncateString>
+      </DefaultOption>
     </Wrapper>
   );
 };
