@@ -5,10 +5,10 @@ import classNames from 'classnames';
 import UIFlex from '../layout/UIFlex';
 import UIIcon from '../icon/UIIcon';
 
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
 
 const Tag = styled.div`
-  color: ${Tokens.OBSIDIAN};
+  color: ${Colors.OBSIDIAN};
   display: inline-block;
   font-size: 0.75em;
   border-width: 1px;
@@ -20,27 +20,27 @@ const getColors = type => {
   switch (type) {
     case 'success': {
       return {
-        background: Tokens.OZ_LIGHT,
-        border: Tokens.OZ_MEDIUM
+        background: Colors.OZ_LIGHT,
+        border: Colors.OZ_MEDIUM
       };
     }
     case 'warning': {
       return {
-        background: Tokens.MARIGOLD_LIGHT,
-        border: Tokens.MARIGOLD_MEDIUM
+        background: Colors.MARIGOLD_LIGHT,
+        border: Colors.MARIGOLD_MEDIUM
       };
     }
     case 'danger': {
       return {
-        background: Tokens.CANDY_APPLE_LIGHT,
-        border: Tokens.CANDY_APPLE_MEDIUM
+        background: Colors.CANDY_APPLE_LIGHT,
+        border: Colors.CANDY_APPLE_MEDIUM
       };
     }
     case 'default':
     default: {
       return {
-        background: Tokens.KOALA,
-        border: Tokens.EERIE
+        background: Colors.KOALA,
+        border: Colors.EERIE
       };
     }
   }
@@ -74,7 +74,7 @@ const UITag = ({ children, closeable, onCloseClick, use, ...props }) => {
         {closeable && (
           <UIIcon
             className="mr-2"
-            color={Tokens.SLINKY}
+            color={Colors.SLINKY}
             name="fas fa-times"
             onClick={e => {
               e.stopPropagation();

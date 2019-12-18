@@ -5,17 +5,17 @@ import PropTypes from 'prop-types';
 
 import UIFlex from '../layout/UIFlex';
 
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
 
 const LabelText = styled.span`
   flex: 1;
   font-size: 0.9rem;
   font-weight: 500;
-  color: ${Tokens.OBSIDIAN};
+  color: ${Colors.OBSIDIAN};
 `;
 
 const HelpText = styled.span`
-  color: ${Tokens.FLINT};
+  color: ${Colors.FLINT};
   font-size: 0.9rem;
   font-weight: 300;
 `;

@@ -9,7 +9,7 @@ import UISelect from '../UIComponents/inputs/UISelect';
 import { fetchCourses } from '../actions/Courses';
 import { fetchFilterOptions } from '../actions/Filters';
 import { getAllCourses } from '../selectors/courses';
-import * as Tokens from '../constants/tokens';
+import * as Colors from '../UIComponents/StyleTokens/colors';
 
 import CoursePreviewCard from '../components/CoursePreviewCard';
 import FilterSidebar from './FilterSidebar';
@@ -22,7 +22,7 @@ const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
   }, [fetchCourses, fetchFilterOptions]);
 
   return (
-    <div style={{ backgroundColor: Tokens.KOALA }}>
+    <div style={{ backgroundColor: Colors.KOALA }}>
       <NavigationBar />
       <UIContainer className="mt-3">
         <Row>

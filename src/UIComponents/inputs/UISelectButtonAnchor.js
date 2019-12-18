@@ -9,35 +9,36 @@ import UIIcon from '../icon/UIIcon';
 import UITruncateString from '../text/UITruncateString';
 
 import UITag from '../tag/UITag';
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
+import { QUAD_LAYER } from '../StyleTokens/sizes';
 
 const EMPTY_FUNCTION = () => {};
 
 const ButtonAnchor = styled(Button)`
-  z-index: ${Tokens.QUAD_LAYER};
+  z-index: ${QUAD_LAYER};
   padding: 0.2rem 0.6rem;
   width: 100%;
   min-height: 2.3rem;
   text-align: left;
-  background-color: ${Tokens.GYPSUM};
-  border: 1px solid ${Tokens.BATTLESHIP};
-  color: ${Tokens.OBSIDIAN};
+  background-color: ${Colors.GYPSUM};
+  border: 1px solid ${Colors.BATTLESHIP};
+  color: ${Colors.OBSIDIAN};
   &:hover {
-    background-color: ${Tokens.GYPSUM};
-    border: 1px solid ${Tokens.CALYPSO} !important;
-    color: ${Tokens.OBSIDIAN};
+    background-color: ${Colors.GYPSUM};
+    border: 1px solid ${Colors.CALYPSO} !important;
+    color: ${Colors.OBSIDIAN};
   }
   &:active {
-    background-color: ${Tokens.KOALA} !important;
-    border: 1px solid ${Tokens.CALYPSO_DARK} !important;
-    color: ${Tokens.OBSIDIAN} !important;
+    background-color: ${Colors.KOALA} !important;
+    border: 1px solid ${Colors.CALYPSO_DARK} !important;
+    color: ${Colors.OBSIDIAN} !important;
     outline: none !important;
     box-shadow: none !important;
   }
   &:focus {
-    background-color: ${Tokens.GYPSUM};
-    border: 1px solid ${Tokens.BATTLESHIP};
-    color: ${Tokens.OBSIDIAN};
+    background-color: ${Colors.GYPSUM};
+    border: 1px solid ${Colors.BATTLESHIP};
+    color: ${Colors.OBSIDIAN};
     outline: none !important;
     box-shadow: none !important;
   }
@@ -50,11 +51,11 @@ const AnchorText = styled.span`
 
 const PlaceholderText = styled(AnchorText)`
   font-weight: 300;
-  color: ${Tokens.EERIE};
+  color: ${Colors.EERIE};
 `;
 
 const ValueText = styled(AnchorText)`
-  color: ${Tokens.OBSIDIAN};
+  color: ${Colors.OBSIDIAN};
 `;
 
 const UISelectButtonAnchor = ({

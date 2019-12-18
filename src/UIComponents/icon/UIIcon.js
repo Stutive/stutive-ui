@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { OBSIDIAN } from '../../constants/tokens';
+import { OBSIDIAN } from '../StyleTokens/colors';
 
 const SIZE_MAP = {
   small: 16,

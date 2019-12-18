@@ -8,12 +8,13 @@ import UISelectOption from './UISelectOption';
 import { UIUnwrappedTextInput } from './UITextInput';
 import UIIcon from '../icon/UIIcon';
 
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
+import { SIEBEL_LAYER } from '../StyleTokens/sizes';
 
 const EMPTY_FUNCTION = () => {};
 
 const DropdownCard = styled(Card)`
-  z-index: ${Tokens.SIEBEL_LAYER};
+  z-index: ${SIEBEL_LAYER};
   position: absolute;
   top: 0.5em;
   left: 0;
@@ -22,11 +23,11 @@ const DropdownCard = styled(Card)`
 `;
 
 const HeaderWrapper = styled.div`
-  background-color: ${Tokens.GYPSUM};
+  background-color: ${Colors.GYPSUM};
 `;
 
 const HeaderTitleWrapper = styled(HeaderWrapper)`
-  color: ${Tokens.OBSIDIAN} !important;
+  color: ${Colors.OBSIDIAN} !important;
   padding: 0.3em 0.5em;
   font-weight: 500;
 `;
@@ -66,13 +67,13 @@ const UISelectDropdown = ({
   const getSearchInputRightIcon = () => {
     return query ? (
       <UIIcon
-        color={Tokens.CALYPSO}
+        color={Colors.CALYPSO}
         name="fas fa-times"
         size="small"
         onClick={handleClear}
       />
     ) : (
-      <UIIcon color={Tokens.CALYPSO} name="fas fa-search" size="small" />
+      <UIIcon color={Colors.CALYPSO} name="fas fa-search" size="small" />
     );
   };
   const renderedSearchInput = searchable && (

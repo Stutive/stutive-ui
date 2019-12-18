@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Card from 'react-bootstrap/Card';
 
-import { OLAF, BATTLESHIP } from '../../constants/tokens';
+import { OLAF, BATTLESHIP } from '../StyleTokens/colors';
 
 const StyledCard = styled(Card)`
   background-color: ${OLAF};

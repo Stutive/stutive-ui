@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import useHandleClickOutside from '../lib/useHandleClickOutside';
 
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
 
 import UISelectDropdown from './UISelectDropdown';
 import UIIcon from '../icon/UIIcon';
@@ -98,7 +98,7 @@ const UISelect = ({
 
   const getIconRight = () => {
     let iconProps = {
-      color: Tokens.CALYPSO,
+      color: Colors.CALYPSO,
       size: 'small'
     };
 

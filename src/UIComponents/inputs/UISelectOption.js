@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import UITruncateString from '../text/UITruncateString';
 
-import * as Tokens from '../../constants/tokens';
+import * as Colors from '../StyleTokens/colors';
 
 const EMPTY_FUNCTION = () => {};
 
@@ -12,15 +12,15 @@ const EMPTY_FUNCTION = () => {};
  *  Option Wrappers
  */
 const DefaultOptionWrapper = styled.div`
-  border-bottom: 1px solid ${Tokens.KOALA};
+  border-bottom: 1px solid ${Colors.KOALA};
   padding: 0.6em 1.5em;
   &:hover {
-    background-color: ${Tokens.CALYPSO_LIGHT};
+    background-color: ${Colors.CALYPSO_LIGHT};
   }
 `;
 
 const FocusedOptionWrapper = styled(DefaultOptionWrapper)`
-  background-color: ${Tokens.CALYPSO_LIGHT};
+  background-color: ${Colors.CALYPSO_LIGHT};
 `;
 
 /**

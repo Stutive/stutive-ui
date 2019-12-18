@@ -1,35 +1,35 @@
-import * as Tokens from '../../../constants/tokens';
+import * as Colors from '../../StyleTokens/colors';
 
 export default {
   primary: {
     background: {
-      idle: Tokens.OZ,
-      hover: Tokens.OZ_MEDIUM,
-      active: Tokens.OZ_DARK
+      idle: Colors.OZ,
+      hover: Colors.OZ_MEDIUM,
+      active: Colors.OZ_DARK
     }
   },
   secondary: {
     background: {
-      idle: Tokens.OLAF,
-      hover: Tokens.OZ_LIGHT,
-      active: Tokens.OZ_MEDIUM
+      idle: Colors.OLAF,
+      hover: Colors.OZ_LIGHT,
+      active: Colors.OZ_MEDIUM
     },
-    border: Tokens.OZ,
-    text: Tokens.OZ
+    border: Colors.OZ,
+    text: Colors.OZ
   },
   tertiary: {
     background: {
-      idle: Tokens.OBSIDIAN,
-      hover: Tokens.HEFFALUMP,
-      active: Tokens.PANTERA
+      idle: Colors.OBSIDIAN,
+      hover: Colors.HEFFALUMP,
+      active: Colors.PANTERA
     }
   },
   'tertiary-light': {
     background: {
-      idle: Tokens.GREAT_WHITE,
-      hover: Tokens.KOALA,
-      active: Tokens.FLINT
+      idle: Colors.GREAT_WHITE,
+      hover: Colors.KOALA,
+      active: Colors.FLINT
     },
-    text: Tokens.SLINKY
+    text: Colors.SLINKY
   }
 };
