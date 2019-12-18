@@ -23,12 +23,13 @@ const getOptionFromValue = (options, value) => {
   return option;
 };
 
-const UISearchInput = ({
-  anchorType,
-  onChange,
-  options,
-  placeholder,
-  searchable,
+const UISelect = ({
+  anchorType = 'button',
+  multi = false,
+  onChange = EMPTY_FUNCTION,
+  options = [],
+  placeholder = null,
+  searchable = false,
   ...props
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -58,19 +59,41 @@ const UISearchInput = ({
   };
   const handleClear = () => setQuery('');
 
-  const [selectedText, setSelectedText] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState(null);
   const handleSelect = value => {
     const option = getOptionFromValue(options, value);
-    setSelectedText(option.text);
-    onChange(value);
-    handleHideDropdown();
-    if (anchorType === 'input') {
-      setQuery(option.text);
+    if (multi) {
+      const newSelectedOptions = (selectedOptions || []).concat([option]);
+      onChange(newSelectedOptions.map(option => option.value));
+      setSelectedOptions(newSelectedOptions);
+    } else {
+      setSelectedOptions(option);
+      onChange(value);
+      if (anchorType === 'input') {
+        setQuery(option.text);
+      }
+      handleHideDropdown();
     }
   };
-  const handleDeselect = () => {
-    onChange(null);
-    setSelectedText('');
+  const handleDeselect = value => {
+    if (multi) {
+      const option = getOptionFromValue(options, value);
+      const idx = selectedOptions.findIndex(opt => opt.value === option.value);
+      const newSelectedOptions = [
+        ...selectedOptions.slice(0, idx),
+        ...selectedOptions.slice(idx + 1)
+      ];
+      onChange(newSelectedOptions);
+      setSelectedOptions(newSelectedOptions);
+    } else {
+      onChange(null);
+      setSelectedOptions(null);
+    }
+  };
+
+  const handleSelectClear = () => {
+    onChange(multi ? [] : null);
+    setSelectedOptions(null);
   };
 
   const getIconRight = () => {
@@ -79,9 +102,13 @@ const UISearchInput = ({
       size: 'small'
     };
 
-    if (selectedText !== '') {
+    if (selectedOptions !== null) {
       return (
-        <UIIcon {...iconProps} name="fas fa-times" onClick={handleDeselect} />
+        <UIIcon
+          {...iconProps}
+          name="fas fa-times"
+          onClick={handleSelectClear}
+        />
       );
     }
 
@@ -109,8 +136,9 @@ const UISearchInput = ({
     ) : (
       <UISelectButtonAnchor
         placeholder={placeholder}
-        value={selectedText}
+        value={selectedOptions}
         onClick={handleToggleShowDropdown}
+        onDeselect={handleDeselect}
         iconRight={getIconRight(anchorType, showDropdown)}
       />
     );
@@ -120,31 +148,29 @@ const UISearchInput = ({
   return (
     <div ref={wrapperRef} style={{ position: 'relative' }} {...props}>
       {renderedAnchor}
-      <UISelectDropdown
-        options={options}
-        onSelect={handleSelect}
-        searchable={searchable && anchorType !== 'input'}
-        show={showDropdown}
-        withQuery={query}
-      />
+      <div style={{ position: 'relative' }}>
+        <UISelectDropdown
+          multi={multi}
+          options={options}
+          onSelect={handleSelect}
+          onDeselect={handleDeselect}
+          searchable={searchable && anchorType !== 'input'}
+          selectedOptions={selectedOptions}
+          show={showDropdown}
+          withQuery={query}
+        />
+      </div>
     </div>
   );
 };
 
-UISearchInput.propTypes = {
+UISelect.propTypes = {
   anchorType: PropTypes.oneOf(['input', 'button']),
+  multi: PropTypes.bool,
   onChange: PropTypes.func,
   options: PropTypes.array,
   placeholder: PropTypes.string,
   searchable: PropTypes.bool
 };
 
-UISearchInput.defaultProps = {
-  anchorType: 'button',
-  onChange: () => {},
-  options: [],
-  placeholder: null,
-  searchable: false
-};
-
-export default UISearchInput;
+export default UISelect;

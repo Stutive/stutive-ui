@@ -57,7 +57,7 @@ const UITag = ({ children, closeable, onCloseClick, use, ...props }) => {
       <UIFlex align="center">
         <div
           className={classNames(
-            'pl-2 pt-1 pb-1',
+            'pl-2',
             {
               'mr-1': closeable
             },
@@ -76,7 +76,10 @@ const UITag = ({ children, closeable, onCloseClick, use, ...props }) => {
             className="mr-2"
             color={Tokens.SLINKY}
             name="fas fa-times"
-            onClick={onCloseClick}
+            onClick={e => {
+              e.stopPropagation();
+              onCloseClick();
+            }}
             size="small"
           />
         )}

@@ -15,7 +15,7 @@ const EMPTY_FUNCTION = () => {};
 const DropdownCard = styled(Card)`
   z-index: ${Tokens.SIEBEL_LAYER};
   position: absolute;
-  top: 3em;
+  top: 0.5em;
   left: 0;
   width: 100%;
   padding: 0;
@@ -35,20 +35,23 @@ const SearchInputWrapper = styled(HeaderWrapper)`
   padding: 0.5rem;
 `;
 
+const selectedOptionsHasValue = (options, value) => {
+  return (options || []).find(option => option.value === value);
+};
+
 const UISelectDropdown = ({
   dropdownHeaderTitle = null,
+  multi = false,
   options = [],
   searchable = false,
   onSelect = EMPTY_FUNCTION,
+  onDeselect = EMPTY_FUNCTION,
+  selectedOptions,
   withQuery = null,
   show
 }) => {
   const makeHandleSelect = value => () => onSelect(value);
-
-  const [focusedOption, setFocusedOption] = useState(null);
-  const makeHandleFocus = value => () => {
-    setFocusedOption(value);
-  };
+  const makeHandleDeselect = value => () => onDeselect(value);
 
   const [query, setQuery] = useState('');
   const handleChange = e => setQuery(e.target.value);
@@ -99,19 +102,26 @@ const UISelectDropdown = ({
       .map(option => {
         const { value } = option;
 
-        const handleFocus = makeHandleFocus(value);
+        let isFocused = false;
+        if (multi) {
+          isFocused = selectedOptionsHasValue(selectedOptions, value);
+        } else {
+          isFocused = selectedOptions === value;
+        }
+        const handleDeselect = makeHandleDeselect(value);
         const handleSelect = makeHandleSelect(value);
         const handleClick = () => {
-          handleFocus();
-          handleSelect();
+          if (isFocused) {
+            handleDeselect();
+          } else {
+            handleSelect();
+          }
         };
-        const isFocused = value === focusedOption;
 
         return (
           <UISelectOption
             key={value}
             onClick={handleClick}
-            onMouseEnter={handleFocus}
             focused={isFocused}
             {...option}
           />

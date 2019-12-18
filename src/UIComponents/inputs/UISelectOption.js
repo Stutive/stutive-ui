@@ -14,6 +14,9 @@ const EMPTY_FUNCTION = () => {};
 const DefaultOptionWrapper = styled.div`
   border-bottom: 1px solid #cccccc;
   padding: 0.6em 1.5em;
+  &:hover {
+    background-color: ${Tokens.CALYPSO_LIGHT};
+  }
 `;
 
 const FocusedOptionWrapper = styled(DefaultOptionWrapper)`
