@@ -5,9 +5,9 @@ import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 import * as Colors from '../StyleTokens/colors';
 
-import UISelectDropdown from './UISelectDropdown';
 import UIIcon from '../icon/UIIcon';
-import UISelectButtonAnchor from './UISelectButtonAnchor';
+import UISelectDropdown from './internal/UISelectDropdown';
+import UISelectButtonAnchor from './internal/UISelectButtonAnchor';
 import { UIUnwrappedTextInput } from './UITextInput';
 
 const EMPTY_FUNCTION = () => {};

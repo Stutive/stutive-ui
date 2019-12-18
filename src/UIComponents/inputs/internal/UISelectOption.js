@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import UITruncateString from '../text/UITruncateString';
+import UITruncateString from '../../text/UITruncateString';
 
-import * as Colors from '../StyleTokens/colors';
+import * as Colors from '../../StyleTokens/colors';
 
 const EMPTY_FUNCTION = () => {};
 

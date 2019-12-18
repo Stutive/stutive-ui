@@ -3,8 +3,8 @@ import { action } from '@storybook/addon-actions';
 
 import UIContainer from '../containers/UIContainer';
 import UISelect from './UISelect';
-import UISelectButtonAnchor from './UISelectButtonAnchor';
-import UISelectDropdown from './UISelectDropdown';
+import UISelectButtonAnchor from './internal/UISelectButtonAnchor';
+import UISelectDropdown from './internal/UISelectDropdown';
 import UIIcon from '../icon/UIIcon';
 
 export default {

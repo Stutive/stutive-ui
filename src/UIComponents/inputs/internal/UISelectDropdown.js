@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 
 import UISelectOption from './UISelectOption';
-import { UIUnwrappedTextInput } from './UITextInput';
-import UIIcon from '../icon/UIIcon';
+import { UIUnwrappedTextInput } from '../UITextInput';
+import UIIcon from '../../icon/UIIcon';
 
-import * as Colors from '../StyleTokens/colors';
-import { SIEBEL_LAYER } from '../StyleTokens/sizes';
+import * as Colors from '../../StyleTokens/colors';
+import { SIEBEL_LAYER } from '../../StyleTokens/sizes';
 
 const EMPTY_FUNCTION = () => {};
 

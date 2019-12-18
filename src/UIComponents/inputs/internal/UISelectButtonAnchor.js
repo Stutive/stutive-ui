@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 import Button from 'react-bootstrap/Button';
 
-import UIFlex from '../layout/UIFlex';
-import UIIcon from '../icon/UIIcon';
-import UITruncateString from '../text/UITruncateString';
+import UIFlex from '../../layout/UIFlex';
+import UIIcon from '../../icon/UIIcon';
+import UITruncateString from '../../text/UITruncateString';
 
-import UITag from '../tag/UITag';
-import * as Colors from '../StyleTokens/colors';
-import { QUAD_LAYER } from '../StyleTokens/sizes';
+import UITag from '../../tag/UITag';
+import * as Colors from '../../StyleTokens/colors';
+import { QUAD_LAYER } from '../../StyleTokens/sizes';
 
 const EMPTY_FUNCTION = () => {};
 
