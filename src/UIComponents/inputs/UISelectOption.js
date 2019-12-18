@@ -12,7 +12,7 @@ const EMPTY_FUNCTION = () => {};
  *  Option Wrappers
  */
 const DefaultOptionWrapper = styled.div`
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid ${Tokens.KOALA};
   padding: 0.6em 1.5em;
   &:hover {
     background-color: ${Tokens.CALYPSO_LIGHT};

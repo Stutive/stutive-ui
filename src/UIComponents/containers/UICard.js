@@ -9,6 +9,7 @@ import { OLAF, BATTLESHIP } from '../../constants/tokens';
 const StyledCard = styled(Card)`
   background-color: ${OLAF};
   border: 1px solid ${BATTLESHIP};
+  border-radius: 1em;
 `;
 
 const UICard = ({ title, children, ...props }) => {

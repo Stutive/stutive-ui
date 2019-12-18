@@ -18,10 +18,10 @@ const ButtonAnchor = styled(Button)`
   padding: 0.2rem 0.6rem;
   width: 100%;
   min-height: 2.3rem;
-  color: ${Tokens.OBSIDIAN};
   text-align: left;
   background-color: ${Tokens.GYPSUM};
   border: 1px solid ${Tokens.BATTLESHIP};
+  color: ${Tokens.OBSIDIAN};
   &:hover {
     background-color: ${Tokens.GYPSUM};
     border: 1px solid ${Tokens.CALYPSO} !important;
@@ -36,8 +36,8 @@ const ButtonAnchor = styled(Button)`
   }
   &:focus {
     background-color: ${Tokens.GYPSUM};
-    color: ${Tokens.OBSIDIAN};
     border: 1px solid ${Tokens.BATTLESHIP};
+    color: ${Tokens.OBSIDIAN};
     outline: none !important;
     box-shadow: none !important;
   }
@@ -74,44 +74,40 @@ const UISelectButtonAnchor = ({
   const makeHandleDeselect = value => () => onDeselect(value);
 
   const renderSelected = () => {
-    if (value && typeof value === 'string') {
-      return (
-        <ValueText onClick={onClick}>
-          <UITruncateString>{value}</UITruncateString>
-        </ValueText>
-      );
-    }
-
     if (value && Array.isArray(value)) {
       return (
         <>
           {value.map(val => (
             <UITag
+              key={val.value}
               closeable={true}
               onCloseClick={makeHandleDeselect(val.value)}
             >
               {val.text}
             </UITag>
           ))}
-          <div
-            onClick={onClick}
-            style={{ flex: 1, height: '100%', width: '100%' }}
-          >
-            {' '}
-          </div>
+          <div style={{ flex: 1 }}> </div>
         </>
       );
     }
 
+    if (value) {
+      return (
+        <ValueText>
+          <UITruncateString>{value.value}</UITruncateString>
+        </ValueText>
+      );
+    }
+
     return (
-      <PlaceholderText onClick={onClick}>
+      <PlaceholderText>
         <UITruncateString>{placeholder}</UITruncateString>
       </PlaceholderText>
     );
   };
 
   return (
-    <ButtonAnchor>
+    <ButtonAnchor onClick={onClick}>
       <UIFlex align="center">
         {renderSelected()}
         {renderedIconRight}
