@@ -2,6 +2,9 @@ import * as FilterOptionsClient from '../api/FilterOptions';
 
 import { FILTER_OPTIONS_FETCH, FILTER_UPDATE } from './ActionTypes';
 
+import { getFilter } from '../selectors/filters';
+import { fetchCourses } from '../actions/Courses';
+
 export const fetchFilterOptions = () => dispatch => {
   const { __request, __receive, __error } = fetchFilterOptions;
   dispatch(__request());
@@ -35,3 +38,12 @@ export const updateFilter = (filter, value) => ({
   filter,
   value
 });
+
+export const applyFilter = () => (dispatch, getState) => {
+  const state = getState();
+
+  const filters = getFilter(state).toJS();
+  dispatch(fetchCourses(filters));
+  //  TODO: Finish Implementing this when vibhav is ready with api
+  alert(`searching with: ${JSON.stringify(filters)}`);
+};

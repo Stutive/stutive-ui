@@ -4,11 +4,11 @@ import { normalizeObjectArrayById } from '../lib/normalization/utils';
 
 import { COURSE_FETCH } from './ActionTypes';
 
-export const fetchCourses = () => dispatch => {
+export const fetchCourses = queryParams => dispatch => {
   const { __request, __receive, __error } = fetchCourses;
   dispatch(__request());
 
-  CoursesClient.fetch().then(
+  CoursesClient.fetch(queryParams).then(
     courses => {
       dispatch(__receive(courses));
     },

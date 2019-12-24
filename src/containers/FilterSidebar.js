@@ -8,7 +8,7 @@ import UIFormControl from '../UIComponents/form/UIFormControl';
 import UISelect from '../UIComponents/inputs/UISelect';
 
 import { getFilterFields } from '../selectors/filters';
-import { updateFilter } from '../actions/Filters';
+import { updateFilter, applyFilter } from '../actions/Filters';
 
 const FilterField = ({ label, onChange, options, placeholder, multi }) => {
   return (
@@ -23,7 +23,7 @@ const FilterField = ({ label, onChange, options, placeholder, multi }) => {
   );
 };
 
-const FilterSidebar = ({ filterFields, updateFilter }) => {
+const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
   const makeOnChange = field => value => {
     updateFilter(field, value);
   };
@@ -43,7 +43,9 @@ const FilterSidebar = ({ filterFields, updateFilter }) => {
     <UICard>
       <h4>Search Filters</h4>
       {renderFilterfields}
-      <UIButton use="primary">Search</UIButton>
+      <UIButton use="primary" onClick={onSearch}>
+        Search
+      </UIButton>
     </UICard>
   );
 };
@@ -58,7 +60,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  updateFilter
+  updateFilter,
+  onSearch: applyFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterSidebar);
