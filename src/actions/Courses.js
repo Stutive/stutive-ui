@@ -4,11 +4,25 @@ import { normalizeObjectArrayById } from '../lib/normalization/utils';
 
 import { COURSE_FETCH } from './ActionTypes';
 
-export const requestFetch = () => ({
+export const fetchCourses = () => dispatch => {
+  const { __request, __receive, __error } = fetchCourses;
+  dispatch(__request());
+
+  CoursesClient.fetch().then(
+    courses => {
+      dispatch(__receive(courses));
+    },
+    error => {
+      dispatch(__error(error));
+    }
+  );
+};
+
+fetchCourses.__request = () => ({
   type: COURSE_FETCH.REQUEST
 });
 
-export const receiveFetch = courses => {
+fetchCourses.__receive = courses => {
   const { allIds, objectsById } = normalizeObjectArrayById(courses);
 
   return {
@@ -18,20 +32,7 @@ export const receiveFetch = courses => {
   };
 };
 
-export const errorFetch = error => ({
+fetchCourses.__error = error => ({
   type: COURSE_FETCH.ERROR,
   error
 });
-
-export const fetchCourses = () => dispatch => {
-  dispatch(requestFetch());
-
-  CoursesClient.fetch().then(
-    courses => {
-      dispatch(receiveFetch(courses));
-    },
-    error => {
-      dispatch(errorFetch(error));
-    }
-  );
-};
