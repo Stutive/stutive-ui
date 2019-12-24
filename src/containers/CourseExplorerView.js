@@ -11,7 +11,7 @@ import { fetchFilterOptions } from '../actions/Filters';
 import { getAllCourses } from '../selectors/courses';
 import * as Colors from '../UIComponents/StyleTokens/colors';
 
-import CoursePreviewCard from './course/CoursePreviewCard';
+import CoursePreviewCard from '../components/CoursePreviewCard';
 import FilterSidebar from './FilterSidebar';
 import NavigationBar from './NavigationBar';
 

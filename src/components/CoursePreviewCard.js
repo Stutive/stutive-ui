@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import UICard from '../../UIComponents/containers/UICard';
-import UIFlex from '../../UIComponents/layout/UIFlex';
-import UIList from '../../UIComponents/list/UIList';
+import UICard from '../UIComponents/containers/UICard';
+import UIFlex from '../UIComponents/layout/UIFlex';
+import UIList from '../UIComponents/list/UIList';
 
-import GeneralEducationMap from '../../constants/GeneralEducationMap';
-import CourseInsert from '../../components/CourseInsert';
+import GeneralEducationMap from '../constants/GeneralEducationMap';
+import CourseInsert from './CourseInsert';
 
 const Title = styled.p`
   flex: 1;
