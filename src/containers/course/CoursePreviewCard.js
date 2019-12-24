@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import UICard from '../UIComponents/containers/UICard';
-import UIFlex from '../UIComponents/layout/UIFlex';
-import UIList from '../UIComponents/list/UIList';
+import UICard from '../../UIComponents/containers/UICard';
+import UIFlex from '../../UIComponents/layout/UIFlex';
+import UIList from '../../UIComponents/list/UIList';
 
-import GeneralEducationMap from '../constants/GeneralEducationMap';
+import GeneralEducationMap from '../../constants/GeneralEducationMap';
+import CourseInsert from '../../components/CourseInsert';
 
 const Title = styled.p`
   flex: 1;
@@ -32,6 +33,7 @@ const CoursePreviewCard = ({
   creditHours,
   description,
   generalEducationRequirements,
+  equivalentCourse = null,
   ...props
 }) => {
   const renderSatisfiedGeneralEducationCriteria = () => {
@@ -61,7 +63,14 @@ const CoursePreviewCard = ({
         <CreditHours>{creditHours}</CreditHours>
       </UIFlex>
       <p>{description}</p>
-      {renderSatisfiedGeneralEducationCriteria()}
+      {equivalentCourse && (
+        <CourseInsert
+          title={equivalentCourse.title}
+          description={equivalentCourse.description}
+        >
+          {renderSatisfiedGeneralEducationCriteria()}
+        </CourseInsert>
+      )}
     </UICard>
   );
 };
