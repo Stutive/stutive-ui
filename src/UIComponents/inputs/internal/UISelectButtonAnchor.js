@@ -25,12 +25,12 @@ const ButtonAnchor = styled(Button)`
   color: ${Colors.OBSIDIAN};
   &:hover {
     background-color: ${Colors.GYPSUM};
-    border: 1px solid ${Colors.CALYPSO} !important;
+    border: 1px solid ${Colors.OZ} !important;
     color: ${Colors.OBSIDIAN};
   }
   &:active {
     background-color: ${Colors.KOALA} !important;
-    border: 1px solid ${Colors.CALYPSO_DARK} !important;
+    border: 1px solid ${Colors.OZ_DARK} !important;
     color: ${Colors.OBSIDIAN} !important;
     outline: none !important;
     box-shadow: none !important;

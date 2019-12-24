@@ -14,7 +14,7 @@ const InputBorder = styled.div`
   border: 1px solid ${Colors.BATTLESHIP};
   padding: 0.2rem 0.4rem;
   &:focus-within {
-    border: 1px solid ${Colors.CALYPSO_MEDIUM};
+    border: 1px solid ${Colors.OZ_MEDIUM};
   }
 `;
 

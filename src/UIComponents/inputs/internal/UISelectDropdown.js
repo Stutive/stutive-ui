@@ -67,13 +67,13 @@ const UISelectDropdown = ({
   const getSearchInputRightIcon = () => {
     return query ? (
       <UIIcon
-        color={Colors.CALYPSO}
+        color={Colors.OZ}
         name="fas fa-times"
         size="small"
         onClick={handleClear}
       />
     ) : (
-      <UIIcon color={Colors.CALYPSO} name="fas fa-search" size="small" />
+      <UIIcon color={Colors.OZ} name="fas fa-search" size="small" />
     );
   };
   const renderedSearchInput = searchable && (

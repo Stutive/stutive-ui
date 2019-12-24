@@ -98,7 +98,7 @@ const UISelect = ({
 
   const getIconRight = () => {
     let iconProps = {
-      color: Colors.CALYPSO,
+      color: Colors.OZ,
       size: 'small'
     };
 
