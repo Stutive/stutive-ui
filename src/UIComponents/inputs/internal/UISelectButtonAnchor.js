@@ -110,8 +110,12 @@ const UISelectButtonAnchor = ({
   return (
     <ButtonAnchor onClick={onClick}>
       <UIFlex align="center">
-        {renderSelected()}
-        {renderedIconRight}
+        <UIFlex align="center" wrap="wrap" style={{ flex: 1 }}>
+          {renderSelected()}
+        </UIFlex>
+        <UIFlex direction="column" justify="center">
+          {renderedIconRight}
+        </UIFlex>
       </UIFlex>
     </ButtonAnchor>
   );

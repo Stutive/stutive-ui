@@ -91,9 +91,13 @@ const UISelect = ({
     }
   };
 
-  const handleSelectClear = () => {
+  const handleSelectClear = e => {
     onChange(multi ? [] : null);
     setSelectedOptions(null);
+    if (showDropdown) {
+      setShowDropdown(false);
+    }
+    e.stopPropagation();
   };
 
   const getIconRight = () => {

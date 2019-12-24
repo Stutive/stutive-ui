@@ -29,7 +29,8 @@ export const FILTER_OPTIONS_RESPONSE = {
           value: 'SBS',
           text: 'Social & Behavioral Science'
         }
-      ]
+      ],
+      multi: true
     },
     {
       field: 'creditHours',
@@ -56,7 +57,8 @@ export const FILTER_OPTIONS_RESPONSE = {
           value: 5,
           text: '5 Credit Hours'
         }
-      ]
+      ],
+      multi: true
     },
     {
       field: 'term',

@@ -10,13 +10,14 @@ import UISelect from '../UIComponents/inputs/UISelect';
 import { getFilterFields } from '../selectors/filters';
 import { updateFilter } from '../actions/Filters';
 
-const FilterField = ({ label, onChange, options, placeholder }) => {
+const FilterField = ({ label, onChange, options, placeholder, multi }) => {
   return (
     <UIFormControl label={label}>
       <UISelect
         onChange={onChange}
         options={options}
         placeholder={placeholder}
+        multi={multi}
       />
     </UIFormControl>
   );
@@ -34,6 +35,7 @@ const FilterSidebar = ({ filterFields, updateFilter }) => {
         onChange={makeOnChange(filterField.field)}
         options={filterField.options}
         placeholder={filterField.placeholder}
+        multi={filterField.multi}
       />
     );
   });
