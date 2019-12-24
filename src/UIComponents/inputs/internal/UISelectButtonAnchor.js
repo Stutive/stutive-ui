@@ -95,7 +95,7 @@ const UISelectButtonAnchor = ({
     if (value) {
       return (
         <ValueText>
-          <UITruncateString>{value.value}</UITruncateString>
+          <UITruncateString>{value.text}</UITruncateString>
         </ValueText>
       );
     }
