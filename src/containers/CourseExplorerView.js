@@ -33,20 +33,18 @@ const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
             <UISelect anchorType="input" className="mb-3" />
             <div>
               {courses.map(course => {
-                const key = `${course.get('subject')} ${course.get('number')}`;
+                const key = course.get('id');
+                const title = course.get('title');
 
-                const title = `${course.get('subject')} ${course.get(
-                  'number'
-                )} ${course.get('name')}`;
                 return (
                   <CoursePreviewCard
                     key={key}
-                    creditHours={course.get('creditHours')}
+                    creditHours={course.get('hours')}
                     className="mb-2"
                     description={course.get('description')}
-                    generalEducationRequirements={course.get(
-                      'generalEducation'
-                    )}
+                    generalEducationRequirements={course
+                      .get('genEdAttributes')
+                      .toJS()}
                     title={title}
                   />
                 );

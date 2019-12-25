@@ -67,10 +67,9 @@ const CoursePreviewCard = ({
         <CourseInsert
           title={equivalentCourse.title}
           description={equivalentCourse.description}
-        >
-          {renderSatisfiedGeneralEducationCriteria()}
-        </CourseInsert>
+        ></CourseInsert>
       )}
+      {renderSatisfiedGeneralEducationCriteria()}
     </UICard>
   );
 };
