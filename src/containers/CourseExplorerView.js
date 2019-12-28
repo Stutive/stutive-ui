@@ -8,14 +8,14 @@ import UISelect from '../UIComponents/inputs/UISelect';
 
 import { fetchCourses } from '../actions/Courses';
 import { fetchFilterOptions } from '../actions/Filters';
-import { getAllCourses } from '../selectors/courses';
+import { getAllIds } from '../selectors/courses';
 import * as Colors from '../UIComponents/StyleTokens/colors';
 
-import CoursePreviewCard from '../components/CoursePreviewCard';
+import CoursePreviewCard from './course/CoursePreviewCard';
 import FilterSidebar from './FilterSidebar';
 import NavigationBar from './NavigationBar';
 
-const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
+const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
   useEffect(() => {
     fetchCourses();
     fetchFilterOptions();
@@ -32,23 +32,9 @@ const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
           <Col lg={8}>
             <UISelect anchorType="input" className="mb-3" />
             <div>
-              {courses.map(course => {
-                const key = course.get('id');
-                const title = course.get('title');
-
-                return (
-                  <CoursePreviewCard
-                    key={key}
-                    creditHours={course.get('hours')}
-                    className="mb-2"
-                    description={course.get('description')}
-                    generalEducationRequirements={course
-                      .get('genEdAttributes')
-                      .toJS()}
-                    title={title}
-                  />
-                );
-              })}
+              {courseIds.map(id => (
+                <CoursePreviewCard key={id} courseId={id} />
+              ))}
             </div>
           </Col>
         </Row>
@@ -59,7 +45,7 @@ const CourseExplorer = ({ courses, fetchCourses, fetchFilterOptions }) => {
 
 const mapStateToProps = state => {
   return {
-    courses: getAllCourses(state)
+    courseIds: getAllIds(state)
   };
 };
 const mapDispatchToProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as Colors from '../UIComponents/StyleTokens/colors';
+import * as Colors from '../../../UIComponents/StyleTokens/colors';
 
 const CourseInsertWrapper = styled.div`
   font-size: 0.9em;
