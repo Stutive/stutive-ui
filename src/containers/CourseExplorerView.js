@@ -22,7 +22,7 @@ const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
   }, [fetchCourses, fetchFilterOptions]);
 
   return (
-    <div style={{ backgroundColor: Colors.KOALA }}>
+    <div style={{ backgroundColor: Colors.KOALA, height: '100vh' }}>
       <NavigationBar />
       <UIContainer className="mt-3">
         <Row>

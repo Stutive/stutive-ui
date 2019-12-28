@@ -25,7 +25,7 @@ const CoursePreviewCardContainer = ({ course }) => {
   };
 
   const renderGeneralEducation = () => {
-    const generalEducationRequirements = course.get('genEdAttributes');
+    const generalEducationRequirements = course.get('genEdAttributes').toJS();
     return <GeneralEducation requirements={generalEducationRequirements} />;
   };
 
