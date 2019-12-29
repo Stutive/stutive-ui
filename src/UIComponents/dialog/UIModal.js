@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -10,6 +10,9 @@ import UIFlex from '../layout/UIFlex';
 import UIOverlay from '../overlay/UIOverlay';
 import UIIcon from '../icon/UIIcon';
 
+import useHandleClickOutside from '../lib/useHandleClickOutside';
+
+const emptyFunction = () => {};
 const ModalCard = styled(Card)`
   width: ${props => props.width}px;
   max-width: 90%;
@@ -17,10 +20,12 @@ const ModalCard = styled(Card)`
   border: none;
 `;
 
-const UIModal = ({ children, width = 450 }) => {
+const UIModal = ({ children, onClickOutside = emptyFunction, width = 450 }) => {
+  const modalRef = useRef(null);
+  useHandleClickOutside(modalRef, onClickOutside);
   return (
     <UIOverlay>
-      <ModalCard width={width} withPadding={false}>
+      <ModalCard ref={modalRef} width={width} withPadding={false}>
         {children}
       </ModalCard>
     </UIOverlay>
@@ -64,6 +69,7 @@ UIModal.CloseButton = styled(UIIcon).attrs(props => ({
 
 UIModal.propTypes = {
   children: PropTypes.node,
+  onClickOutside: PropTypes.func,
   width: PropTypes.number
 };
 
