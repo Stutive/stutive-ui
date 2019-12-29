@@ -10,10 +10,13 @@ import * as Colors from '../StyleTokens/colors';
 const Tag = styled.div`
   color: ${Colors.OBSIDIAN};
   display: inline-block;
-  font-size: 0.75em;
+  font-size: ${props => (props.size === 'small' ? '0.75em' : '.8em')};
+  padding: ${props => (props.size === 'small' ? '0' : '.2em')};
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
+  background-color: ${props => props.backgroundColor};
+  border-color: ${props => props.borderColor};
 `;
 
 const getColors = type => {
@@ -46,14 +49,23 @@ const getColors = type => {
   }
 };
 
-const UITag = ({ children, closeable, onCloseClick, use, ...props }) => {
+const UITag = ({
+  children,
+  closeable,
+  onCloseClick,
+  size = 'small',
+  use,
+  ...props
+}) => {
   const colors = getColors(use);
-  const dynamicStyles = {
-    backgroundColor: colors.background,
-    borderColor: colors.border
-  };
   return (
-    <Tag className="m-1" style={dynamicStyles} {...props}>
+    <Tag
+      backgroundColor={colors.background}
+      borderColor={colors.border}
+      className="m-1"
+      size={size}
+      {...props}
+    >
       <UIFlex align="center">
         <div
           className={classNames(
