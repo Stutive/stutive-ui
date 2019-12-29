@@ -8,8 +8,12 @@ const ScrollContainer = styled.div`
   white-space: ${({ isVertical }) => (isVertical ? 'normal' : 'nowrap')};
 `;
 
-const UIScrollContainer = ({ children = null, direction = 'column' }) => (
-  <ScrollContainer isVertical={direction === 'column'}>
+const UIScrollContainer = ({
+  children = null,
+  direction = 'column',
+  ...props
+}) => (
+  <ScrollContainer isVertical={direction === 'column'} {...props}>
     {children}
   </ScrollContainer>
 );
