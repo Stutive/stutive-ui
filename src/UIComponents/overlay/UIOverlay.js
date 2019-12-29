@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import * as Colors from '../StyleTokens/colors';
+import { SIEBEL_LAYER } from '../StyleTokens/sizes';
 
 import UIFlex from '../layout/UIFlex';
 
@@ -14,6 +15,7 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   opacity: 0.9;
+  z-index: ${SIEBEL_LAYER};
 `;
 
 const UIOverlay = ({ children }) => {
