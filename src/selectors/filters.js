@@ -1,5 +1,7 @@
-export const getFilterFields = state => state.filters.allFields;
+export function getFilterFields(state) {
+  return state.getIn(['filters', 'allFields']);
+}
 
 export function getFilter(state) {
-  return state.filters.filter;
+  return state.getIn(['filters', 'filter']);
 }
