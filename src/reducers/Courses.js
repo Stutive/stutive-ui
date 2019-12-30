@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 import { Map, List } from 'immutable';
 import { mapValues } from 'lodash';
 
@@ -37,7 +37,21 @@ function byId(state = Map({}), action) {
   }
 }
 
+function currentPage(state = 0, action) {
+  switch (action.type) {
+    case COURSE_FETCH.RECEIVE: {
+      const { page } = action;
+
+      return page;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 export default combineReducers({
   allIds,
-  byId
+  byId,
+  currentPage
 });
