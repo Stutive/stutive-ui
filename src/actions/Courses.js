@@ -3,14 +3,21 @@ import * as CoursesClient from '../api/Courses';
 import { normalizeObjectArrayById } from '../lib/normalization/utils';
 
 import { COURSE_FETCH } from './ActionTypes';
+import { getCurrentPage, getIsValid } from '../selectors/courses';
 
-export const fetchCourses = queryParams => dispatch => {
+export const fetchCourses = queryParams => (dispatch, getState) => {
   const { __request, __receive, __error } = fetchCourses;
   dispatch(__request());
 
-  CoursesClient.fetch(queryParams).then(
+  const state = getState();
+  const currentPage = getCurrentPage(state);
+  const isValid = getIsValid(state);
+
+  const pageToFetch = isValid ? currentPage + 1 : 0;
+
+  CoursesClient.fetch(queryParams, pageToFetch).then(
     courses => {
-      dispatch(__receive(courses));
+      dispatch(__receive(courses, pageToFetch));
     },
     error => {
       dispatch(__error(error));
@@ -22,13 +29,14 @@ fetchCourses.__request = () => ({
   type: COURSE_FETCH.REQUEST
 });
 
-fetchCourses.__receive = courses => {
+fetchCourses.__receive = (courses, page) => {
   const { allIds, objectsById } = normalizeObjectArrayById(courses);
 
   return {
     type: COURSE_FETCH.RECEIVE,
     allIds,
-    coursesById: objectsById
+    coursesById: objectsById,
+    page
   };
 };
 
