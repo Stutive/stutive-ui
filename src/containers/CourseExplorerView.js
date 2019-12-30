@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+
+import UIButton from '../UIComponents/buttons/UIButton';
 import UIContainer from '../UIComponents/containers/UIContainer';
+import UIFlex from '../UIComponents/layout/UIFlex';
 import UISelect from '../UIComponents/inputs/UISelect';
 
 import { fetchCourses } from '../actions/Courses';
@@ -36,6 +39,9 @@ const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
                 <CoursePreviewCard key={id} courseId={id} />
               ))}
             </div>
+            <UIFlex justify="center" className="pt-3 pb-5">
+              <UIButton onClick={fetchCourses}>Show More Courses</UIButton>
+            </UIFlex>
           </Col>
         </Row>
       </UIContainer>

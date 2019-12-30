@@ -1,18 +1,17 @@
 import { combineReducers } from 'redux-immutable';
-import { Map, List } from 'immutable';
+import { Map, OrderedSet } from 'immutable';
 import { mapValues } from 'lodash';
 
 import Course from '../models/Course';
 
-import { COURSE_FETCH } from '../actions/ActionTypes';
+import { COURSE_FETCH, FILTER_UPDATE } from '../actions/ActionTypes';
 
-function allIds(state = List([]), action) {
+function allIds(state = OrderedSet([]), action) {
   switch (action.type) {
     case COURSE_FETCH.RECEIVE: {
       const { allIds } = action;
-      const allIdsImmutable = List(allIds);
 
-      return state.merge(allIdsImmutable);
+      return state.merge(allIds);
     }
     default: {
       return state;
@@ -37,6 +36,20 @@ function byId(state = Map({}), action) {
   }
 }
 
+function isValid(state = true, action) {
+  switch (action.type) {
+    case COURSE_FETCH.RECEIVE: {
+      return true;
+    }
+    case FILTER_UPDATE: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
 function currentPage(state = 0, action) {
   switch (action.type) {
     case COURSE_FETCH.RECEIVE: {
@@ -53,5 +66,6 @@ function currentPage(state = 0, action) {
 export default combineReducers({
   allIds,
   byId,
+  isValid,
   currentPage
 });
