@@ -42,6 +42,10 @@ UIModal.Header = styled(UIFlex)`
   );
   color: ${Colors.OLAF};
   padding: 1.2rem 1.6rem;
+  & *:nth-child(1) {
+    flex: 1;
+    padding-right: 0.5em;
+  }
 `;
 UIModal.Header.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
@@ -54,18 +58,20 @@ UIModal.Body.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
 };
 
+UIModal.Footer = styled.div`
+  background-color: ${Colors.KOALA};
+  padding: 0.6rem 1rem;
+`;
+UIModal.Footer.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired
+};
+
 /**
  *  Close button can be passed the `onClick` Global Event Handler
  */
-UIModal.CloseButton = styled(UIIcon).attrs(props => ({
-  name: 'fas fa-times',
-  color: Colors.OLAF
-}))`
-  position: absolute;
-  right: 1.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-`;
+UIModal.CloseButton = props => (
+  <UIIcon name="fas fa-times" color={Colors.OLAF} {...props} />
+);
 
 UIModal.propTypes = {
   children: PropTypes.node,
