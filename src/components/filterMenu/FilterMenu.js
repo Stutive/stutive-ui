@@ -13,6 +13,7 @@ import FilterMenuFieldModal from './FilterMenuFieldModal';
 
 const FilterMenuWrapper = styled.div`
   background-color: ${Colors.GYPSUM};
+  width: 100%;
 `;
 
 const rightSearchIcon = (
@@ -44,7 +45,7 @@ const FilterMenu = ({ options, onChange }) => {
 
   const renderFields = () => {
     const activeFields = selectedOptions.map(option => option.field);
-    return options.fields.map(field => {
+    return (options.fields || []).map(field => {
       const handleClick = () => {
         setActiveField(field);
         revealModal();
@@ -60,7 +61,7 @@ const FilterMenu = ({ options, onChange }) => {
             closeable={true}
             onClick={handleClick}
             onCloseClick={handleCloseClick}
-            size="medium"
+            size="large"
             use="success"
           >
             {field.text}
@@ -68,7 +69,7 @@ const FilterMenu = ({ options, onChange }) => {
         );
       }
       return (
-        <UITag key={field.field} onClick={handleClick} size="medium">
+        <UITag key={field.field} onClick={handleClick} size="large">
           {field.text}
         </UITag>
       );

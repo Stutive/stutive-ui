@@ -10,8 +10,8 @@ import * as Colors from '../StyleTokens/colors';
 const Tag = styled.div`
   color: ${Colors.OBSIDIAN};
   display: inline-block;
-  font-size: ${props => (props.size === 'small' ? '0.75em' : '.8em')};
-  padding: ${props => (props.size === 'small' ? '0' : '.2em')};
+  font-size: ${props => (props.size === 'small' ? '0.75em' : '.9em')};
+  padding: ${props => (props.size === 'small' ? '0' : '.3em')};
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
