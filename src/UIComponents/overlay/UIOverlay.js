@@ -8,13 +8,12 @@ import { SIEBEL_LAYER } from '../StyleTokens/sizes';
 import UIFlex from '../layout/UIFlex';
 
 const Overlay = styled.div`
-  position: absolute;
-  background-color: ${Colors.OBSIDIAN};
+  position: fixed;
+  background-color: ${Colors.OBSIDIAN}dd; /* 'dd' is for opacity */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.9;
   z-index: ${SIEBEL_LAYER};
 `;
 
