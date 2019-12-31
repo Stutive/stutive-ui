@@ -25,7 +25,7 @@ const FilterMenu = ({ options, onChange }) => {
   const revealModal = () => setShowModal(true);
   const hideModal = () => setShowModal(false);
 
-  const [activeField, setActiveField] = useState(null);
+  const [activeField, setActiveField] = useState({});
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const addSelectedOption = option => {
@@ -77,10 +77,6 @@ const FilterMenu = ({ options, onChange }) => {
   };
 
   const renderModal = () => {
-    if (!showModal) {
-      return null;
-    }
-
     const handleChange = value => {
       addSelectedOption({
         field: activeField.field,
@@ -90,6 +86,7 @@ const FilterMenu = ({ options, onChange }) => {
 
     return (
       <FilterMenuFieldModal
+        show={showModal}
         closeModal={hideModal}
         options={activeField.options}
         title={activeField.placeholder}

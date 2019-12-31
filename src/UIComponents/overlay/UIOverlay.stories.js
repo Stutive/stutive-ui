@@ -15,7 +15,7 @@ export const usage = () => {
   return (
     <UIContainer style={{ paddingTop: '2em' }}>
       <h5>Unstyled Unordered</h5>
-      <UIOverlay>
+      <UIOverlay show={true}>
         <h1
           style={{
             color: Colors.OLAF,
