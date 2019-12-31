@@ -61,7 +61,7 @@ const FilterMenu = ({ options, onChange }) => {
             closeable={true}
             onClick={handleClick}
             onCloseClick={handleCloseClick}
-            size="medium"
+            size="large"
             use="success"
           >
             {field.text}
@@ -69,7 +69,7 @@ const FilterMenu = ({ options, onChange }) => {
         );
       }
       return (
-        <UITag key={field.field} onClick={handleClick} size="medium">
+        <UITag key={field.field} onClick={handleClick} size="large">
           {field.text}
         </UITag>
       );
