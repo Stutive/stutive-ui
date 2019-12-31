@@ -12,7 +12,7 @@ const StyledNavbar = styled(Navbar)`
 const NavigationBar = () => (
   <StyledNavbar bg="light" expand="lg">
     <UIContainer>
-      <Navbar.Brand href="#home">Learn Seed</Navbar.Brand>
+      <Navbar.Brand href="#home">Stutive</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="mr-auto">
