@@ -14,7 +14,7 @@ export const usage = () => {
   return (
     <UIContainer style={{ paddingTop: '2em' }}>
       <h5>Unstyled Unordered</h5>
-      <UIModal>
+      <UIModal show={true}>
         <UIModal.Header>
           <h2>This is a modal.</h2>
         </UIModal.Header>
@@ -40,7 +40,7 @@ export const usage = () => {
 export const withCloseButton = () => (
   <UIContainer style={{ paddingTop: '2em' }}>
     <h5>Unstyled Unordered</h5>
-    <UIModal>
+    <UIModal show={true}>
       <UIModal.Header>
         <h2>This is a modal.</h2>
         <UIModal.CloseButton onClick={action('Close')} />

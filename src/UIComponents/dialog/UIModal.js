@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import Card from 'react-bootstrap/Card';
 
@@ -13,21 +13,68 @@ import UIIcon from '../icon/UIIcon';
 import useHandleClickOutside from '../lib/useHandleClickOutside';
 
 const emptyFunction = () => {};
+
+const onEnter = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const onExit = keyframes`
+  from {
+    opacity: 1;
+    transoform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+`;
+
 const ModalCard = styled(Card)`
   width: ${props => props.width}px;
   max-width: 90%;
   overflow: hidden;
   border: none;
+  animation: ${props => (props.show ? onEnter : onExit)} 0.2s ease-in-out;
 `;
 
-const UIModal = ({ children, onClickOutside = emptyFunction, width = 450 }) => {
+const UIModal = ({
+  children,
+  onClickOutside = emptyFunction,
+  width = 450,
+  show
+}) => {
+  const [shouldRender, setRender] = useState(show);
+
+  useEffect(() => {
+    if (show) setRender(true);
+  }, [show]);
+
+  const onAnimationEnd = () => {
+    if (!show) setRender(false);
+  };
+
   const modalRef = useRef(null);
   useHandleClickOutside(modalRef, onClickOutside);
   return (
-    <UIOverlay>
-      <ModalCard ref={modalRef} width={width} withPadding={false}>
-        {children}
-      </ModalCard>
+    <UIOverlay show={show}>
+      {shouldRender && (
+        <ModalCard
+          ref={modalRef}
+          width={width}
+          withPadding={false}
+          onAnimationEnd={onAnimationEnd}
+          show={show}
+        >
+          {children}
+        </ModalCard>
+      )}
     </UIOverlay>
   );
 };
@@ -76,6 +123,7 @@ UIModal.CloseButton = props => (
 UIModal.propTypes = {
   children: PropTypes.node,
   onClickOutside: PropTypes.func,
+  show: PropTypes.bool.isRequired,
   width: PropTypes.number
 };
 

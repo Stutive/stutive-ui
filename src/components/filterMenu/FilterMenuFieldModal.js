@@ -13,7 +13,8 @@ const FilterMenuFieldModal = ({
   options,
   title,
   multi = false,
-  onChange = EMPTY_FUNCTION
+  onChange = EMPTY_FUNCTION,
+  show
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(null);
   const handleChange = value => setSelectedOptions(value);
@@ -24,7 +25,7 @@ const FilterMenuFieldModal = ({
   };
 
   return (
-    <UIModal onClickOutside={closeModal}>
+    <UIModal onClickOutside={closeModal} show={show}>
       <UIModal.Header>
         <h5>{title}</h5>
         <UIModal.CloseButton onClick={closeModal} />
@@ -51,7 +52,8 @@ FilterMenuFieldModal.propTypes = {
   closeModal: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
-  multi: PropTypes.bool
+  multi: PropTypes.bool,
+  show: PropTypes.bool.isRequired
 };
 
 export default FilterMenuFieldModal;
