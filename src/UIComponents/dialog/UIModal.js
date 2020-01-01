@@ -42,6 +42,7 @@ const ModalCard = styled(Card)`
   overflow: hidden;
   border: none;
   animation: ${props => (props.show ? onEnter : onExit)} 0.2s ease-in-out;
+  border-radius: 1em;
 `;
 
 const UIModal = ({
