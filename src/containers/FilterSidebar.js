@@ -15,7 +15,14 @@ import FilterMenu from '../components/filterMenu/FilterMenu';
 import { getFilterFields } from '../selectors/filters';
 import { updateFilter, applyFilter } from '../actions/Filters';
 
-const FilterField = ({ label, onChange, options, placeholder, multi }) => {
+const FilterField = ({
+  label,
+  onChange,
+  options,
+  placeholder,
+  multi,
+  searchable
+}) => {
   return (
     <UIFormControl label={label}>
       <UISelect
@@ -23,6 +30,7 @@ const FilterField = ({ label, onChange, options, placeholder, multi }) => {
         options={options}
         placeholder={placeholder}
         multi={multi}
+        searchable={true}
       />
     </UIFormControl>
   );
@@ -59,6 +67,7 @@ const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
         options={filterField.options}
         placeholder={filterField.placeholder}
         multi={filterField.multi}
+        searchable={filterField.searchable}
       />
     );
   });
