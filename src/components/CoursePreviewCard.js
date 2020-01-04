@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import FormattedCreditHours from '../UIComponents/FormatLib/FormattedCreditHours';
 import UICard from '../UIComponents/containers/UICard';
 import UIFlex from '../UIComponents/layout/UIFlex';
 
@@ -43,7 +44,9 @@ const CoursePreviewCard = ({
     <UICard {...props}>
       <UIFlex align="center" wrap="wrap" style={flexAdditionalStyles}>
         <Title>{title}</Title>
-        <CreditHours>{creditHours}</CreditHours>
+        <CreditHours>
+          <FormattedCreditHours value={creditHours} />
+        </CreditHours>
       </UIFlex>
       {children}
     </UICard>

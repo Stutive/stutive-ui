@@ -11,7 +11,7 @@ import GeneralEducation from '../../components/course/sections/GeneralEducation'
 
 const CoursePreviewCardContainer = ({ course }) => {
   const title = course.get('title');
-  const hours = course.get('hours');
+  const hours = course.get('hours').toJS();
   const description = course.get('description');
 
   const renderCourseInsert = () => {
