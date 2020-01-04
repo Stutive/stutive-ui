@@ -2,18 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
-import UIButton from '../UIComponents/buttons/UIButton';
-import UICard from '../UIComponents/containers/UICard';
-import UIContainer from '../UIComponents/containers/UIContainer';
-import UIFormControl from '../UIComponents/form/UIFormControl';
-import UISelect from '../UIComponents/inputs/UISelect';
-import useDeviceType from '../UIComponents/lib/useDeviceType';
+import UIButton from '../../UIComponents/buttons/UIButton';
+import UICard from '../../UIComponents/containers/UICard';
+import UIFormControl from '../../UIComponents/form/UIFormControl';
+import UISelect from '../../UIComponents/inputs/UISelect';
 
-import FilterMenu from '../components/filterMenu/FilterMenu';
-
-import { getFilterFields } from '../selectors/filters';
-import { updateFilter, applyFilter } from '../actions/Filters';
+import { getFilterFields } from '../../selectors/filters';
+import { updateFilter, applyFilter } from '../../actions/Filters';
 
 const FilterField = ({
   label,
@@ -37,23 +32,7 @@ const FilterField = ({
 };
 
 const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
-  const deviceType = useDeviceType();
-
   if (!filterFields) return null;
-
-  if (
-    deviceType === DEVICE_TYPE_ENUM.PHONE ||
-    deviceType === DEVICE_TYPE_ENUM.PHABLET
-  ) {
-    return (
-      <FilterMenu
-        options={{
-          fields: filterFields.toJS()
-        }}
-        onChange={val => console.log(val)}
-      />
-    );
-  }
 
   const makeOnChange = field => value => {
     updateFilter(field, value);
@@ -72,15 +51,13 @@ const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
     );
   });
   return (
-    <UIContainer className="mt-3">
-      <UICard>
-        <h4>Search Filters</h4>
-        {renderFilterfields}
-        <UIButton use="primary" onClick={onSearch}>
-          Search
-        </UIButton>
-      </UICard>
-    </UIContainer>
+    <UICard>
+      <h4>Search Filters</h4>
+      {renderFilterfields}
+      <UIButton use="primary" onClick={onSearch}>
+        Search
+      </UIButton>
+    </UICard>
   );
 };
 
