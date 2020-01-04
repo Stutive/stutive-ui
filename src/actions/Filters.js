@@ -2,7 +2,6 @@ import * as FilterOptionsClient from '../api/FilterOptions';
 
 import { FILTER_OPTIONS_FETCH, FILTER_UPDATE } from './ActionTypes';
 
-import { getFilter } from '../selectors/filters';
 import { fetchCourses } from '../actions/Courses';
 
 export const fetchFilterOptions = () => dispatch => {
@@ -40,11 +39,4 @@ export const updateFilter = (filter, value) => (dispatch, getState) => {
     value
   });
   dispatch(fetchCourses());
-};
-
-export const applyFilter = () => (dispatch, getState) => {
-  const state = getState();
-
-  const filters = getFilter(state).toJS();
-  dispatch(fetchCourses(filters));
 };

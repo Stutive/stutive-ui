@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import UIButton from '../../UIComponents/buttons/UIButton';
 import UICard from '../../UIComponents/containers/UICard';
 import UIFormControl from '../../UIComponents/form/UIFormControl';
 import UISelect from '../../UIComponents/inputs/UISelect';
 
 import { getFilter, getFilterFields } from '../../selectors/filters';
-import { updateFilter, applyFilter } from '../../actions/Filters';
+import { updateFilter } from '../../actions/Filters';
 
 const FilterField = ({
   label,
@@ -33,7 +32,7 @@ const FilterField = ({
   );
 };
 
-const FilterSidebar = ({ filter, filterFields, updateFilter, onSearch }) => {
+const FilterSidebar = ({ filter, filterFields, updateFilter }) => {
   if (!filterFields) return null;
 
   const makeOnChange = field => value => {
@@ -58,9 +57,6 @@ const FilterSidebar = ({ filter, filterFields, updateFilter, onSearch }) => {
     <UICard>
       <h4>Search Filters</h4>
       {renderFilterfields}
-      <UIButton use="primary" onClick={onSearch}>
-        Search
-      </UIButton>
     </UICard>
   );
 };
@@ -76,8 +72,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  updateFilter,
-  onSearch: applyFilter
+  updateFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterSidebar);
