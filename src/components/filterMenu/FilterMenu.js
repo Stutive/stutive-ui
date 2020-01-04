@@ -20,7 +20,7 @@ const rightSearchIcon = (
   <UIIcon color={Colors.OZ} name="fas fa-search" size="small" />
 );
 
-const FilterMenu = ({ options, onChange }) => {
+const FilterMenu = ({ options, onFieldChange }) => {
   const [showModal, setShowModal] = useState(false);
   const revealModal = () => setShowModal(true);
   const hideModal = () => setShowModal(false);
@@ -30,7 +30,7 @@ const FilterMenu = ({ options, onChange }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const addSelectedOption = option => {
     const newSelectedOptions = [...selectedOptions, option];
-    onChange(newSelectedOptions);
+    onFieldChange(option.field, option.value);
     setSelectedOptions(newSelectedOptions);
   };
   const removeSelectedOptions = option => {
@@ -39,7 +39,7 @@ const FilterMenu = ({ options, onChange }) => {
       ...selectedOptions.slice(0, idx),
       ...selectedOptions.slice(idx + 1)
     ];
-    onChange(newSelectedOptions);
+    onFieldChange(option.field, null);
     setSelectedOptions(newSelectedOptions);
   };
 
