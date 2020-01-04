@@ -232,39 +232,68 @@ export const FILTER_OPTIONS_RESPONSE = {
       ]
     },
     {
-      field: 'generalEducation',
+      field: 'genEds',
       text: 'General Education Requirements',
       placeholder: 'Select a Gen Ed Requirement',
       options: [
         {
-          value: 'ACP',
+          value: 'CS1US',
+          text: 'Cultural Studies - US Minority Cultures'
+        },
+        {
+          value: 'SBS1SS',
+          text: 'Social and Behavioral Sciences - Social Sciences'
+        },
+        {
+          value: 'HUM1HP',
+          text:
+            'Humanities & the Arts - Historical and Philosophical Perspectives'
+        },
+        {
+          value: 'HUM1LA',
+          text: 'Humanities & the Arts - Literature and the Arts'
+        },
+        {
+          value: 'CS1NW',
+          text: 'Cultural Studies - Non-Western Culture(s)'
+        },
+        {
+          value: 'ACP1CLL',
           text: 'Advanced Composition'
         },
         {
-          value: 'CS',
-          text: 'Cultural Studies'
+          value: 'QR1QR1',
+          text: 'Quantitative Reasoning I'
         },
         {
-          value: 'HUM',
-          text: 'Humanities & the Arts'
+          value: 'NAT1LS',
+          text: 'Natural Science and Technology - Life Sciences'
         },
         {
-          value: 'NAT',
-          text: 'Natural Science & Technology'
+          value: 'CS1WCC',
+          text: 'Cultural Studies - Western/Comparative Culture(s)'
         },
         {
-          value: 'QR',
-          text: 'Quantitative Reasoning'
+          value: 'SBS1BSC',
+          text: 'Social and Behavioral Sciences - Behavioral Sciences'
         },
         {
-          value: 'SBS',
-          text: 'Social & Behavioral Science'
+          value: 'NAT1PS',
+          text: 'Natural Science and Technology - Physical Sciences'
+        },
+        {
+          value: 'QR1QR2',
+          text: 'Quantitative Reasoning II'
+        },
+        {
+          value: 'COMP11FC1',
+          text: 'Composition I'
         }
       ],
       multi: true
     },
     {
-      field: 'creditHours',
+      field: 'hours',
       text: 'Credit Hours',
       placeholder: 'Select a Credit Hour',
       options: [

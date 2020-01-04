@@ -23,6 +23,24 @@ const getOptionFromValue = (options, value) => {
   return option;
 };
 
+const initializeSelectedOptions = (options, value, multi) => {
+  if (!value) {
+    return null;
+  }
+
+  if (multi) {
+    return value.map(val => ({
+      text: (getOptionFromValue(options, val) || {}).text,
+      value: val
+    }));
+  } else {
+    return {
+      text: (getOptionFromValue(options, value) || {}).text,
+      value
+    };
+  }
+};
+
 const UISelect = ({
   anchorType = 'button',
   multi = false,
@@ -30,15 +48,13 @@ const UISelect = ({
   options = [],
   placeholder = null,
   searchable = false,
+  value = null,
   ...props
 }) => {
+  /*  Dropdown  */
   const [showDropdown, setShowDropdown] = useState(false);
-  const handleShowDropdown = () => {
-    setShowDropdown(true);
-  };
-  const handleHideDropdown = () => {
-    setShowDropdown(false);
-  };
+  const handleShowDropdown = () => setShowDropdown(true);
+  const handleHideDropdown = () => setShowDropdown(false);
   const handleToggleShowDropdown = () => {
     if (showDropdown) {
       handleHideDropdown();
@@ -47,6 +63,7 @@ const UISelect = ({
     }
   };
 
+  /*  Query */
   const [query, setQuery] = useState(null);
   const handleChange = e => {
     const newQuery = e.target.value;
@@ -59,7 +76,9 @@ const UISelect = ({
   };
   const handleClear = () => setQuery('');
 
-  const [selectedOptions, setSelectedOptions] = useState(null);
+  /*  Selected Options  */
+  const initial = initializeSelectedOptions(options, value, multi);
+  const [selectedOptions, setSelectedOptions] = useState(initial);
   const handleSelect = value => {
     const option = getOptionFromValue(options, value);
     if (multi) {
@@ -77,27 +96,32 @@ const UISelect = ({
   };
   const handleDeselect = value => {
     if (multi) {
+      if (selectedOptions.length === 1) {
+        handleSelectClear();
+        return;
+      }
       const option = getOptionFromValue(options, value);
       const idx = selectedOptions.findIndex(opt => opt.value === option.value);
       const newSelectedOptions = [
         ...selectedOptions.slice(0, idx),
         ...selectedOptions.slice(idx + 1)
       ];
-      onChange(newSelectedOptions);
+      onChange(newSelectedOptions.map(option => option.value));
       setSelectedOptions(newSelectedOptions);
     } else {
       onChange(null);
       setSelectedOptions(null);
     }
   };
-
   const handleSelectClear = e => {
     onChange(multi ? [] : null);
     setSelectedOptions(null);
     if (showDropdown) {
       setShowDropdown(false);
     }
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
   };
 
   const getIconRight = () => {
@@ -174,7 +198,8 @@ UISelect.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.array,
   placeholder: PropTypes.string,
-  searchable: PropTypes.bool
+  searchable: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string])
 };
 
 export default UISelect;

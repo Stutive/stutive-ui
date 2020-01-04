@@ -4,6 +4,7 @@ import { normalizeObjectArrayById } from '../lib/normalization/utils';
 
 import { COURSE_FETCH } from './ActionTypes';
 import { getCurrentPage, getIsValid } from '../selectors/courses';
+import { getFilter } from '../selectors/filters';
 
 export const fetchCourses = queryParams => (dispatch, getState) => {
   const { __request, __receive, __error } = fetchCourses;
@@ -11,6 +12,7 @@ export const fetchCourses = queryParams => (dispatch, getState) => {
 
   const state = getState();
   const currentPage = getCurrentPage(state);
+  const queryParams = getFilter(state).toJS();
   const isValid = getIsValid(state);
 
   const pageToFetch = isValid ? currentPage + 1 : 0;
