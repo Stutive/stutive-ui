@@ -13,6 +13,9 @@ function allIds(state = OrderedSet([]), action) {
 
       return state.merge(allIds);
     }
+    case FILTER_UPDATE: {
+      return OrderedSet([]);
+    }
     default: {
       return state;
     }

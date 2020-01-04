@@ -31,7 +31,6 @@ const Input = styled.input`
 export const UIUnwrappedTextInput = ({
   iconRight = null,
   textInputRef = null,
-  value,
   ...props
 }) => {
   let renderedIconRight = null;
@@ -48,7 +47,6 @@ export const UIUnwrappedTextInput = ({
           type="text"
           name="hi"
           ref={textInputRef}
-          value={value || ''}
           {...props}
         />
         {renderedIconRight}

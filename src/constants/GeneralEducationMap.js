@@ -1,6 +1,6 @@
 export default {
   COMP11FC1: 'Composition I',
-  'ACP1-CLL': 'Advanced Composition',
+  ACP1CLL: 'Advanced Composition',
   HUM: 'Humanities & the Arts',
   HUM1HP: 'Humanities & the Arts - Historical and Philosophical Perspectives',
   HUM1LA: 'Humanities & the Arts - Literature and the Arts ',

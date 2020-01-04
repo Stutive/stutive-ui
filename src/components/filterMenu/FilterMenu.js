@@ -20,31 +20,33 @@ const rightSearchIcon = (
   <UIIcon color={Colors.OZ} name="fas fa-search" size="small" />
 );
 
-const FilterMenu = ({ options, onChange }) => {
+const FilterMenu = ({ value = {}, options, onFieldChange }) => {
   const [showModal, setShowModal] = useState(false);
   const revealModal = () => setShowModal(true);
   const hideModal = () => setShowModal(false);
 
   const [activeField, setActiveField] = useState({});
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(value);
   const addSelectedOption = option => {
-    const newSelectedOptions = [...selectedOptions, option];
-    onChange(newSelectedOptions);
+    onFieldChange(option.field, option.value);
+    const newSelectedOptions = {
+      ...selectedOptions,
+      [option.field]: option.value
+    };
     setSelectedOptions(newSelectedOptions);
   };
   const removeSelectedOptions = option => {
-    const idx = selectedOptions.findIndex(opt => opt.field === option.field);
-    const newSelectedOptions = [
-      ...selectedOptions.slice(0, idx),
-      ...selectedOptions.slice(idx + 1)
-    ];
-    onChange(newSelectedOptions);
+    onFieldChange(option.field, null);
+    const newSelectedOptions = {
+      ...selectedOptions
+    };
+    delete newSelectedOptions[option.field];
     setSelectedOptions(newSelectedOptions);
   };
 
   const renderFields = () => {
-    const activeFields = selectedOptions.map(option => option.field);
+    const activeFields = Object.keys(selectedOptions);
     return (options.fields || []).map(field => {
       const handleClick = () => {
         setActiveField(field);

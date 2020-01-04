@@ -1,4 +1,4 @@
-import client from 'axios';
+import client from './clients/Client';
 
 const BASE_API_URL = `https://learn-seed.herokuapp.com/learn-seed`;
 
@@ -10,7 +10,8 @@ export function fetch(queryParams, page = 0) {
       .get(`${BASE_API_URL}/course`, {
         params: {
           start: page * DEFAULT_PAGINATION_LIMIT,
-          limit: DEFAULT_PAGINATION_LIMIT
+          limit: DEFAULT_PAGINATION_LIMIT,
+          ...queryParams
         }
       })
       .then(

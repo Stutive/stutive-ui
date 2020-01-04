@@ -33,17 +33,18 @@ fetchFilterOptions.__error = error => ({
   error
 });
 
-export const updateFilter = (filter, value) => ({
-  type: FILTER_UPDATE,
-  filter,
-  value
-});
+export const updateFilter = (filter, value) => (dispatch, getState) => {
+  dispatch({
+    type: FILTER_UPDATE,
+    filter,
+    value
+  });
+  dispatch(fetchCourses());
+};
 
 export const applyFilter = () => (dispatch, getState) => {
   const state = getState();
 
   const filters = getFilter(state).toJS();
   dispatch(fetchCourses(filters));
-  //  TODO: Finish Implementing this when vibhav is ready with api
-  alert(`searching with: ${JSON.stringify(filters)}`);
 };
