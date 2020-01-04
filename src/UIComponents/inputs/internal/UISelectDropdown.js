@@ -16,8 +16,8 @@ const EMPTY_FUNCTION = () => {};
 
 const DropdownCard = styled(Card)`
   z-index: ${SIEBEL_LAYER};
-  position: absolute;
-  top: 0.5em;
+  position: ${({ asListSelect }) => (asListSelect ? 'relative' : 'absolute')};
+  top: ${({ asListSelect }) => (asListSelect ? '0' : '0.5em')};
   left: 0;
   width: 100%;
   padding: 0;
@@ -50,7 +50,8 @@ const UISelectDropdown = ({
   onDeselect = EMPTY_FUNCTION,
   selectedOptions,
   withQuery = null,
-  show
+  show,
+  asListSelect = false
 }) => {
   const makeHandleSelect = value => () => onSelect(value);
   const makeHandleDeselect = value => () => onDeselect(value);
@@ -108,7 +109,7 @@ const UISelectDropdown = ({
         if (multi) {
           isFocused = selectedOptionsHasValue(selectedOptions, value);
         } else {
-          isFocused = selectedOptions === value;
+          isFocused = (selectedOptions || {}).value === value;
         }
         const handleDeselect = makeHandleDeselect(value);
         const handleSelect = makeHandleSelect(value);
@@ -142,7 +143,7 @@ const UISelectDropdown = ({
   if (!show) return null;
 
   return (
-    <DropdownCard>
+    <DropdownCard asListSelect={asListSelect}>
       {[renderedHeader, renderedSearchInput, renderOptions()]}
     </DropdownCard>
   );
