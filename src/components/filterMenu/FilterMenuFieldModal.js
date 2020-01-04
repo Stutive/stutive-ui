@@ -5,7 +5,6 @@ import UIButton from '../../UIComponents/buttons/UIButton';
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIModal from '../../UIComponents/dialog/UIModal';
 import UIListSelect from '../../UIComponents/inputs/UIListSelect';
-import UIScrollContainer from '../../UIComponents/containers/UIScrollContainer';
 
 const EMPTY_FUNCTION = () => {};
 
@@ -15,6 +14,7 @@ const FilterMenuFieldModal = ({
   title,
   multi = false,
   onChange = EMPTY_FUNCTION,
+  searchable = false,
   show
 }) => {
   const [selectedOptions, setSelectedOptions] = useState(null);
@@ -32,14 +32,13 @@ const FilterMenuFieldModal = ({
         <UIModal.CloseButton onClick={closeModal} />
       </UIModal.Header>
       <UIModal.Body>
-        <div className="pt-4 pb-3">
-          <UIScrollContainer style={{ maxHeight: '300px' }}>
-            <UIListSelect
-              multi={multi}
-              onChange={handleChange}
-              options={options}
-            />
-          </UIScrollContainer>
+        <div className="pt-3 pb-3">
+          <UIListSelect
+            multi={multi}
+            onChange={handleChange}
+            options={options}
+            searchable={searchable}
+          />
         </div>
       </UIModal.Body>
       <UIModal.Footer>
@@ -56,6 +55,7 @@ FilterMenuFieldModal.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
   multi: PropTypes.bool,
+  searchable: PropTypes.bool,
   show: PropTypes.bool.isRequired
 };
 

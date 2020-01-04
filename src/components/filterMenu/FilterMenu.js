@@ -94,6 +94,7 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
         title={activeField.placeholder}
         multi={activeField.multi}
         onChange={handleChange}
+        searchable={activeField.searchable}
       />
     );
   };
