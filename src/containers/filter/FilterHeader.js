@@ -21,7 +21,7 @@ const FilterHeader = ({ filterFields = [], updateFilter, filter }) => {
 
 FilterHeader.propTypes = {
   /*  @connect  */
-  filterFields: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterFields: PropTypes.object.isRequired,
   updateFilter: PropTypes.func.isRequired
 };
 

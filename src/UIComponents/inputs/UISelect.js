@@ -51,13 +51,10 @@ const UISelect = ({
   value = null,
   ...props
 }) => {
+  /*  Dropdown  */
   const [showDropdown, setShowDropdown] = useState(false);
-  const handleShowDropdown = () => {
-    setShowDropdown(true);
-  };
-  const handleHideDropdown = () => {
-    setShowDropdown(false);
-  };
+  const handleShowDropdown = () => setShowDropdown(true);
+  const handleHideDropdown = () => setShowDropdown(false);
   const handleToggleShowDropdown = () => {
     if (showDropdown) {
       handleHideDropdown();
@@ -66,6 +63,7 @@ const UISelect = ({
     }
   };
 
+  /*  Query */
   const [query, setQuery] = useState(null);
   const handleChange = e => {
     const newQuery = e.target.value;
@@ -78,6 +76,7 @@ const UISelect = ({
   };
   const handleClear = () => setQuery('');
 
+  /*  Selected Options  */
   const initial = initializeSelectedOptions(options, value, multi);
   const [selectedOptions, setSelectedOptions] = useState(initial);
   const handleSelect = value => {
@@ -110,7 +109,6 @@ const UISelect = ({
       setSelectedOptions(null);
     }
   };
-
   const handleSelectClear = e => {
     onChange(multi ? [] : null);
     setSelectedOptions(null);
@@ -194,7 +192,8 @@ UISelect.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.array,
   placeholder: PropTypes.string,
-  searchable: PropTypes.bool
+  searchable: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string])
 };
 
 export default UISelect;
