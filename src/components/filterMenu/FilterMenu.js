@@ -27,24 +27,26 @@ const FilterMenu = ({ options, onFieldChange }) => {
 
   const [activeField, setActiveField] = useState({});
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({});
   const addSelectedOption = option => {
-    const newSelectedOptions = [...selectedOptions, option];
     onFieldChange(option.field, option.value);
+    const newSelectedOptions = {
+      ...selectedOptions,
+      [option.field]: option.value
+    };
     setSelectedOptions(newSelectedOptions);
   };
   const removeSelectedOptions = option => {
-    const idx = selectedOptions.findIndex(opt => opt.field === option.field);
-    const newSelectedOptions = [
-      ...selectedOptions.slice(0, idx),
-      ...selectedOptions.slice(idx + 1)
-    ];
     onFieldChange(option.field, null);
+    const newSelectedOptions = {
+      ...selectedOptions
+    };
+    delete newSelectedOptions[option.field];
     setSelectedOptions(newSelectedOptions);
   };
 
   const renderFields = () => {
-    const activeFields = selectedOptions.map(option => option.field);
+    const activeFields = Object.keys(selectedOptions);
     return (options.fields || []).map(field => {
       const handleClick = () => {
         setActiveField(field);
