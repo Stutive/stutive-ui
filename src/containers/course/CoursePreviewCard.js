@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getById } from '../../selectors/courses';
-import CourseModel from '../../models/Course';
 
 import CoursePreviewCard from '../../components/CoursePreviewCard';
 import CourseInsert from '../../components/course/sections/CourseInsert';
@@ -39,9 +38,9 @@ const CoursePreviewCardContainer = ({ course }) => {
 };
 
 CoursePreviewCardContainer.propTypes = {
-  courseId: PropTypes.number.isRequired,
+  courseId: PropTypes.string.isRequired,
   /*  @connect  */
-  course: PropTypes.instanceOf(CourseModel)
+  course: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => {

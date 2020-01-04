@@ -55,7 +55,7 @@ const CoursePreviewCard = ({
 
 CoursePreviewCard.propTypes = {
   title: PropTypes.string,
-  creditHours: PropTypes.string,
+  creditHours: PropTypes.arrayOf(PropTypes.number),
   children: PropTypes.node
 };
 

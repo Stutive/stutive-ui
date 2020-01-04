@@ -25,7 +25,7 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
   const revealModal = () => setShowModal(true);
   const hideModal = () => setShowModal(false);
 
-  const [activeField, setActiveField] = useState({});
+  const [activeField, setActiveField] = useState(null);
 
   const [selectedOptions, setSelectedOptions] = useState(value);
   const addSelectedOption = option => {
@@ -79,6 +79,10 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
   };
 
   const renderModal = () => {
+    if (!activeField) {
+      return null;
+    }
+
     const handleChange = value => {
       addSelectedOption({
         field: activeField.field,
@@ -114,8 +118,8 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
 };
 
 FilterMenu.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onChange: PropTypes.func.isRequired
+  options: PropTypes.object.isRequired,
+  onFieldChange: PropTypes.func.isRequired
 };
 
 export default FilterMenu;
