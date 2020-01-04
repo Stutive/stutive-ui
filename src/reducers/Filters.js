@@ -25,6 +25,11 @@ function filter(state = Map(), action) {
       if (!value) {
         return state.delete(filter);
       }
+
+      if (Array.isArray(value) && value.length === 0) {
+        return state.delete(filter);
+      }
+
       return state.set(filter, value);
     }
     default: {
