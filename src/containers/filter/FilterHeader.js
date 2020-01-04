@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateFilter } from '../../actions/Filters';
-import { getFilterFields } from '../../selectors/filters';
+import { getFilterFields, getFilter } from '../../selectors/filters';
 
 import FilterMenu from '../../components/filterMenu/FilterMenu';
 
-const FilterHeader = ({ filterFields = [], updateFilter }) => {
+const FilterHeader = ({ filterFields = [], updateFilter, filter }) => {
   return (
     <FilterMenu
+      value={filter.toJS()}
       options={{
         fields: filterFields.toJS()
       }}
@@ -25,7 +26,8 @@ FilterHeader.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  filterFields: getFilterFields(state)
+  filterFields: getFilterFields(state),
+  filter: getFilter(state)
 });
 
 const mapDispatchToProps = {
