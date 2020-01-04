@@ -5,6 +5,7 @@ import UIButton from '../../UIComponents/buttons/UIButton';
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIModal from '../../UIComponents/dialog/UIModal';
 import UIListSelect from '../../UIComponents/inputs/UIListSelect';
+import UIScrollContainer from '../../UIComponents/containers/UIScrollContainer';
 
 const EMPTY_FUNCTION = () => {};
 
@@ -32,11 +33,13 @@ const FilterMenuFieldModal = ({
       </UIModal.Header>
       <UIModal.Body>
         <div className="pt-4 pb-3">
-          <UIListSelect
-            multi={multi}
-            onChange={handleChange}
-            options={options}
-          />
+          <UIScrollContainer style={{ maxHeight: '300px' }}>
+            <UIListSelect
+              multi={multi}
+              onChange={handleChange}
+              options={options}
+            />
+          </UIScrollContainer>
         </div>
       </UIModal.Body>
       <UIModal.Footer>

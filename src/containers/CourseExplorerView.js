@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 import UIButton from '../UIComponents/buttons/UIButton';
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UIFlex from '../UIComponents/layout/UIFlex';
@@ -14,7 +17,8 @@ import useDeviceType from '../UIComponents/lib/useDeviceType';
 import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
 
 import CoursePreviewCard from './course/CoursePreviewCard';
-import FilterSidebar from './FilterSidebar';
+import FilterHeader from './filter/FilterHeader';
+import FilterSidebar from './filter/FilterSidebar';
 import NavigationBar from './NavigationBar';
 
 const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
@@ -24,7 +28,7 @@ const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
   }, [fetchCourses, fetchFilterOptions]);
 
   const deviceType = useDeviceType();
-  const shouldRenderMobileVersion =
+  const isMobile =
     deviceType === DEVICE_TYPE_ENUM.PHONE ||
     deviceType === DEVICE_TYPE_ENUM.PHABLET;
 
@@ -38,19 +42,12 @@ const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
           height: '100%'
         }}
       >
-        <UIFlex wrap={shouldRenderMobileVersion ? 'wrap' : 'nowrap'}>
-          <div
-            style={{
-              flex: `2 0 ${shouldRenderMobileVersion ? '100%' : 'auto'}`
-            }}
-          >
-            <FilterSidebar />
-          </div>
-          <div style={{ flex: `5 1 auto` }}>
-            <UIContainer className="mt-3">
-              {!shouldRenderMobileVersion && (
-                <UISelect anchorType="input" className="mb-3" />
-              )}
+        {isMobile && <FilterHeader />}
+        <UIContainer className="pt-3">
+          <Row>
+            <Col md={4}>{!isMobile && <FilterSidebar />}</Col>
+            <Col md={8}>
+              {!isMobile && <UISelect anchorType="input" className="mb-3" />}
               <div>
                 {courseIds.map(id => (
                   <CoursePreviewCard key={id} courseId={id} />
@@ -59,9 +56,9 @@ const CourseExplorer = ({ courseIds, fetchCourses, fetchFilterOptions }) => {
               <UIFlex justify="center" className="pt-3 pb-5">
                 <UIButton onClick={fetchCourses}>Show More Courses</UIButton>
               </UIFlex>
-            </UIContainer>
-          </div>
-        </UIFlex>
+            </Col>
+          </Row>
+        </UIContainer>
       </div>
     </>
   );

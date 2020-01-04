@@ -12,13 +12,17 @@ const StyledCard = styled(Card)`
   border-radius: 1em;
 `;
 
+const StyledCardBody = styled(Card.Body)`
+  padding: 0.8em;
+`;
+
 const UICard = ({ title, children, ...props }) => {
   return (
     <StyledCard {...props}>
-      <Card.Body>
+      <StyledCardBody>
         {title && <Card.Title>{title}</Card.Title>}
         {children}
-      </Card.Body>
+      </StyledCardBody>
     </StyledCard>
   );
 };

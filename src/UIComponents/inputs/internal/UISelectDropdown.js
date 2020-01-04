@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import UISelectOption from './UISelectOption';
 import { UIUnwrappedTextInput } from '../UITextInput';
 import UIIcon from '../../icon/UIIcon';
+import UIScrollContainer from '../../containers/UIScrollContainer';
 
 import * as Colors from '../../StyleTokens/colors';
 import { SIEBEL_LAYER } from '../../StyleTokens/sizes';
@@ -131,7 +132,11 @@ const UISelectDropdown = ({
     if (renderedOptions.length === 0) {
       renderedOptions = <UISelectOption key="no-options" text="No results" />;
     }
-    return renderedOptions;
+    return (
+      <UIScrollContainer style={{ maxHeight: '300px' }}>
+        {renderedOptions}
+      </UIScrollContainer>
+    );
   };
 
   if (!show) return null;
