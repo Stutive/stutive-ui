@@ -96,13 +96,17 @@ const UISelect = ({
   };
   const handleDeselect = value => {
     if (multi) {
+      if (selectedOptions.length === 1) {
+        handleSelectClear();
+        return;
+      }
       const option = getOptionFromValue(options, value);
       const idx = selectedOptions.findIndex(opt => opt.value === option.value);
       const newSelectedOptions = [
         ...selectedOptions.slice(0, idx),
         ...selectedOptions.slice(idx + 1)
       ];
-      onChange(newSelectedOptions);
+      onChange(newSelectedOptions.map(option => option.value));
       setSelectedOptions(newSelectedOptions);
     } else {
       onChange(null);
@@ -115,7 +119,9 @@ const UISelect = ({
     if (showDropdown) {
       setShowDropdown(false);
     }
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
   };
 
   const getIconRight = () => {
