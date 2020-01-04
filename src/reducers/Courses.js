@@ -39,6 +39,20 @@ function byId(state = Map({}), action) {
   }
 }
 
+function isFetching(state = false, action) {
+  switch (action.type) {
+    case COURSE_FETCH.REQUEST: {
+      return true;
+    }
+    case COURSE_FETCH.RECEIVE:
+    case COURSE_FETCH.ERROR: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+}
 function isValid(state = true, action) {
   switch (action.type) {
     case COURSE_FETCH.RECEIVE: {
@@ -69,6 +83,7 @@ function currentPage(state = 0, action) {
 export default combineReducers({
   allIds,
   byId,
+  isFetching,
   isValid,
   currentPage
 });

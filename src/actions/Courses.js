@@ -6,7 +6,7 @@ import { COURSE_FETCH } from './ActionTypes';
 import { getCurrentPage, getIsValid } from '../selectors/courses';
 import { getFilter } from '../selectors/filters';
 
-export const fetchCourses = queryParams => (dispatch, getState) => {
+export const fetchCourses = () => (dispatch, getState) => {
   const { __request, __receive, __error } = fetchCourses;
   dispatch(__request());
 

@@ -6,6 +6,10 @@ export function getById(state) {
   return state.getIn(['courses', 'byId']);
 }
 
+export function getIsFetching(state) {
+  return state.getIn(['courses', 'isFetching']);
+}
+
 export function getIsValid(state) {
   return state.getIn(['courses', 'isValid']);
 }
