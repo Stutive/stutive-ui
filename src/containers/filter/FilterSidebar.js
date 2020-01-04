@@ -7,7 +7,7 @@ import UICard from '../../UIComponents/containers/UICard';
 import UIFormControl from '../../UIComponents/form/UIFormControl';
 import UISelect from '../../UIComponents/inputs/UISelect';
 
-import { getFilterFields } from '../../selectors/filters';
+import { getFilter, getFilterFields } from '../../selectors/filters';
 import { updateFilter, applyFilter } from '../../actions/Filters';
 
 const FilterField = ({
@@ -16,7 +16,8 @@ const FilterField = ({
   options,
   placeholder,
   multi,
-  searchable
+  searchable,
+  value
 }) => {
   return (
     <UIFormControl label={label}>
@@ -25,19 +26,21 @@ const FilterField = ({
         options={options}
         placeholder={placeholder}
         multi={multi}
-        searchable={true}
+        searchable={searchable}
+        value={value}
       />
     </UIFormControl>
   );
 };
 
-const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
+const FilterSidebar = ({ filter, filterFields, updateFilter, onSearch }) => {
   if (!filterFields) return null;
 
   const makeOnChange = field => value => {
     updateFilter(field, value);
   };
   const renderFilterfields = filterFields.map(filterField => {
+    const value = filter.get(filterField.field);
     return (
       <FilterField
         key={filterField.field}
@@ -47,6 +50,7 @@ const FilterSidebar = ({ filterFields, updateFilter, onSearch }) => {
         placeholder={filterField.placeholder}
         multi={filterField.multi}
         searchable={filterField.searchable}
+        value={value}
       />
     );
   });
@@ -67,7 +71,8 @@ FilterSidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  filterFields: getFilterFields(state)
+  filterFields: getFilterFields(state),
+  filter: getFilter(state)
 });
 
 const mapDispatchToProps = {

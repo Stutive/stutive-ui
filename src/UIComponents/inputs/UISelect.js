@@ -23,6 +23,24 @@ const getOptionFromValue = (options, value) => {
   return option;
 };
 
+const initializeSelectedOptions = (options, value, multi) => {
+  if (!value) {
+    return null;
+  }
+
+  if (multi) {
+    return value.map(val => ({
+      text: (getOptionFromValue(options, val) || {}).text,
+      value: val
+    }));
+  } else {
+    return {
+      text: (getOptionFromValue(options, value) || {}).text,
+      value
+    };
+  }
+};
+
 const UISelect = ({
   anchorType = 'button',
   multi = false,
@@ -30,6 +48,7 @@ const UISelect = ({
   options = [],
   placeholder = null,
   searchable = false,
+  value = null,
   ...props
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -59,7 +78,8 @@ const UISelect = ({
   };
   const handleClear = () => setQuery('');
 
-  const [selectedOptions, setSelectedOptions] = useState(null);
+  const initial = initializeSelectedOptions(options, value, multi);
+  const [selectedOptions, setSelectedOptions] = useState(initial);
   const handleSelect = value => {
     const option = getOptionFromValue(options, value);
     if (multi) {
