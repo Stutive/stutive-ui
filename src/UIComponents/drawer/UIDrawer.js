@@ -28,16 +28,17 @@ const onExit = keyframes`
 `;
 
 const DrawerContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   min-height: 300px;
   padding: 1rem;
-  background-color: ${Colors.KOALA};
+  background-color: ${Colors.OLAF};
   border-radius: 1em 1em 0 0;
   border: 1px solid ${Colors.FLINT};
   border-bottom: none;
+  box-shadow: 0px -3px 20px 0px rgba(0, 0, 0, 0.1);
   animation: ${({ show }) => (show ? onEnter : onExit)} 0.2s
     ${({ show }) => (show ? 'ease-out' : 'ease-in')};
 `;
@@ -78,7 +79,7 @@ const UIDrawer = ({
       <UIFlex justify="center">
         <DrawerTitle>{title}</DrawerTitle>
       </UIFlex>
-      <div>{children}</div>
+      <div className="pt-2">{children}</div>
     </DrawerContainer>
   );
 };
