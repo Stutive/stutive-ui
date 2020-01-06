@@ -63,7 +63,9 @@ const UISelectDropdown = ({
   };
 
   const renderedHeader = dropdownHeaderTitle && (
-    <HeaderTitleWrapper>{dropdownHeaderTitle}</HeaderTitleWrapper>
+    <HeaderTitleWrapper key="dropdown__header__title">
+      {dropdownHeaderTitle}
+    </HeaderTitleWrapper>
   );
 
   const getSearchInputRightIcon = () => {
@@ -79,7 +81,7 @@ const UISelectDropdown = ({
     );
   };
   const renderedSearchInput = searchable && (
-    <SearchInputWrapper>
+    <SearchInputWrapper key="dropdown__header__search-input">
       <UIUnwrappedTextInput
         onChange={handleChange}
         value={query}

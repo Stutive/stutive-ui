@@ -24,8 +24,9 @@ const fadeOut = keyframes`
     opacity: 0;
   }
 `;
-
-const Overlay = styled.div`
+const Overlay = styled(({ show, children, ...props }) => (
+  <div {...props}>{children}</div>
+))`
   position: fixed;
   top: 0;
   left: 0;

@@ -11,7 +11,7 @@ import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
 
 const Title = styled.p`
   flex: 1;
-  font-size: 1.4em;
+  font-size: 1.1em;
   font-weight: 600;
   margin-bottom: 0;
 `;
@@ -20,7 +20,7 @@ const CreditHours = styled.p`
   flex-basis: initial;
   whitespace: nowrap;
   font-weight: 200;
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin-bottom: 0;
 `;
 
