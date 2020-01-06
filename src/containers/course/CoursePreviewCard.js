@@ -2,13 +2,47 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import * as Colors from '../../UIComponents/StyleTokens/colors';
+import UIFlex from '../../UIComponents/layout/UIFlex';
+import UIIcon from '../../UIComponents/icon/UIIcon';
+
 import { getById } from '../../selectors/courses';
+import { getIsCourseInSchedule } from '../../selectors/schedules';
+import {
+  scheduleAddCourse,
+  scheduleRemoveCourse
+} from '../../actions/Schedules';
 
 import CoursePreviewCard from '../../components/CoursePreviewCard';
 import CourseInsert from '../../components/course/sections/CourseInsert';
 import GeneralEducation from '../../components/course/sections/GeneralEducation';
 
-const CoursePreviewCardContainer = ({ course }) => {
+const ScheduleButton = ({ handleAdd, handleRemove, isInSchedule }) => (
+  <UIFlex justify="center" onClick={isInSchedule ? handleRemove : handleAdd}>
+    <div style={{ height: '100%' }}>
+      <UIIcon
+        color={isInSchedule ? Colors.CANDY_APPLE : Colors.OZ}
+        name={isInSchedule ? 'fas fa-calendar-times' : 'fas fa-calendar-plus'}
+        size="small"
+      />
+    </div>
+    <span
+      style={{
+        paddingLeft: '7px',
+        color: isInSchedule ? Colors.CANDY_APPLE : Colors.OZ
+      }}
+    >
+      {isInSchedule ? 'Remove from schedule' : 'Add to Schedule'}
+    </span>
+  </UIFlex>
+);
+
+const CoursePreviewCardContainer = ({
+  addCourseFromSchedule,
+  removeCourseFromSchedule,
+  course,
+  isInSchedule
+}) => {
   const title = course.get('title');
   const hours = course.get('hours').toJS();
   const description = course.get('description');
@@ -33,6 +67,11 @@ const CoursePreviewCardContainer = ({ course }) => {
       <p>{description}</p>
       {renderCourseInsert()}
       {renderGeneralEducation()}
+      <ScheduleButton
+        handleAdd={addCourseFromSchedule}
+        handleRemove={removeCourseFromSchedule}
+        isInSchedule={isInSchedule}
+      />
     </CoursePreviewCard>
   );
 };
@@ -46,8 +85,23 @@ CoursePreviewCardContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const coursesById = getById(state);
   return {
-    course: coursesById.get(ownProps.courseId)
+    course: coursesById.get(ownProps.courseId),
+    isInSchedule: getIsCourseInSchedule(state, ownProps)
   };
 };
 
-export default connect(mapStateToProps, null)(CoursePreviewCardContainer);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addCourseFromSchedule: () => {
+      dispatch(scheduleAddCourse(ownProps.courseId));
+    },
+    removeCourseFromSchedule: () => {
+      dispatch(scheduleRemoveCourse(ownProps.courseId));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursePreviewCardContainer);

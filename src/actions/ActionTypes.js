@@ -13,3 +13,7 @@ export const FILTER_OPTIONS_FETCH = {
 };
 
 export const FILTER_UPDATE = 'FILTER_UPDATE';
+
+/*  state.schedule Actions  */
+export const SCHEDULE_ADD_COURSE = `SCHEDULE_ADD_COURSE`;
+export const SCHEDULE_REMOVE_COURSE = `SCHEDULE_REMOVE_COURSE`;

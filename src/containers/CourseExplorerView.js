@@ -21,6 +21,7 @@ import CoursePreviewCard from './course/CoursePreviewCard';
 import FilterHeader from './filter/FilterHeader';
 import FilterSidebar from './filter/FilterSidebar';
 import NavigationBar from './NavigationBar';
+import ScheduleDrawer from './ScheduleDrawer';
 
 const CourseExplorer = ({
   courseIds,
@@ -69,31 +70,39 @@ const CourseExplorer = ({
     );
   };
   return (
-    <div
-      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
-    >
-      <NavigationBar />
+    <>
       <div
         style={{
+          minHeight: '100vh',
           position: 'relative',
-          backgroundColor: Colors.KOALA,
-          flexGrow: 1,
           display: 'flex',
           flexDirection: 'column'
         }}
       >
-        {isMobile && <FilterHeader />}
-        <UIContainer className="pt-3">
-          <Row>
-            <Col md={4}>{!isMobile && <FilterSidebar />}</Col>
-            <Col md={8}>
-              {!isMobile && <UISelect anchorType="input" className="mb-3" />}
-              {renderBody()}
-            </Col>
-          </Row>
-        </UIContainer>
+        <NavigationBar />
+        <div
+          style={{
+            position: 'relative',
+            backgroundColor: Colors.KOALA,
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+          {isMobile && <FilterHeader />}
+          <UIContainer className="pt-3">
+            <Row>
+              <Col md={4}>{!isMobile && <FilterSidebar />}</Col>
+              <Col md={8}>
+                {!isMobile && <UISelect anchorType="input" className="mb-3" />}
+                {renderBody()}
+              </Col>
+            </Row>
+          </UIContainer>
+        </div>
       </div>
-    </div>
+      <ScheduleDrawer />
+    </>
   );
 };
 
