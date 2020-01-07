@@ -1,25 +1,6 @@
 export const FILTER_OPTIONS_RESPONSE = {
   fields: [
     {
-      field: 'term',
-      text: 'Term',
-      placeholder: 'Select a Term',
-      options: [
-        {
-          value: '2019-FALL',
-          text: 'Fall 2019'
-        },
-        {
-          value: '2020-WINTER',
-          text: 'Winter 2020'
-        },
-        {
-          value: '2020-SPRING',
-          text: 'Spring 2020'
-        }
-      ]
-    },
-    {
       field: 'subject',
       text: 'Subject',
       placeholder: 'Select a Subject',
