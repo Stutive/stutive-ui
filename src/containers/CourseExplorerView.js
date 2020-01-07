@@ -74,6 +74,8 @@ const CourseExplorer = ({
       <div
         style={{
           minHeight: '100vh',
+          backgroundColor: Colors.KOALA,
+          paddingTop: '7vh',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column'
@@ -83,7 +85,6 @@ const CourseExplorer = ({
         <div
           style={{
             position: 'relative',
-            backgroundColor: Colors.KOALA,
             flexGrow: 1,
             display: 'flex',
             flexDirection: 'column'
