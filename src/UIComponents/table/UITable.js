@@ -11,7 +11,6 @@ const TableWrapper = styled.div`
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  border-radius: 1rem;
   border: 1px solid ${Colors.GREAT_WHITE};
   background-color: ${Colors.OLAF};
 
@@ -34,20 +33,21 @@ const Table = styled.table`
   }
 
   & td {
-    padding: 1.5rem 2.5rem;
+    padding: ${props => (props.condensed ? '.75rem 2.5rem' : '1.5rem 2.5rem')};
     font-weight: 400;
   }
 `;
 
-const UITable = ({ children = null }) => {
+const UITable = ({ condensed = false, children = null }) => {
   return (
     <TableWrapper>
-      <Table>{children}</Table>
+      <Table condensed={condensed}>{children}</Table>
     </TableWrapper>
   );
 };
 
 UITable.propTypes = {
+  condensed: PropTypes.bool,
   children: PropTypes.node
 };
 
