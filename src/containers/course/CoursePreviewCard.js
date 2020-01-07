@@ -18,7 +18,11 @@ import CourseInsert from '../../components/course/sections/CourseInsert';
 import GeneralEducation from '../../components/course/sections/GeneralEducation';
 
 const ScheduleButton = ({ handleAdd, handleRemove, isInSchedule }) => (
-  <UIFlex justify="center" onClick={isInSchedule ? handleRemove : handleAdd}>
+  <UIFlex
+    className="pt-3"
+    justify="center"
+    onClick={isInSchedule ? handleRemove : handleAdd}
+  >
     <div style={{ height: '100%' }}>
       <UIIcon
         color={isInSchedule ? Colors.CANDY_APPLE : Colors.OZ}
