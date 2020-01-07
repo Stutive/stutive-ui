@@ -326,6 +326,8 @@ export const MCB = {
   title: 'Molecular & Cellular Biology, BSLAS',
   requirements: [
     {
+      title: 'Degree Requirements',
+      display: 'SECTION',
       type: 'AND',
       requirements: [
         {

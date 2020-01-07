@@ -1,26 +1,48 @@
 import React from 'react';
 
+import UICard from '../../UIComponents/containers/UICard';
+
+import CourseGroupTypeEnum from '../../constants/CourseGroupTypeEnum';
+
+import CourseGroupTable from './CourseGroupTable';
+
 const CourseGroup = props => {
-  const { title, requirements = [], display } = props;
+  const { title, description, requirements = [], display } = props;
+
+  if (display === CourseGroupTypeEnum.TABLE) {
+    return (
+      <CourseGroupTable
+        title={title}
+        description={description}
+        requirements={requirements}
+      />
+    );
+  }
 
   const renderHeader = () => {
-    if (display === 'SECTION') {
-      return <h3>{title}</h3>;
-    }
-    return <h4>{title}</h4>;
+    return (
+      <UICard>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </UICard>
+    );
   };
 
   const renderBody = () => {
     return requirements.map(requirement => {
       if (typeof requirement === 'string') {
-        return <p>{requirement}</p>;
+        return <UICard>{requirement}</UICard>;
       }
-      return <CourseGroup {...requirement} />;
+      return (
+        <div>
+          <CourseGroup {...requirement} />
+        </div>
+      );
     });
   };
 
   return (
-    <div>
+    <div style={{ paddingBottom: '2em' }}>
       {renderHeader()}
       {renderBody()}
     </div>
