@@ -40,14 +40,6 @@ const CourseExplorer = ({
     deviceType === DEVICE_TYPE_ENUM.PHABLET;
 
   const renderBody = () => {
-    if (isFetching) {
-      return (
-        <UIFlex justify="center" className="mt-5">
-          <UILoadingSpinner />
-        </UIFlex>
-      );
-    }
-
     if (courseIds.size === 0) {
       return (
         <UIFlex justify="center" className="mt-5">
@@ -63,9 +55,15 @@ const CourseExplorer = ({
             <CoursePreviewCard key={id} courseId={id} />
           ))}
         </div>
-        <UIFlex justify="center" className="pt-3 pb-5">
-          <UIButton onClick={fetchCourses}>Show More Courses</UIButton>
-        </UIFlex>
+        {isFetching ? (
+          <UIFlex justify="center" className="mt-5">
+            <UILoadingSpinner />
+          </UIFlex>
+        ) : (
+          <UIFlex justify="center" className="pt-3 pb-5">
+            <UIButton onClick={fetchCourses}>Show More Courses</UIButton>
+          </UIFlex>
+        )}
       </>
     );
   };
