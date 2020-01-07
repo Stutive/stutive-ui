@@ -4,12 +4,16 @@ export const CS = {
     {
       type: 'AND',
       title: 'Orientation and Professional Development',
+      description:
+        'These courses introduce the opportunities and resources your college, department, and curriculum can offer you as you work to achieve your career goals. They also provide the skills to work effectively and successfully in the engineering profession.',
       display: 'SECTION',
       requirements: ['CS 100', 'CS 210', 'ENG 100']
     },
     {
       type: 'AND',
       title: 'Foundation Mathematics and Science',
+      description:
+        'These courses stress the basic mathematical and scientific principles upon which the engineering discipline is based.',
       display: 'SECTION',
       requirements: [
         'MATH 221',
@@ -71,6 +75,8 @@ export const CS = {
     {
       type: 'AND',
       title: 'Computer Science Technical Core',
+      description:
+        'These courses stress fundamental concepts and basic laboratory techniques that comprise the common intellectual understanding of computer science.',
       display: 'SECTION',
       requirements: [
         'CS 125',
@@ -88,11 +94,15 @@ export const CS = {
     {
       type: 'AND',
       title: 'Technical Electives',
+      description:
+        'These courses stress the rigorous analysis and design principles practiced in major subdisciplines of computer science. Students select eight courses, at least six of which must be advanced CS courses.  Three courses must be selected from one area of CS and at least one course should satisfy the team project requirement.',
       display: 'SECTION',
       requirements: [
         {
           type: 'OR',
           title: 'Team Project Requirement',
+          description:
+            'Technical electives to be chosen from departmentally approved list below. One of the six CS courses must satisfy the team project requirement using any of the following courses below, taken at the University of Illinois Urbana-Champaign (study abroad or transfer equivalents of these courses may not satisfy the Team Project requirement):',
           display: 'TABLE',
           requirements: [
             'CS 427',
@@ -110,6 +120,8 @@ export const CS = {
         {
           type: 'OR',
           title: 'Focus Area',
+          description:
+            'Three of the CS courses must be chosen from a single focus area, from among the areas below:',
           display: 'SECTION',
           requirements: [
             {
@@ -301,7 +313,10 @@ export const CS = {
     {
       type: 'CREDIT',
       number: 6,
+      display: 'SECTION',
       title: 'Computer Science Advanced Electives',
+      description:
+        "Students must take at least two courses comprising at least 6 hours of 400-level coursework in ANY area offered at the University (including independent study - CS 397 may also be used to count towards these two additional advanced courses). These might be CS courses but don't have to be. Courses must be taken for a letter grade (CS 491 and other seminar courses do not count). It is expected that students will select these additional advanced courses in a way that best augments their program of study. Consultation with faculty mentor is highly encouraged.",
       requirements: ['XX 4--']
     }
   ]
