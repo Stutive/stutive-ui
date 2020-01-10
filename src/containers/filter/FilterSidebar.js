@@ -54,11 +54,7 @@ const FilterSidebar = ({ filter, filterFields, updateFilter }) => {
     );
   });
   return (
-    <UICard
-      style={{
-        position: 'fixed'
-      }}
-    >
+    <UICard>
       <h4>Search Filters</h4>
       {renderFilterfields}
     </UICard>

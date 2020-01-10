@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
 import UIButton from '../UIComponents/buttons/UIButton';
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UIFlex from '../UIComponents/layout/UIFlex';
 import UILoadingSpinner from '../UIComponents/loading/UISpinner';
-import UISelect from '../UIComponents/inputs/UISelect';
 
 import { fetchCourses } from '../actions/Courses';
 import { fetchFilterOptions } from '../actions/Filters';
@@ -41,6 +39,14 @@ const CourseExplorer = ({
 
   const renderBody = () => {
     if (courseIds.size === 0) {
+      if (isFetching) {
+        return (
+          <UIFlex justify="center" className="mt-5">
+            <UILoadingSpinner />
+          </UIFlex>
+        );
+      }
+
       return (
         <UIFlex justify="center" className="mt-5">
           <h3>No courses found.</h3>
@@ -76,7 +82,8 @@ const CourseExplorer = ({
           paddingTop: '7vh',
           position: 'relative',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          overflowY: 'hidden'
         }}
       >
         <NavigationBar />
@@ -89,14 +96,15 @@ const CourseExplorer = ({
           }}
         >
           {isMobile && <FilterHeader />}
+          <div style={{ position: 'fixed', width: '100%' }}>
+            <UIContainer className="pt-3">
+              <Col md={{ span: 4 }}>{!isMobile && <FilterSidebar />}</Col>
+            </UIContainer>
+          </div>
           <UIContainer className="pt-3">
-            <Row>
-              <Col md={4}>{!isMobile && <FilterSidebar />}</Col>
-              <Col md={8}>
-                {!isMobile && <UISelect anchorType="input" className="mb-3" />}
-                {renderBody()}
-              </Col>
-            </Row>
+            <Col md={{ span: 8, offset: 4 }}>
+              <div>{renderBody()}</div>
+            </Col>
           </UIContainer>
         </div>
       </div>
