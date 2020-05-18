@@ -11,6 +11,8 @@ import UILoadingSpinner from '../UIComponents/loading/UISpinner';
 import { fetchCourses } from '../actions/Courses';
 import { fetchFilterOptions } from '../actions/Filters';
 import { getAllIds, getIsFetching } from '../selectors/courses';
+import { fetchGPAData } from '../actions/GPAData';
+
 import * as Colors from '../UIComponents/StyleTokens/colors';
 import useDeviceType from '../UIComponents/lib/useDeviceType';
 import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
@@ -24,6 +26,7 @@ import ScheduleDrawer from './ScheduleDrawer';
 const CourseExplorer = ({
   courseIds,
   fetchCourses,
+  fetchGPAData,
   fetchFilterOptions,
   isFetching
 }) => {
@@ -31,6 +34,10 @@ const CourseExplorer = ({
     fetchCourses();
     fetchFilterOptions();
   }, [fetchCourses, fetchFilterOptions]);
+
+  useEffect(() => {
+    fetchGPAData();
+  }, [courseIds, fetchGPAData]);
 
   const deviceType = useDeviceType();
   const isMobile =
@@ -120,6 +127,7 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = {
+  fetchGPAData,
   fetchCourses,
   fetchFilterOptions
 };

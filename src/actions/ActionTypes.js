@@ -5,6 +5,13 @@ export const COURSE_FETCH = {
   ERROR: 'COURSE_FETCH_ERROR'
 };
 
+/*  state.gpaData Actions */
+export const GPA_DATA_FETCH = {
+  REQUEST: 'GPA_DATA_FETCH_REQUEST',
+  RECEIVE: 'GPA_DATA_FETCH_RECEIVE',
+  ERROR: 'GPA_DATA_FETCH_ERROR'
+};
+
 /*  state.filter Actions  */
 export const FILTER_OPTIONS_FETCH = {
   REQUEST: 'FILTER_OPTIONS_FETCH_REQUEST',
