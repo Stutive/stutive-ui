@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 import * as Colors from '../../UIComponents/StyleTokens/colors';
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIIcon from '../../UIComponents/icon/UIIcon';
+import UIGPADistributionVis from '../../UIComponents/visualization/UIGPADistributionVis';
 
+import {
+  calculateDistributionIntervalsByCourseId,
+  calculateAverageGPAByCourseId
+} from '../../selectors/gpaData';
 import { getById } from '../../selectors/courses';
 import { getIsCourseInSchedule } from '../../selectors/schedules';
 import {
@@ -45,7 +50,8 @@ const CoursePreviewCardContainer = ({
   addCourseFromSchedule,
   removeCourseFromSchedule,
   course,
-  isInSchedule
+  isInSchedule,
+  gpa
 }) => {
   const title = course.get('title');
   const hours = course.get('hours').toJS();
@@ -66,11 +72,29 @@ const CoursePreviewCardContainer = ({
     return <GeneralEducation requirements={generalEducationRequirements} />;
   };
 
+  const renderGPAVisualization = () => {
+    if (!gpa.average || !gpa.distribution) {
+      return null;
+    }
+
+    return (
+      <div className="pt-3">
+        <UIGPADistributionVis
+          average={gpa.average}
+          middle50Range={gpa.distribution.middle50Interval}
+          middle75Range={gpa.distribution.middle75Interval}
+          middle90Range={gpa.distribution.middle90Interval}
+        />
+      </div>
+    );
+  };
+
   return (
     <CoursePreviewCard title={title} creditHours={hours} className="mb-2">
       <p>{description}</p>
       {renderCourseInsert()}
       {renderGeneralEducation()}
+      {renderGPAVisualization()}
       <ScheduleButton
         handleAdd={addCourseFromSchedule}
         handleRemove={removeCourseFromSchedule}
@@ -88,8 +112,16 @@ CoursePreviewCardContainer.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const coursesById = getById(state);
+  const course = coursesById.get(ownProps.courseId);
+  const props = {
+    course_id: course.get('code')
+  };
   return {
-    course: coursesById.get(ownProps.courseId),
+    course,
+    gpa: {
+      distribution: calculateDistributionIntervalsByCourseId(state, props),
+      average: calculateAverageGPAByCourseId(state, props)
+    },
     isInSchedule: getIsCourseInSchedule(state, ownProps)
   };
 };

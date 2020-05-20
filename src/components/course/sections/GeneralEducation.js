@@ -11,13 +11,13 @@ const GeneralEducation = ({ requirements }) => {
   }
 
   return (
-    <>
+    <div className="p-1">
       {requirements.map(requirement => (
         <UITag use="warning" key={requirement}>
           {GeneralEducationMap[requirement]}
         </UITag>
       ))}
-    </>
+    </div>
   );
 };
 
