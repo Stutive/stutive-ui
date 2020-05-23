@@ -6,7 +6,8 @@ export default {
       idle: Colors.OZ,
       hover: Colors.OZ_MEDIUM,
       active: Colors.OZ_DARK
-    }
+    },
+    text: Colors.OLAF
   },
   secondary: {
     background: {
@@ -22,7 +23,8 @@ export default {
       idle: Colors.OBSIDIAN,
       hover: Colors.HEFFALUMP,
       active: Colors.PANTERA
-    }
+    },
+    text: Colors.OLAF
   },
   'tertiary-light': {
     background: {
