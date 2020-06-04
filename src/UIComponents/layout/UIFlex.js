@@ -11,7 +11,6 @@ const FlexWrapper = styled.div`
   & > * {
     min-width: 0;
   }
-  width: 100%;
 `;
 
 const UIFlex = ({ children, ...props }) => {

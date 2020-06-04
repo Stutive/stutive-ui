@@ -87,16 +87,12 @@ const UIOptionButton = ({
 
 UIOptionButton.withIcon = ({ iconComponent = null, labelComponent = null }) => (
   <UIFlex direction="column" style={{ height: '100%' }}>
-    <UIFlex justify="center" style={{ flexGrow: 1 }}>
-      <UIFlex
-        direction="column"
-        justify="center"
-        style={{ height: '100%', width: 'initial' }}
-      >
+    <UIFlex justify="center" style={{ flexGrow: 1, width: '100%' }}>
+      <UIFlex direction="column" justify="center" style={{ height: '100%' }}>
         {iconComponent}
       </UIFlex>
     </UIFlex>
-    <UIFlex justify="center" style={{ flexGrow: -1 }}>
+    <UIFlex justify="center" style={{ flexGrow: -1, width: '100%' }}>
       {labelComponent}
     </UIFlex>
   </UIFlex>
