@@ -1,13 +1,12 @@
 import React from 'react';
 
+import ComingSoon from '../components/ComingSoon';
 import Page from '../components/Page';
 
 const GenEdView = () => {
   return (
     <Page>
-      <div>
-        <h1>GenEd View</h1>
-      </div>
+      <ComingSoon />
     </Page>
   );
 };
