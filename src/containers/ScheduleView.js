@@ -1,12 +1,22 @@
 import React from 'react';
 
-import ComingSoon from '../components/ComingSoon';
+import UICard from '../UIComponents/containers/UICard';
+import UIContainer from '../UIComponents/containers/UIContainer';
+
 import Page from '../components/Page';
+import SubjectTable from '../components/subject/SubjectTable';
 
 const ScheduleView = () => {
   return (
     <Page>
-      <ComingSoon />
+      <UIContainer>
+        <UICard className="mt-5 col-md-10 offset-md-1">
+          <SubjectTable
+            filterKeyword=""
+            onSubjectClick={s => alert(s)}
+          ></SubjectTable>
+        </UICard>
+      </UIContainer>
     </Page>
   );
 };
