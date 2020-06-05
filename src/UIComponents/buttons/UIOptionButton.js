@@ -15,6 +15,7 @@ const Button = styled.div`
     colors.border ? `1px solid ${colors.border}` : 'none'};
   border-radius: ${BORDER_RADIUS.DEFAULT};
   margin-right: 8px;
+  margin-bottom: 8px;
   background-color: ${({ colors, active, hovered }) =>
     colors.background[active ? 'active' : hovered ? 'hover' : 'idle']};
   color: ${({ colors }) => colors.text};

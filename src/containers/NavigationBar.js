@@ -14,11 +14,19 @@ const StyledNavbar = styled(Navbar)`
 const NavigationBar = () => (
   <StyledNavbar bg="dark" expand="lg" fixed="top">
     <UIContainer>
-      <Navbar.Brand href="#home">Stutive</Navbar.Brand>
+      <Navbar.Brand href="/">Stutive</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="/">Home</Nav.Link>
+        </Nav>
+        <Nav className="mr-auto">
+          <Nav.Link href="/search">Search</Nav.Link>
+        </Nav>
+        <Nav className="mr-auto">
+          <Nav.Link href="/general-education">
+            General Education Requirements
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </UIContainer>
