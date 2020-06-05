@@ -11,7 +11,7 @@ const Page = ({ children }) => {
         style={{
           minHeight: '100vh',
           backgroundColor: Colors.KOALA,
-          paddingTop: '7vh',
+          paddingTop: '5vh',
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
