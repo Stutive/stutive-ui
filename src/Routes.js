@@ -5,6 +5,7 @@ import CourseExplorerView from './containers/CourseExplorerView';
 import HomeView from './containers/HomeView';
 import GenEdView from './containers/GenEdView';
 import ScheduleView from './containers/ScheduleView';
+import SubjectView from './containers/SubjectView';
 
 const Routes = () => {
   return (
@@ -18,6 +19,9 @@ const Routes = () => {
         </Route>
         <Route path="/general-education">
           <GenEdView />
+        </Route>
+        <Route path="/schedule/:subjectCode">
+          <SubjectView />
         </Route>
         <Route path="/schedule">
           <ScheduleView />
