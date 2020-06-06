@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 
-import UIButton from '../UIComponents/buttons/UIButton';
 import UIContainer from '../UIComponents/containers/UIContainer';
-import UIFlex from '../UIComponents/layout/UIFlex';
-import UILoadingSpinner from '../UIComponents/loading/UISpinner';
 
 import { fetchCourses } from '../actions/Courses';
 import { fetchFilterOptions } from '../actions/Filters';
@@ -17,10 +14,10 @@ import useDeviceType from '../UIComponents/lib/useDeviceType';
 import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
 
 import Page from '../components/Page';
-import CoursePreviewCard from './course/CoursePreviewCard';
 import FilterHeader from './filter/FilterHeader';
 import FilterSidebar from './filter/FilterSidebar';
 import ScheduleDrawer from './ScheduleDrawer';
+import CourseList from '../components/course/CourseList';
 
 const CourseExplorer = ({
   courseIds,
@@ -43,42 +40,6 @@ const CourseExplorer = ({
     deviceType === DEVICE_TYPE_ENUM.PHONE ||
     deviceType === DEVICE_TYPE_ENUM.PHABLET;
 
-  const renderBody = () => {
-    if (courseIds.size === 0) {
-      if (isFetching) {
-        return (
-          <UIFlex justify="center" className="mt-5">
-            <UILoadingSpinner />
-          </UIFlex>
-        );
-      }
-
-      return (
-        <UIFlex justify="center" className="mt-5">
-          <h3>No courses found.</h3>
-        </UIFlex>
-      );
-    }
-
-    return (
-      <>
-        <div>
-          {courseIds.map(id => (
-            <CoursePreviewCard key={id} courseId={id} />
-          ))}
-        </div>
-        {isFetching ? (
-          <UIFlex justify="center" className="mt-5">
-            <UILoadingSpinner />
-          </UIFlex>
-        ) : (
-          <UIFlex justify="center" className="pt-3 pb-5">
-            <UIButton onClick={fetchCourses}>Show More Courses</UIButton>
-          </UIFlex>
-        )}
-      </>
-    );
-  };
   return (
     <>
       <Page>
@@ -90,7 +51,11 @@ const CourseExplorer = ({
         </div>
         <UIContainer className="pt-3">
           <Col md={{ span: 8, offset: 4 }}>
-            <div>{renderBody()}</div>
+            <CourseList
+              courseIds={courseIds}
+              isLoading={isFetching}
+              onRequestMoreCourses={fetchCourses}
+            />
           </Col>
         </UIContainer>
       </Page>
