@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom';
 
 import UIContainer from '../UIComponents/containers/UIContainer';
 
+import { fetchCourses } from '../actions/Courses';
 import { updateFilter } from '../actions/Filters';
 import { getAllIds, getIsFetching } from '../selectors/courses';
 
 import Page from '../components/Page';
 import CourseList from '../components/course/CourseList';
 
-const SubjectView = ({ updateFilter, courseIds, isFetching }) => {
+const SubjectView = ({ updateFilter, courseIds, fetchCourses, isFetching }) => {
   const params = useParams();
   const { subjectCode } = params;
   useEffect(() => {
@@ -21,7 +22,11 @@ const SubjectView = ({ updateFilter, courseIds, isFetching }) => {
     <Page>
       <UIContainer className="pt-3">
         <div className="col-md-8 offset-md-2">
-          <CourseList courseIds={courseIds} isLoading={isFetching} />
+          <CourseList
+            courseIds={courseIds}
+            isLoading={isFetching}
+            onRequestMoreCourses={fetchCourses}
+          />
         </div>
       </UIContainer>
     </Page>
@@ -36,7 +41,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  updateFilter
+  updateFilter,
+  fetchCourses
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubjectView);
