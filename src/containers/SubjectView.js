@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import UIBreadcrumb from '../UIComponents/navigation/UIBreadcrumb';
 import UIContainer from '../UIComponents/containers/UIContainer';
 
 import { fetchCourses } from '../actions/Courses';
@@ -21,7 +22,11 @@ const SubjectView = ({ updateFilter, courseIds, fetchCourses, isFetching }) => {
   return (
     <Page>
       <UIContainer className="pt-3">
-        <div className="col-md-8 offset-md-2">
+        <div className="col-lg-8 offset-lg-2">
+          <UIBreadcrumb>
+            <UIBreadcrumb.Item href="/schedule">Fall 2020</UIBreadcrumb.Item>
+            <UIBreadcrumb.Item active={true}>{subjectCode}</UIBreadcrumb.Item>
+          </UIBreadcrumb>
           <CourseList
             courseIds={courseIds}
             isLoading={isFetching}

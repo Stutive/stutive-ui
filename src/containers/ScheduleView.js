@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
+import UIBreadcrumb from '../UIComponents/navigation/UIBreadcrumb';
 import UICard from '../UIComponents/containers/UICard';
 import UIContainer from '../UIComponents/containers/UIContainer';
 
@@ -15,8 +16,13 @@ const ScheduleView = ({ history }) => {
 
   return (
     <Page>
-      <UIContainer>
-        <UICard className="mt-5 col-md-10 offset-md-1">
+      <UIContainer className="pt-3">
+        <div className="col-lg-8 offset-lg-2">
+          <UIBreadcrumb>
+            <UIBreadcrumb.Item active={true}>Fall 2020</UIBreadcrumb.Item>
+          </UIBreadcrumb>
+        </div>
+        <UICard className="col-lg-8 offset-lg-2">
           <SubjectTable
             filterKeyword=""
             onSubjectClick={handleSubjectClick}
