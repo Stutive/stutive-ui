@@ -4,34 +4,58 @@ import PropTypes from 'prop-types';
 import UICard from '../../UIComponents/containers/UICard';
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIIcon from '../../UIComponents/icon/UIIcon';
+import UIReplacableText from '../../UIComponents/inputs/UIReplacableText';
 
 import CourseSemesterListing from '../course/CourseSemesterListing';
 import SemesterListing from './SemesterListing';
 
 const SemesterCard = ({
+  id,
   title = '',
   courses = [],
-  totalCreditHours = '',
+  totalCreditHours = 0,
   onAddCourseButtonClick = () => {},
+  onChange = () => {},
   ...props
 }) => {
-  const addCourseButton = (
-    <SemesterListing onClick={onAddCourseButtonClick} isClickable={true}>
-      <UIFlex justify="center">
-        <div>
-          <UIIcon name="fas fa-plus" size="small" /> Add a Course
-        </div>
+  const handleTitleChange = newTitle => {
+    onChange(id, {
+      title: newTitle
+    });
+  };
+  const renderTitle = () => {
+    return (
+      <UIFlex align="center">
+        <h4>
+          <UIReplacableText value={title} onChange={handleTitleChange} />
+        </h4>
       </UIFlex>
-    </SemesterListing>
-  );
-  const courseListings = courses.map(({ courseCode, courseTitle, hours }) => (
-    <CourseSemesterListing
-      courseCode={courseCode}
-      courseTitle={courseTitle}
-      hours={hours}
-    />
-  ));
-  courseListings.push(addCourseButton);
+    );
+  };
+
+  const renderBody = () => {
+    const courseListings = courses.map(({ courseCode, courseTitle, hours }) => (
+      <CourseSemesterListing
+        courseCode={courseCode}
+        courseTitle={courseTitle}
+        hours={hours}
+      />
+    ));
+
+    return (
+      <div style={{ flexGrow: 1, width: '100%' }}>
+        {courses.length === 0 && <p>No courses in added to semester.</p>}
+        {courseListings}
+        <SemesterListing onClick={onAddCourseButtonClick} isClickable={true}>
+          <UIFlex justify="center">
+            <div>
+              <UIIcon name="fas fa-plus" size="small" /> Add a Course
+            </div>
+          </UIFlex>
+        </SemesterListing>
+      </div>
+    );
+  };
 
   const renderTotalCreditHours = () => (
     <UIFlex className="pt-3" justify="flex-end" style={{ width: '100%' }}>
@@ -43,11 +67,11 @@ const SemesterCard = ({
   );
 
   return (
-    <div style={{ flexBasis: '30em', flexGrow: 1, padding: '5px' }}>
-      <UICard style={{ height: '100%' }} {...props}>
+    <div style={{ flexBasis: '25em', maxWidth: '50%', flexGrow: 1 }} {...props}>
+      <UICard style={{ height: '100%' }}>
         <UIFlex direction="column" style={{ height: '100%' }}>
-          <h5>{title}</h5>
-          <div style={{ flexGrow: 1, width: '100%' }}>{courseListings}</div>
+          {renderTitle()}
+          {renderBody()}
           {renderTotalCreditHours()}
         </UIFlex>
       </UICard>
@@ -58,7 +82,7 @@ const SemesterCard = ({
 SemesterCard.propTypes = {
   title: PropTypes.string,
   courses: PropTypes.arrayOf(PropTypes.object),
-  totalCreditHours: PropTypes.string
+  totalCreditHours: PropTypes.number
 };
 
 export default SemesterCard;

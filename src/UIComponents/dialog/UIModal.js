@@ -36,7 +36,7 @@ const onExit = keyframes`
   }
 `;
 
-const ModalCard = styled(Card)`
+const ModalCard = styled(({ show, width, ...rest }) => <Card {...rest} />)`
   width: ${props => props.width}px;
   max-width: 90%;
   overflow: hidden;
@@ -69,7 +69,6 @@ const UIModal = ({
         <ModalCard
           ref={modalRef}
           width={width}
-          withPadding={false}
           onAnimationEnd={onAnimationEnd}
           show={show}
         >

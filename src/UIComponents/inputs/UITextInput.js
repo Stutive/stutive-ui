@@ -22,6 +22,8 @@ const Input = styled.input`
   flex: 1;
   background-color: none;
   border: none;
+  box-sizing: border-box;
+  width: 100%;
   &:focus {
     border: none;
     outline: none !important;
