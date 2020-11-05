@@ -22,36 +22,14 @@ import CoursePreviewCard from '../../components/CoursePreviewCard';
 import CourseInsert from '../../components/course/sections/CourseInsert';
 import GeneralEducation from '../../components/course/sections/GeneralEducation';
 
-const ScheduleButton = ({ handleAdd, handleRemove, isInSchedule }) => (
-  <UIFlex
-    className="pt-3"
-    justify="center"
-    onClick={isInSchedule ? handleRemove : handleAdd}
-  >
-    <div style={{ height: '100%' }}>
-      <UIIcon
-        color={isInSchedule ? Colors.CANDY_APPLE : Colors.OZ}
-        name={isInSchedule ? 'fas fa-calendar-times' : 'fas fa-calendar-plus'}
-        size="small"
-      />
-    </div>
-    <span
-      style={{
-        paddingLeft: '7px',
-        color: isInSchedule ? Colors.CANDY_APPLE : Colors.OZ
-      }}
-    >
-      {isInSchedule ? 'Remove from schedule' : 'Add to Schedule'}
-    </span>
-  </UIFlex>
-);
-
 const CoursePreviewCardContainer = ({
   addCourseFromSchedule,
   removeCourseFromSchedule,
   course,
   isInSchedule,
-  gpa
+  isFocused,
+  gpa,
+  ...rest
 }) => {
   const title = course.get('title');
   const hours = course.get('hours').toJS();
@@ -90,16 +68,17 @@ const CoursePreviewCardContainer = ({
   };
 
   return (
-    <CoursePreviewCard title={title} creditHours={hours} className="mb-2">
+    <CoursePreviewCard
+      title={title}
+      creditHours={hours}
+      className="mb-2"
+      isFocused={isFocused}
+      {...rest}
+    >
       <p>{description}</p>
       {renderCourseInsert()}
       {renderGeneralEducation()}
       {renderGPAVisualization()}
-      <ScheduleButton
-        handleAdd={addCourseFromSchedule}
-        handleRemove={removeCourseFromSchedule}
-        isInSchedule={isInSchedule}
-      />
     </CoursePreviewCard>
   );
 };
