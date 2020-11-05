@@ -42,7 +42,7 @@ const FilterMenuFieldModal = ({
         </div>
       </UIModal.Body>
       <UIModal.Footer>
-        <UIFlex justify="end">
+        <UIFlex justify="flex-end">
           <UIButton onClick={handleSubmit}>Show Results</UIButton>
         </UIFlex>
       </UIModal.Footer>
