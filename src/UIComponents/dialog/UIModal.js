@@ -106,6 +106,7 @@ UIModal.Body.propTypes = {
 };
 
 UIModal.Footer = styled.div`
+  position: relative;
   background-color: ${Colors.KOALA};
   padding: 0.6rem 1rem;
 `;

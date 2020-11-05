@@ -14,7 +14,7 @@ import { SIEBEL_LAYER } from '../../StyleTokens/sizes';
 
 const EMPTY_FUNCTION = () => {};
 
-const DropdownCard = styled(Card)`
+const DropdownCard = styled(({ asListSelect, ...rest }) => <Card {...rest} />)`
   z-index: ${SIEBEL_LAYER};
   position: ${({ asListSelect }) => (asListSelect ? 'relative' : 'absolute')};
   top: ${({ asListSelect }) => (asListSelect ? '0' : '0.5em')};
@@ -109,7 +109,7 @@ const UISelectDropdown = ({
 
         let isFocused = false;
         if (multi) {
-          isFocused = selectedOptionsHasValue(selectedOptions, value);
+          isFocused = !!selectedOptionsHasValue(selectedOptions, value);
         } else {
           isFocused = (selectedOptions || {}).value === value;
         }
@@ -136,7 +136,7 @@ const UISelectDropdown = ({
       renderedOptions = <UISelectOption key="no-options" text="No results" />;
     }
     return (
-      <UIScrollContainer style={{ maxHeight: '300px' }}>
+      <UIScrollContainer key="scroll-container" style={{ maxHeight: '300px' }}>
         {renderedOptions}
       </UIScrollContainer>
     );
