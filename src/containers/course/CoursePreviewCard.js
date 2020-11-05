@@ -2,9 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as Colors from '../../UIComponents/StyleTokens/colors';
-import UIFlex from '../../UIComponents/layout/UIFlex';
-import UIIcon from '../../UIComponents/icon/UIIcon';
 import UIGPADistributionVis from '../../UIComponents/visualization/UIGPADistributionVis';
 
 import {
