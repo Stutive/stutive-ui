@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UIFlex from '../UIComponents/layout/UIFlex';
 
+import AddCourseModal from '../components/planner/AddCourseModal';
 import AddSemesterButton from './planner/AddSemesterButton';
 import AddSemesterModal from '../components/planner/AddSemesterModal';
 import Page from '../components/Page';
 import SemesterCard from '../components/semester/SemesterCard';
 
-const PlannerView = () => {
+import { getById } from '../selectors/courses';
+
+const PlannerView = ({
+  /* connect props */
+  coursesById
+}) => {
   const [semesters, setSemesters] = useState([
     {
       id: '1234',
@@ -36,10 +43,6 @@ const PlannerView = () => {
     ]);
     hideAddSemesterModal();
   };
-
-  const makeHandleAddCourse = semesterId => () => {
-    console.log('add course to', semesterId);
-  };
   const handleSemesterChange = (id, changedFields) => {
     const updatedFields = semesters.map(semester => {
       if (semester.id !== id) {
@@ -53,14 +56,67 @@ const PlannerView = () => {
     });
     setSemesters(updatedFields);
   };
+
+  const [semesterToAddCourse, setSemesterToAddCourse] = useState(null);
+  const showAddCourseModal = semesterToAddCourse !== null;
+  const hideAddCourseModal = () => setSemesterToAddCourse(null);
+  const makeHandleAddCourse = semesterId => () => {
+    setSemesterToAddCourse(semesterId);
+  };
+  const getSemesterTitleFromSemesterId = semesterId => {
+    for (const semester of semesters) {
+      if (semester.id === semesterId) {
+        return semester.title;
+      }
+    }
+    return null;
+  };
+  const handleAddCourseToSemester = semesterId => courseId => {
+    const course = coursesById.get(courseId);
+    const courseObj = {
+      courseCode: course.get('code'),
+      courseTitle: course.get('title'),
+      hours: course.get('hours')[0] // TODO: temp fix
+    };
+
+    const semestersCopy = [...semesters];
+    let currSemesterIdx = -1;
+    for (let i = 0; i < semestersCopy.length; i++) {
+      const semester = semestersCopy[i];
+      if (semester.id === semesterId) {
+        currSemesterIdx = i;
+        break;
+      }
+    }
+
+    if (currSemesterIdx !== -1) {
+      const currSemester = {
+        ...semestersCopy[currSemesterIdx],
+        courses: [...semestersCopy[currSemesterIdx].courses, courseObj]
+      };
+
+      console.log('hi', currSemester);
+
+      const newSemesters = [
+        ...semestersCopy.splice(0, currSemesterIdx),
+        currSemester,
+        ...semestersCopy.splice(currSemesterIdx + 1)
+      ];
+      console.log('new', newSemesters);
+      setSemesters(newSemesters);
+    }
+
+    hideAddCourseModal();
+  };
+
   const renderSemesters = () => {
-    return semesters.map(({ course, id, title, totalCreditHours }) => (
+    return semesters.map(({ courses, id, title, totalCreditHours }) => (
       <SemesterCard
         id={id}
         key={id}
         className="p-1"
         title={title}
-        courses={course}
+        courses={courses}
         totalCreditHours={totalCreditHours}
         onChange={handleSemesterChange}
         onAddCourseButtonClick={makeHandleAddCourse(id)}
@@ -75,7 +131,12 @@ const PlannerView = () => {
           onAdd={handleAddSemester}
           onCancel={hideAddSemesterModal}
         />
-
+        <AddCourseModal
+          show={showAddCourseModal}
+          onAdd={handleAddCourseToSemester(semesterToAddCourse)}
+          onCancel={hideAddCourseModal}
+          semesterTitle={getSemesterTitleFromSemesterId(semesterToAddCourse)}
+        />
         <UIFlex className="pt-3" wrap="wrap" align="center">
           {renderSemesters()}
           <AddSemesterButton
@@ -88,4 +149,7 @@ const PlannerView = () => {
   );
 };
 
-export default PlannerView;
+const mapStateToProps = state => ({
+  coursesById: getById(state)
+});
+export default connect(mapStateToProps, null)(PlannerView);

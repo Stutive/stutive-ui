@@ -25,7 +25,7 @@ const SemesterCard = ({
   };
   const renderTitle = () => {
     return (
-      <UIFlex align="center">
+      <UIFlex align="center" justify="center" style={{ width: '100%' }}>
         <h4>
           <UIReplacableText value={title} onChange={handleTitleChange} />
         </h4>

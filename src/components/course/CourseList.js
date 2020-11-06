@@ -9,7 +9,9 @@ import CoursePreviewCard from '../../containers/course/CoursePreviewCard';
 
 const CourseList = ({
   courseIds = [],
+  focusedCourseIds = [],
   isLoading = true,
+  onCourseClick = () => {},
   onRequestMoreCourses = () => {}
 }) => {
   if (courseIds.size === 0) {
@@ -31,9 +33,17 @@ const CourseList = ({
   return (
     <>
       <div>
-        {courseIds.map(id => (
-          <CoursePreviewCard key={id} courseId={id} />
-        ))}
+        {courseIds.map(id => {
+          const isFocused = focusedCourseIds.indexOf(id) !== -1;
+          return (
+            <CoursePreviewCard
+              key={id}
+              courseId={id}
+              isFocused={isFocused}
+              onClick={() => onCourseClick(id)}
+            />
+          );
+        })}
       </div>
       {isLoading ? (
         <UIFlex justify="center" className="mt-5">

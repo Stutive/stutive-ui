@@ -20,7 +20,12 @@ const rightSearchIcon = (
   <UIIcon color={Colors.OZ} name="fas fa-search" size="small" />
 );
 
-const FilterMenu = ({ value = {}, options, onFieldChange }) => {
+const FilterMenu = ({
+  value = {},
+  options,
+  onFieldChange,
+  onKeywordChange = () => {}
+}) => {
   const [showModal, setShowModal] = useState(false);
   const revealModal = () => setShowModal(true);
   const hideModal = () => setShowModal(false);
@@ -109,6 +114,7 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
       <UITextInput
         placeholder="Search for courses..."
         iconRight={rightSearchIcon}
+        onChange={onKeywordChange}
       />
       <UIScrollContainer className="pl-1 pr-1 pt-1 pb-2" direction="row">
         {renderFields()}
@@ -119,7 +125,8 @@ const FilterMenu = ({ value = {}, options, onFieldChange }) => {
 
 FilterMenu.propTypes = {
   options: PropTypes.object.isRequired,
-  onFieldChange: PropTypes.func.isRequired
+  onFieldChange: PropTypes.func.isRequired,
+  onKeywordChange: PropTypes.func
 };
 
 export default FilterMenu;
