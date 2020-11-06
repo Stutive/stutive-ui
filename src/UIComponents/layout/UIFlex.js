@@ -21,7 +21,13 @@ UIFlex.propTypes = {
   align: PropTypes.oneOf(['baseline', 'center', 'end', 'start', 'stretch']),
   children: PropTypes.node.isRequired,
   direction: PropTypes.oneOf(['column', 'row']),
-  justify: PropTypes.oneOf(['around', 'between', 'center', 'end', 'start']),
+  justify: PropTypes.oneOf([
+    'around',
+    'between',
+    'center',
+    'flex-end',
+    'start'
+  ]),
   wrap: PropTypes.oneOf(['nowrap', 'wrap'])
 };
 

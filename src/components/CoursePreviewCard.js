@@ -8,6 +8,17 @@ import UIFlex from '../UIComponents/layout/UIFlex';
 
 import useDeviceType from '../UIComponents/lib/useDeviceType';
 import { DEVICE_TYPE_ENUM } from '../UIComponents/StyleTokens/sizes';
+import {
+  BATTLESHIP,
+  OZ_LIGHT,
+  OZ_DARK,
+  OLAF
+} from '../UIComponents/StyleTokens/colors';
+
+const StyledUICard = styled(({ isFocused, ...rest }) => <UICard {...rest} />)`
+  background-color: ${({ isFocused }) => (isFocused ? OZ_LIGHT : OLAF)};
+  border-color: ${({ isFocused }) => (isFocused ? OZ_DARK : BATTLESHIP)};
+`;
 
 const Title = styled.p`
   flex: 1;
@@ -29,6 +40,7 @@ const CoursePreviewCard = ({
   creditHours,
   children,
   equivalentCourse = null,
+  isFocused = false,
   ...props
 }) => {
   const deviceType = useDeviceType();
@@ -41,7 +53,7 @@ const CoursePreviewCard = ({
     : { marginBottom: '.5em' };
 
   return (
-    <UICard {...props}>
+    <StyledUICard isFocused={isFocused} {...props}>
       <UIFlex align="center" wrap="wrap" style={flexAdditionalStyles}>
         <Title>{title}</Title>
         <CreditHours>
@@ -49,7 +61,7 @@ const CoursePreviewCard = ({
         </CreditHours>
       </UIFlex>
       {children}
-    </UICard>
+    </StyledUICard>
   );
 };
 
