@@ -57,12 +57,22 @@ const SemesterCardContainer = ({
         {courses.count() === 0 && <p>No courses added to this semester.</p>}
         {courseListings}
         <SemesterListing
+          className="mb-1"
           justify="center"
           onClick={onAddCourseButtonClick}
           isClickable={true}
         >
           <div>
             <UIIcon name="fas fa-plus" size="small" /> Add a Course
+          </div>
+        </SemesterListing>
+        <SemesterListing
+          justify="center"
+          onClick={onAddCourseButtonClick}
+          isClickable={true}
+        >
+          <div>
+            <UIIcon name="fas fa-plus" size="small" /> Add a Placeholder
           </div>
         </SemesterListing>
       </div>
