@@ -17,9 +17,7 @@ const HomeView = () => {
       <Container className="mt-5">
         <Row className="mt-5">
           <Col md={{ offset: 1, span: 10 }} className="text-center">
-            <h1>
-              Built for students who want the most out of their academics.
-            </h1>
+            <h1>Built for ambitious students.</h1>
           </Col>
         </Row>
         <Row className="pt-4">
@@ -28,9 +26,9 @@ const HomeView = () => {
           </Col>
           <Col md={{ span: 6 }}>
             <p>
-              Schedule generation. Semester "sanity checks". Four-year
-              graduation planning. Course recommendations. Average course GPA
-              comparison. Major and minor recommendations.
+              Plan your future. Schedule generation. Semester "sanity checks".
+              Four-year graduation planning. Course recommendations. Average
+              course GPA comparison. Major and minor recommendations.
             </p>
           </Col>
         </Row>
@@ -50,7 +48,7 @@ const HomeView = () => {
           <Col md={{ offset: 3, span: 6 }}>
             <UIFlex justify="center">
               <UIButton
-                className="p-3"
+                className="p-3 mb-3"
                 onClick={() =>
                   (window.location.href =
                     'https://alprielse.typeform.com/to/TWZUTvOX')
