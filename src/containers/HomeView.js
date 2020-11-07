@@ -23,8 +23,8 @@ const HomeView = () => {
           </Col>
         </Row>
         <Row className="pt-4">
-          <Col>
-            <h3 className="text-right">Coming soon</h3>
+          <Col md={{ offset: 3, span: 3 }}>
+            <h3>Coming soon</h3>
           </Col>
           <Col md={{ span: 6 }}>
             <p>
@@ -34,8 +34,8 @@ const HomeView = () => {
             </p>
           </Col>
         </Row>
-        <Row className="mt-4">
-          <Col md={6} className="mb-3">
+        <Row className="mt-3">
+          <Col md={{ offset: 2, span: 8 }} className="mb-3">
             <Image
               src={process.env.PUBLIC_URL + '/semester-plan.png'}
               fluid
@@ -45,18 +45,8 @@ const HomeView = () => {
               }}
             />
           </Col>
-          <Col md={6} className="mb-3">
-            <Image
-              src={process.env.PUBLIC_URL + '/add-course.png'}
-              fluid
-              style={{
-                'box-shadow': '0px -3px 20px 0px rgba(0, 0, 0, 0.1)',
-                'border-radius': '1em'
-              }}
-            />
-          </Col>
         </Row>
-        <Row className="mt-5">
+        <Row className="mt-4">
           <Col md={{ offset: 3, span: 6 }}>
             <UIFlex justify="center">
               <UIButton
