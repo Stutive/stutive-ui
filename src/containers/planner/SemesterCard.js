@@ -54,7 +54,7 @@ const SemesterCardContainer = ({
 
     return (
       <div style={{ flexGrow: 1, width: '100%' }}>
-        {courses.length === 0 && <p>No courses in added to semester.</p>}
+        {courses.count() === 0 && <p>No courses added to this semester.</p>}
         {courseListings}
         <SemesterListing
           justify="center"
