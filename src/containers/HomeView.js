@@ -1,81 +1,65 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Image from 'react-bootstrap/Image';
 
-import { OLAF, OZ } from '../UIComponents/StyleTokens/colors';
-
-import UIContainer from '../UIComponents/containers/UIContainer';
+import { OLAF } from '../UIComponents/StyleTokens/colors';
+import UIButton from '../UIComponents/buttons/UIButton';
 import UIFlex from '../UIComponents/layout/UIFlex';
-import UIIcon from '../UIComponents/icon/UIIcon';
-import UIOptionButton from '../UIComponents/buttons/UIOptionButton';
-import UITextInput from '../UIComponents/inputs/UITextInput';
 
 import Page from '../components/Page';
 
 const HomeView = () => {
   return (
-    <Page>
-      <div
-        style={{
-          backgroundColor: OLAF,
-          padding: '3em 2em'
-        }}
-      >
-        <UIContainer>
-          <h3 className="text-center pb-4">Search for courses</h3>
-          <UITextInput
-            iconRight={<UIIcon color={OZ} name="fas fa-search" size="small" />}
-          />
-        </UIContainer>
-      </div>
-      <UIContainer className="pt-3">
-        <UIFlex justify="center" wrap="wrap">
-          <Link to="/general-education">
-            <UIOptionButton use="secondary">
-              <UIOptionButton.withIcon
-                iconComponent={
-                  <UIIcon
-                    name="fas fa-check-square"
-                    color={UIOptionButton.getColor('secondary')}
-                    size="large"
-                  />
+    <Page style={{ backgroundColor: OLAF }}>
+      <Container className="mt-5">
+        <Row className="mt-5">
+          <Col md={{ offset: 1, span: 10 }} className="text-center">
+            <h1>
+              Built for students who want the most out of their academics.
+            </h1>
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col md={6} className="mb-3">
+            <Image
+              src={process.env.PUBLIC_URL + '/semester-plan.png'}
+              fluid
+              style={{
+                'box-shadow': '0px -3px 20px 0px rgba(0, 0, 0, 0.1)',
+                'border-radius': '1em'
+              }}
+            />
+          </Col>
+          <Col md={6} className="mb-3">
+            <Image
+              src={process.env.PUBLIC_URL + '/add-course.png'}
+              fluid
+              style={{
+                'box-shadow': '0px -3px 20px 0px rgba(0, 0, 0, 0.1)',
+                'border-radius': '1em'
+              }}
+            />
+          </Col>
+        </Row>
+        <Row className="mt-5">
+          <Col md={{ offset: 3, span: 6 }}>
+            <UIFlex justify="center">
+              <UIButton
+                className="p-3"
+                onClick={() =>
+                  (window.location.href =
+                    'https://alprielse.typeform.com/to/TWZUTvOX')
                 }
-                labelComponent={
-                  <h5 className="text-center">Gen Ed Requirements</h5>
-                }
-              />
-            </UIOptionButton>
-          </Link>
-          <Link to="/schedule">
-            <UIOptionButton use="secondary">
-              <UIOptionButton.withIcon
-                iconComponent={
-                  <UIIcon
-                    name="fas fa-calendar"
-                    color={UIOptionButton.getColor('secondary')}
-                    size="large"
-                  />
-                }
-                labelComponent={<h5 className="text-center">Class Schedule</h5>}
-              />
-            </UIOptionButton>
-          </Link>
-          <Link to="/search">
-            <UIOptionButton use="secondary">
-              <UIOptionButton.withIcon
-                iconComponent={
-                  <UIIcon
-                    name="fas fa-search"
-                    color={UIOptionButton.getColor('secondary')}
-                    size="large"
-                  />
-                }
-                labelComponent={<h5 className="text-center">Search</h5>}
-              />
-            </UIOptionButton>
-          </Link>
-        </UIFlex>
-      </UIContainer>
+              >
+                Sign-up for Interest Mailing List
+              </UIButton>
+            </UIFlex>
+          </Col>
+        </Row>
+      </Container>
     </Page>
   );
 };

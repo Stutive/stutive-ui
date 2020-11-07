@@ -4,7 +4,7 @@ import * as Colors from '../UIComponents/StyleTokens/colors';
 
 import NavigationBar from '../containers/NavigationBar';
 
-const Page = ({ children }) => {
+const Page = ({ children, ...rest }) => {
   return (
     <>
       <div
@@ -17,6 +17,7 @@ const Page = ({ children }) => {
           flexDirection: 'column',
           overflowY: 'hidden'
         }}
+        {...rest}
       >
         <NavigationBar />
         <div

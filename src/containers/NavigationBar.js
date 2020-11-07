@@ -25,10 +25,6 @@ const NavigationBar = () => (
       <Navbar.Collapse>
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/search">Search</Nav.Link>
-          <Nav.Link href="/general-education">
-            General Education Requirements
-          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </UIContainer>
