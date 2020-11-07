@@ -36,7 +36,12 @@ const onExit = keyframes`
   }
 `;
 
-const ModalCard = styled(({ show, width, ...rest }) => <Card {...rest} />)`
+const ModalCard = styled(
+  /* Fixes ref console error */
+  React.forwardRef(({ width, show, ...rest }, ref) => (
+    <Card {...rest} ref={ref} />
+  ))
+)`
   width: ${props => props.width}px;
   max-width: 90%;
   overflow: hidden;
@@ -63,6 +68,7 @@ const UIModal = ({
 
   const modalRef = useRef(null);
   useHandleClickOutside(modalRef, onClickOutside);
+
   return (
     <UIOverlay show={show}>
       {shouldRender && (
