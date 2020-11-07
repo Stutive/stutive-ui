@@ -12,7 +12,7 @@ import { ENTER } from '../../constants/KeyCodes';
 const ReplacableTextContainer = styled.div`
   display: flex;
   align-items: center;
-  height: 3em;
+  height: 2em;
 `;
 
 const EditIcon = ({ isEditing }) => {
@@ -34,7 +34,7 @@ const EditIcon = ({ isEditing }) => {
   );
 };
 
-const UIReplacableText = ({ value = '', onChange = () => {} }) => {
+const UIReplacableText = ({ value = '', onChange = () => {}, ...props }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newValue, setNewValue] = useState(value);
   const enterEditing = () => setIsEditing(true);
@@ -57,6 +57,7 @@ const UIReplacableText = ({ value = '', onChange = () => {} }) => {
       align="center"
       ref={containerRef}
       onClick={enterEditing}
+      {...props}
     >
       {!isEditing && <span>{value}</span>}
       {isEditing && (

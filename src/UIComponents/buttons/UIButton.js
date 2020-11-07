@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import ButtonColors from './constants/ButtonColors';
 
-const UIButton = ({ active, children, use, hovered, onClick }) => {
+const UIButton = ({ active, children, use, hovered, onClick, ...rest }) => {
   const colors = ButtonColors[use];
   const StyledButton = styled(Button)`
     border: ${colors.border ? `1px solid ${colors.border}` : 'none'};
@@ -34,13 +34,23 @@ const UIButton = ({ active, children, use, hovered, onClick }) => {
     }
   `;
 
-  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+  return (
+    <StyledButton onClick={onClick} {...rest}>
+      {children}
+    </StyledButton>
+  );
 };
 
 UIButton.propTypes = {
   active: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  use: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'tertiary-light']),
+  use: PropTypes.oneOf([
+    'primary',
+    'secondary',
+    'tertiary',
+    'tertiary-light',
+    'danger'
+  ]),
   onClick: PropTypes.func
 };
 

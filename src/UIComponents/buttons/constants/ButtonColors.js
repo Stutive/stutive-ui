@@ -33,5 +33,13 @@ export default {
       active: Colors.FLINT
     },
     text: Colors.SLINKY
+  },
+  danger: {
+    background: {
+      idle: Colors.CANDY_APPLE,
+      hover: Colors.CANDY_APPLE_MEDIUM,
+      active: Colors.CANDY_APPLE_DARK
+    },
+    text: Colors.OLAF
   }
 };

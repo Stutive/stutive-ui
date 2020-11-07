@@ -27,6 +27,9 @@ export const empty = () => {
         <UIButton onClick={action('clicked')} use="tertiary-light">
           Tertiary Light
         </UIButton>
+        <UIButton onClick={action('clicked')} use="danger">
+          Danger
+        </UIButton>
       </UIFlex>
       <h4>Hover</h4>
       <UIFlex>
@@ -42,6 +45,9 @@ export const empty = () => {
         <UIButton use="tertiary-light" hovered={true}>
           Tertiary Light
         </UIButton>
+        <UIButton use="danger" hovered={true}>
+          Danger
+        </UIButton>
       </UIFlex>
       <h4>Active</h4>
       <UIFlex>
@@ -56,6 +62,9 @@ export const empty = () => {
         </UIButton>
         <UIButton use="tertiary-light" active={true}>
           Tertiary Light
+        </UIButton>
+        <UIButton use="danger" active={true}>
+          Danger
         </UIButton>
       </UIFlex>
     </UIContainer>

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import UIFlex from '../../UIComponents/layout/UIFlex';
+import UIButton from '../../UIComponents/buttons/UIButton';
 import UITruncateString from '../../UIComponents/text/UITruncateString';
 import FormattedCreditHours from '../../UIComponents/FormatLib/FormattedCreditHours';
 
@@ -30,22 +30,45 @@ const CreditHours = styled.span`
 const CourseSemesterListing = ({
   courseCode = '',
   courseTitle = '',
-  hours = []
+  hours = [],
+  onRemove = () => {}
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <SemesterListing className="mb-1">
-      <UIFlex align="center">
-        <CourseCode className="mr-1">{courseCode}</CourseCode>
-        <CourseTitle className="pr-2">
-          <UITruncateString>{courseTitle}</UITruncateString>
-        </CourseTitle>
-        <CreditHours>
-          <FormattedCreditHours value={hours} />
-        </CreditHours>
-      </UIFlex>
+    <SemesterListing
+      align="center"
+      className="mb-1"
+      isClickable={true}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <CourseCode className="mr-1">{courseCode}</CourseCode>
+      <CourseTitle className="pr-2">
+        <UITruncateString>{courseTitle}</UITruncateString>
+      </CourseTitle>
+      <CreditHours>
+        <FormattedCreditHours value={hours} />
+      </CreditHours>
+      {isHovered && <DeleteButton onClick={onRemove}>Delete</DeleteButton>}
     </SemesterListing>
   );
 };
+
+const DeleteButton = ({ ...props }) => (
+  <UIButton
+    className="ml-3"
+    use="danger"
+    style={{
+      /* TODO: "slim button" - Move these into UIButton component */
+      lineHeight: 1,
+      padding: '.5em 1em',
+      flexShrink: 0, // Prevent wrapping
+      margin: 0
+    }}
+    {...props}
+  />
+);
 
 CourseSemesterListing.propTypes = {
   courseCode: PropTypes.string,
