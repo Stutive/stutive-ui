@@ -22,7 +22,19 @@ const HomeView = () => {
             </h1>
           </Col>
         </Row>
-        <Row className="mt-5">
+        <Row className="pt-4">
+          <Col>
+            <h3 className="text-right">Coming soon</h3>
+          </Col>
+          <Col md={{ span: 6 }}>
+            <p>
+              Schedule generation. Semester "sanity checks". Four-year
+              graduation planning. Course recommendations. Average course GPA
+              comparison. Major and minor recommendations.
+            </p>
+          </Col>
+        </Row>
+        <Row className="mt-4">
           <Col md={6} className="mb-3">
             <Image
               src={process.env.PUBLIC_URL + '/semester-plan.png'}
