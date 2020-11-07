@@ -26,6 +26,8 @@ const CoursePreviewCardContainer = ({
   isInSchedule,
   isFocused,
   gpa,
+  /* Prevent pass through */
+  courseId: _courseId,
   ...rest
 }) => {
   const title = course.get('title');

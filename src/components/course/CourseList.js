@@ -59,7 +59,7 @@ const CourseList = ({
 };
 
 CourseList.propTypes = {
-  courseIds: PropTypes.arrayOf(PropTypes.object),
+  courseIds: PropTypes.object /* ImmutableJS List */,
   isLoading: PropTypes.bool,
   onRequestMoreCourses: PropTypes.func
 };
