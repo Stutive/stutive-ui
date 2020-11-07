@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UIFlex from '../UIComponents/layout/UIFlex';
+import UIOptionButton from '../UIComponents/buttons/UIOptionButton';
+import UIIcon from '../UIComponents/icon/UIIcon';
 
 import AddCourseModal from './planner/AddCourseModal';
-import AddSemesterButton from './planner/AddSemesterButton';
 import AddSemesterModal from '../components/planner/AddSemesterModal';
 import Page from '../components/Page';
 import SemesterCard from './planner/SemesterCard';
@@ -103,10 +104,20 @@ const PlannerView = ({
         />
         <UIFlex className="pt-3" wrap="wrap" align="center">
           {renderSemesters()}
-          <AddSemesterButton
-            className="p-1"
-            onClick={displayAddSemesterModal}
-          />
+          <UIOptionButton use="secondary" onClick={displayAddSemesterModal}>
+            <UIOptionButton.withIcon
+              iconComponent={
+                <UIIcon
+                  name="fas fa-plus"
+                  color={UIOptionButton.getColor('secondary')}
+                  size="large"
+                />
+              }
+              labelComponent={
+                <h5 className="text-center">Add Semester to Plan</h5>
+              }
+            />
+          </UIOptionButton>
         </UIFlex>
       </UIContainer>
     </Page>

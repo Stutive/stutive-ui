@@ -15,7 +15,7 @@ export default {
       hover: Colors.OZ_LIGHT,
       active: Colors.OZ_MEDIUM
     },
-    border: Colors.OZ,
+    border: Colors.GREAT_WHITE,
     text: Colors.OZ
   },
   tertiary: {
