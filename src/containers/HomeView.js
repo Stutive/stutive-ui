@@ -54,7 +54,7 @@ const HomeView = () => {
                     'https://alprielse.typeform.com/to/TWZUTvOX')
                 }
               >
-                Sign-up for Interest Mailing List
+                Sign-up for Updates
               </UIButton>
             </UIFlex>
           </Col>
