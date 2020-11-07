@@ -17,3 +17,17 @@ export function getIsValid(state) {
 export function getCurrentPage(state) {
   return state.getIn(['courses', 'currentPage']);
 }
+
+export function getCoursesWithIds(state, courseIds) {
+  return getById(state)
+    .toList()
+    .filter(course => courseIds.includes(course.get('id')));
+}
+
+export function getTotalCreditHoursWithCourseIds(state, courseIds) {
+  return getCoursesWithIds(state, courseIds).reduce(
+    (acc, course) => acc + course.get('hours').toJS()[0],
+    0
+  );
+  // TODO: handle multiple hours values
+}

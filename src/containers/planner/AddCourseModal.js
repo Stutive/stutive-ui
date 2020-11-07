@@ -6,34 +6,28 @@ import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIModal from '../../UIComponents/dialog/UIModal';
 import UIScrollContainer from '../../UIComponents/containers/UIScrollContainer';
 
-import CourseList from '../course/CourseList';
-import FilterMenu from '../filterMenu/FilterMenu';
+import CourseList from '../../components/course/CourseList';
+import FilterMenu from '../../components/filterMenu/FilterMenu';
 
 import { FILTER_OPTIONS_RESPONSE } from '../../fixtures/FilterOptions';
 
 import { fetchCourses } from '../../actions/Courses';
 import { getAllIds, getIsFetching } from '../../selectors/courses';
 import { updateFilter } from '../../actions/Filters';
+import { getFilter } from '../../selectors/filters';
 
 const AddCourseModal = ({
   show,
-  onAdd = () => {},
+  onAdd,
   onCancel,
   semesterTitle,
   /* connect props */
   courseIds,
+  filters,
   isFetching,
   fetchCourses,
   updateFilter
 }) => {
-  const [filters, setFilters] = useState({});
-  const handleChange = (field, value) => {
-    setFilters({
-      ...filters,
-      [field]: value
-    });
-    updateFilter(field, value);
-  };
   const handleKeywordChange = e => {
     const keyword = e.target.value;
     //  TODO: debounce api requests
@@ -41,7 +35,7 @@ const AddCourseModal = ({
   };
 
   useEffect(() => {
-    fetchCourses(filters);
+    fetchCourses(filters.toJS());
   }, [fetchCourses, filters]);
 
   const [focusedCourseIds, setFocusedCourseIds] = useState([]);
@@ -70,8 +64,9 @@ const AddCourseModal = ({
         style={{ position: 'relative', padding: 0, height: '50em' }}
       >
         <FilterMenu
+          value={filters.toJS()}
           options={FILTER_OPTIONS_RESPONSE}
-          onFieldChange={handleChange}
+          onFieldChange={updateFilter}
           onKeywordChange={handleKeywordChange}
         />
         <UIScrollContainer className="p-2" style={{ maxHeight: '100%' }}>
@@ -98,7 +93,8 @@ const AddCourseModal = ({
 
 const mapStateToProps = state => ({
   courseIds: getAllIds(state),
-  isFetching: getIsFetching(state)
+  isFetching: getIsFetching(state),
+  filters: getFilter(state)
 });
 
 const mapDispatchToProps = {

@@ -4,27 +4,34 @@ import { connect } from 'react-redux';
 import UIContainer from '../UIComponents/containers/UIContainer';
 import UIFlex from '../UIComponents/layout/UIFlex';
 
-import AddCourseModal from '../components/planner/AddCourseModal';
+import AddCourseModal from './planner/AddCourseModal';
 import AddSemesterButton from './planner/AddSemesterButton';
 import AddSemesterModal from '../components/planner/AddSemesterModal';
 import Page from '../components/Page';
-import SemesterCard from '../components/semester/SemesterCard';
+import SemesterCard from './planner/SemesterCard';
 
-import { getById } from '../selectors/courses';
+import {
+  addSemester,
+  updateSemester,
+  removeSemester,
+  addCourseToSemester,
+  removeCourseFromSemester
+} from '../actions/GraduationPlan';
+import {
+  getSemestersById,
+  getAllSemestersOrdered
+} from '../selectors/graduationPlan';
 
 const PlannerView = ({
   /* connect props */
-  coursesById
+  semestersOrdered,
+  getSemesterById,
+  addSemester,
+  updateSemester,
+  // removeSemester,
+  addCourseToSemester
+  // removeCourseFromSemester
 }) => {
-  const [semesters, setSemesters] = useState([
-    {
-      id: '1234',
-      title: 'Fall 2020',
-      courses: [],
-      totalCreditHours: 0
-    }
-  ]);
-
   const [showAddSemesterModal, setShowAddSemesterModal] = useState(false);
   const displayAddSemesterModal = () => setShowAddSemesterModal(true);
   const hideAddSemesterModal = () => setShowAddSemesterModal(false);
@@ -32,29 +39,14 @@ const PlannerView = ({
     const randomString = Math.random()
       .toString(36)
       .substr(2, 9);
-    setSemesters([
-      ...semesters,
-      {
-        id: `${newSemesterTitle}-${randomString}`,
-        title: newSemesterTitle,
-        courses: [],
-        totalCreditHours: 0
-      }
-    ]);
+
+    addSemester(randomString, newSemesterTitle);
     hideAddSemesterModal();
   };
-  const handleSemesterChange = (id, changedFields) => {
-    const updatedFields = semesters.map(semester => {
-      if (semester.id !== id) {
-        return semester;
-      }
-
-      return {
-        ...semester,
-        ...changedFields
-      };
-    });
-    setSemesters(updatedFields);
+  const handleSemesterChange = (semesterId, changedFields) => {
+    for (const [field, value] of Object.entries(changedFields)) {
+      updateSemester(semesterId, field, value);
+    }
   };
 
   const [semesterToAddCourse, setSemesterToAddCourse] = useState(null);
@@ -64,64 +56,36 @@ const PlannerView = ({
     setSemesterToAddCourse(semesterId);
   };
   const getSemesterTitleFromSemesterId = semesterId => {
-    for (const semester of semesters) {
-      if (semester.id === semesterId) {
-        return semester.title;
-      }
+    if (!semesterId) {
+      return null;
     }
-    return null;
+    return getSemesterById(semesterId).get('label');
   };
   const handleAddCourseToSemester = semesterId => courseId => {
-    const course = coursesById.get(courseId);
-    const courseObj = {
-      courseCode: course.get('code'),
-      courseTitle: course.get('title'),
-      hours: course.get('hours')[0] // TODO: temp fix
-    };
-
-    const semestersCopy = [...semesters];
-    let currSemesterIdx = -1;
-    for (let i = 0; i < semestersCopy.length; i++) {
-      const semester = semestersCopy[i];
-      if (semester.id === semesterId) {
-        currSemesterIdx = i;
-        break;
-      }
-    }
-
-    if (currSemesterIdx !== -1) {
-      const currSemester = {
-        ...semestersCopy[currSemesterIdx],
-        courses: [...semestersCopy[currSemesterIdx].courses, courseObj]
-      };
-
-      console.log('hi', currSemester);
-
-      const newSemesters = [
-        ...semestersCopy.splice(0, currSemesterIdx),
-        currSemester,
-        ...semestersCopy.splice(currSemesterIdx + 1)
-      ];
-      console.log('new', newSemesters);
-      setSemesters(newSemesters);
-    }
-
+    addCourseToSemester(semesterId, courseId);
     hideAddCourseModal();
   };
 
   const renderSemesters = () => {
-    return semesters.map(({ courses, id, title, totalCreditHours }) => (
-      <SemesterCard
-        id={id}
-        key={id}
-        className="p-1"
-        title={title}
-        courses={courses}
-        totalCreditHours={totalCreditHours}
-        onChange={handleSemesterChange}
-        onAddCourseButtonClick={makeHandleAddCourse(id)}
-      />
-    ));
+    return semestersOrdered.map(semester => {
+      const id = semester.get('id');
+      const title = semester.get('label');
+      const totalCreditHours = semester.get('totalCreditHours');
+      const courseIds = semester.get('courseIds');
+
+      return (
+        <SemesterCard
+          id={id}
+          key={id}
+          className="p-1"
+          title={title}
+          courseIds={courseIds}
+          totalCreditHours={totalCreditHours}
+          onChange={handleSemesterChange}
+          onAddCourseButtonClick={makeHandleAddCourse(id)}
+        />
+      );
+    });
   };
   return (
     <Page>
@@ -150,6 +114,16 @@ const PlannerView = ({
 };
 
 const mapStateToProps = state => ({
-  coursesById: getById(state)
+  semestersOrdered: getAllSemestersOrdered(state),
+  getSemesterById: id => getSemestersById(state).get(id)
 });
-export default connect(mapStateToProps, null)(PlannerView);
+
+const mapDispatchToProps = {
+  addSemester,
+  updateSemester,
+  removeSemester,
+  addCourseToSemester,
+  removeCourseFromSemester
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlannerView);

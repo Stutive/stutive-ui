@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UITruncateString from '../../UIComponents/text/UITruncateString';
+import FormattedCreditHours from '../../UIComponents/FormatLib/FormattedCreditHours';
 
 import SemesterListing from '../semester/SemesterListing';
 
@@ -29,7 +30,7 @@ const CreditHours = styled.span`
 const CourseSemesterListing = ({
   courseCode = '',
   courseTitle = '',
-  hours = ''
+  hours = []
 }) => {
   return (
     <SemesterListing className="mb-1">
@@ -38,7 +39,9 @@ const CourseSemesterListing = ({
         <CourseTitle className="pr-2">
           <UITruncateString>{courseTitle}</UITruncateString>
         </CourseTitle>
-        <CreditHours>{hours}</CreditHours>
+        <CreditHours>
+          <FormattedCreditHours value={hours} />
+        </CreditHours>
       </UIFlex>
     </SemesterListing>
   );
@@ -47,7 +50,7 @@ const CourseSemesterListing = ({
 CourseSemesterListing.propTypes = {
   courseCode: PropTypes.string,
   courseTitle: PropTypes.string,
-  hours: PropTypes.string
+  hours: PropTypes.array
 };
 
 export default CourseSemesterListing;

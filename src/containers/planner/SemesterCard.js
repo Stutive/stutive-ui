@@ -1,46 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import UICard from '../../UIComponents/containers/UICard';
 import UIFlex from '../../UIComponents/layout/UIFlex';
 import UIIcon from '../../UIComponents/icon/UIIcon';
 import UIReplacableText from '../../UIComponents/inputs/UIReplacableText';
 
-import CourseSemesterListing from '../course/CourseSemesterListing';
-import SemesterListing from './SemesterListing';
+import CourseSemesterListing from '../../components/course/CourseSemesterListing';
+import SemesterListing from '../../components/semester/SemesterListing';
+
+import {
+  getCoursesWithIds,
+  getTotalCreditHoursWithCourseIds
+} from '../../selectors/courses';
 
 const SemesterCard = ({
   id,
   title = '',
-  courses = [],
   totalCreditHours = 0,
   onAddCourseButtonClick = () => {},
   onChange = () => {},
+  /* connect props */
+  courses,
+  /* prevent pass through */
+  courseIds: _courseIds,
+  dispatch: _dispatch,
   ...props
 }) => {
-  const handleTitleChange = newTitle => {
-    onChange(id, {
-      title: newTitle
-    });
-  };
+  const handleLabelChange = newLabel => onChange(id, { label: newLabel });
+
   const renderTitle = () => {
     return (
       <UIFlex align="center" justify="center" style={{ width: '100%' }}>
         <h4>
-          <UIReplacableText value={title} onChange={handleTitleChange} />
+          <UIReplacableText value={title} onChange={handleLabelChange} />
         </h4>
       </UIFlex>
     );
   };
 
   const renderBody = () => {
-    const courseListings = courses.map(({ courseCode, courseTitle, hours }) => (
-      <CourseSemesterListing
-        courseCode={courseCode}
-        courseTitle={courseTitle}
-        hours={hours}
-      />
-    ));
+    const courseListings = courses.map(course => {
+      const courseId = course.get('id');
+      const courseCode = course.get('code');
+      const courseTitle = course.get('name');
+      const hours = course.get('hours').toJS();
+
+      return (
+        <CourseSemesterListing
+          key={courseId}
+          courseCode={courseCode}
+          courseTitle={courseTitle}
+          hours={hours}
+        />
+      );
+    });
 
     return (
       <div style={{ flexGrow: 1, width: '100%' }}>
@@ -81,8 +96,13 @@ const SemesterCard = ({
 
 SemesterCard.propTypes = {
   title: PropTypes.string,
-  courses: PropTypes.arrayOf(PropTypes.object),
+  courseIds: PropTypes.object /* ImmutableJS List */,
   totalCreditHours: PropTypes.number
 };
 
-export default SemesterCard;
+const mapStateToProps = (state, props) => ({
+  courses: getCoursesWithIds(state, props.courseIds),
+  totalCreditHours: getTotalCreditHoursWithCourseIds(state, props.courseIds)
+});
+
+export default connect(mapStateToProps, null)(SemesterCard);
